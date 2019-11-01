@@ -1,6 +1,9 @@
 import platform
-
 import psutil
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def if_available(func):
@@ -8,6 +11,7 @@ def if_available(func):
         try:
             response = func(*args, **kwargs)
         except Exception:
+            logger.exception('Error While getting system status')
             return 'N/A'
         else:
             return response
@@ -102,10 +106,10 @@ def get_net_if_address():
     return [
         {
             'name': interface,
-            'address': net_stat[interface].address,
-            'mask': net_stat[interface].netmask,
-            'broadcast': net_stat[interface].broadcast,
-            'ptp': net_stat[interface].ptp,
+            'address': [i.address for i in net_stat[interface]],
+            'mask': [i.netmask for i in net_stat[interface]],
+            'broadcast': [i.broadcast for i in net_stat[interface]],
+            'ptp': [i.ptp for i in net_stat[interface]],
         }
         for interface in net_stat
     ]
@@ -160,3 +164,4 @@ def get_users():
         }
         for user in users
     ]
+
