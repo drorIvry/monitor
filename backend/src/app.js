@@ -7,9 +7,9 @@ import helmet from 'helmet';
 import errorhandler from 'errorhandler';
 import Cryptr from 'cryptr';
 
-import usersRouter from './routes/users';
+import {register} from './routes/users';
 import stateRouter from './routes/state';
-import Account from './dal/Account';
+import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
 const app = express();
 const cryptr = new Cryptr('myTotalySecretKey');
@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 app.use(
     function (req, res, next) {
         if (req.header('authorization'))
-            validateBasicAuth(req, res, next);
+            validateBasicAuth(cryptr, req, res, next);
         else
             validateAPI(req, res, next);
     }
@@ -35,46 +35,9 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/users', usersRouter);
+app.post('/register', (req, res, next) => {register(cryptr, req, res, next)});
 app.use('/state', stateRouter);
 
 module.exports = app;
 
 
-const validateBasicAuth = function (req, res, next) {
-    const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
-    const [username, password] = new Buffer.from(b64auth, 'base64').toString().split(':');
-
-    Account.findOne({UserName: username}, (error, doc) => {
-        if (error)
-            res.send(500, {error});
-
-        const decryptedPass = cryptr.decrypt(doc.Password);
-
-        if (username && password && username === doc.UserName && password === decryptedPass)
-            next();
-        else {
-            res.set('WWW-Authenticate', 'Basic realm="401"');
-            res.status(401).send('Authentication required.');
-        }
-    })
-};
-
-const validateAPI = function (req, res, next) {
-    const apiKey = req.header('monitor-api-key');
-
-    if (!apiKey) {
-        res.set('WWW-Authenticate', 'Basic realm="401"');
-        res.status(401).send('Authentication required.');
-    }
-    Account.findOne({APIKey: apiKey}, (error, doc) => {
-        if (error)
-            res.send(500, {error});
-        if(doc)
-            next();
-        else {
-            res.set('WWW-Authenticate', 'Basic realm="401"');
-            res.status(401).send('Authentication required.');
-        }
-    });
-};
