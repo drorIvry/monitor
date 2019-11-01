@@ -13,6 +13,6 @@ setuptools.setup(
     ),
     install_requires=[
         "requests",
-        "psutil"
+        "psutil",
     ],
 )

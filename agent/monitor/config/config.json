@@ -1,4 +1,5 @@
 {
   "base_server": "localhost",
-  "monitor_interval": 100
+  "monitor_interval": 4,
+  "root_path": "c:\\"
 }

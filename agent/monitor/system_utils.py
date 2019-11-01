@@ -11,7 +11,7 @@ def if_available(func):
         try:
             response = func(*args, **kwargs)
         except Exception:
-            logger.exception('Error While getting system status')
+            # logger.exception('Error While getting system status')
             return 'N/A'
         else:
             return response
