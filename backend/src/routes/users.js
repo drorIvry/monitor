@@ -12,12 +12,13 @@ const cryptr = new Cryptr('myTotalySecretKey');
 router.post('/', function (req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
-
+    if (!username || !password)
+        res.send(400, 'Bad Request');
+    
     const encryptedPassword = cryptr.encrypt(password);
 
     const generatedKey = uuidv4();
 
-    const encryptedKey = cryptr.encrypt(generatedKey);
     Account.update(
         {
             UserName: username
@@ -26,7 +27,7 @@ router.post('/', function (req, res, next) {
             $set: {
                 Username: username,
                 Password: encryptedPassword,
-                APIKey: encryptedKey,
+                APIKey: generatedKey,
                 Active: true,
             }
         },

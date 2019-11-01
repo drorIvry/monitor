@@ -1,7 +1,7 @@
 import platform
 import psutil
 import logging
-
+import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +33,7 @@ def read_system_status(root):
         'fans': get_fans_status(),
         'battery': get_sys_battery(),
         'users': get_users(),
+        'timestamp': datetime.datetime.utcnow().isoformat()
     }
 
 

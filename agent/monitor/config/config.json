@@ -1,5 +1,6 @@
 {
   "remote_server": "localhost:3000",
+  "remote_api_key": "",
   "monitor_interval": 4,
-  "root_path": "c:\\"
+  "root_path": "c:\\",
 }
