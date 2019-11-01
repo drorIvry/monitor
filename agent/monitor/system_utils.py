@@ -29,7 +29,6 @@ def read_system_status(root):
         'fans': get_fans_status(),
         'battery': get_sys_battery(),
         'users': get_users(),
-        'users': get_users(),
     }
 
 
