@@ -5,6 +5,7 @@ from . import config
 
 def main(config_object=None):
     while True:
+        # monitor
         time.sleep(config_object.monitor_inteval)
 
 
