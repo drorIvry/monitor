@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export default mongoose.model('system_state', mongoose.Schema({
-    AccountID: mongoose.Schema.Types.ObjectID,
+    AccountID: mongoose.Schema.Types.ObjectId,
     CPU: mongoose.Schema.Types.Mixed,
     OS: mongoose.Schema.Types.Mixed,
     Memory: mongoose.Schema.Types.Mixed,
