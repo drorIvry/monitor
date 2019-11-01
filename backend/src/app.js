@@ -61,5 +61,20 @@ const validateBasicAuth = function (req, res, next) {
 };
 
 const validateAPI = function (req, res, next) {
-    next();
+    const apiKey = req.header('monitor-api-key');
+
+    if (!apiKey) {
+        res.set('WWW-Authenticate', 'Basic realm="401"');
+        res.status(401).send('Authentication required.');
+    }
+    Account.findOne({APIKey: apiKey}, (error, doc) => {
+        if (error)
+            res.send(500, {error});
+        if(doc)
+            next();
+        else {
+            res.set('WWW-Authenticate', 'Basic realm="401"');
+            res.status(401).send('Authentication required.');
+        }
+    });
 };
