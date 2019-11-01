@@ -1,0 +1,4 @@
+{
+  "base_server": "localhost",
+  "monitor_interval": 100
+}
