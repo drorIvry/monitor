@@ -7,7 +7,7 @@ import helmet from 'helmet';
 import errorhandler from 'errorhandler';
 import Cryptr from 'cryptr';
 
-import {register} from './routes/users';
+import {generate} from './routes/generate';
 import stateRouter from './routes/state';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
@@ -20,8 +20,11 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(
     function (req, res, next) {
+        console.log(req.path);
         if (req.header('authorization'))
             validateBasicAuth(cryptr, req, res, next);
+        else if (req.path === '/register')
+            next();
         else
             validateAPI(req, res, next);
     }
@@ -35,7 +38,7 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.post('/register', (req, res, next) => {register(cryptr, req, res, next)});
+app.post('/generate', (req, res, next) => {generate(cryptr, req, res, next)});
 app.use('/state', stateRouter);
 
 module.exports = app;

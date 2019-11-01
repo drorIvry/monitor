@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 
 import Account from '../dal/Account'
-export function register (cryptr, req, res, next) {
+export function generate (cryptr, req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
     if (!username || !password)
