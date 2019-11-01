@@ -26,7 +26,8 @@ router.post('/', function (req, res, next) {
             $set:{
                 Username:username,
                 Password:encryptedPassword,
-                APIKey: encryptedKey
+                APIKey: encryptedKey,
+                Active: true,
             }
         },
         {
