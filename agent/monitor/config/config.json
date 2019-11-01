@@ -1,5 +1,5 @@
 {
-  "base_server": "localhost",
+  "remote_server": "localhost:3000",
   "monitor_interval": 4,
   "root_path": "c:\\"
 }
