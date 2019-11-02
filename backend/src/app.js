@@ -9,6 +9,7 @@ import Cryptr from 'cryptr';
 
 import {generate} from './routes/generate';
 import stateRouter from './routes/state';
+import {register} from './routes/register';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
 const app = express();
@@ -37,8 +38,9 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.post('/generate', (req, res, next) => {generate(cryptr, req, res, next)});
-app.use('/state', stateRouter);
+app.post('/generate', generate);
+app.post('/state', stateRouter);
+app.use('/register', (req, res, next) => {register(cryptr, req, res, next)});
 
 module.exports = app;
 

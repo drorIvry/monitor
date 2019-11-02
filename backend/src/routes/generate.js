@@ -1,13 +1,12 @@
 import uuidv4 from 'uuid/v4';
 
 import Account from '../dal/Account'
-export function generate (cryptr, req, res, next) {
+export function generate (req, res, next) {
     const username = req.body.username;
-    const password = req.body.password;
-    if (!username || !password)
-        res.send(400, 'Bad Request');
 
-    const encryptedPassword = cryptr.encrypt(password);
+    if (!username)
+        return res.send(400, 'Bad Request');
+
 
     const generatedKey = uuidv4();
 
@@ -17,8 +16,6 @@ export function generate (cryptr, req, res, next) {
         },
         {
             $set: {
-                Username: username,
-                Password: encryptedPassword,
                 APIKey: generatedKey,
                 Active: true,
             }
