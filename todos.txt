@@ -1,0 +1,8 @@
+UI design
+UI iplementation
+agent logs
+agent cli
+agent deploy
+server logs
+server deploy
+elk
