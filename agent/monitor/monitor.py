@@ -29,9 +29,9 @@ def send_to_server(server, api_key, data):
 def get_logger(conf_object, name):
     file_logger = logging.getLogger(name)
     fh = logging.FileHandler(conf_object.log_file)
-    fh.setLevel(conf_object.log_level)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     fh.setFormatter(formatter)
+    fh.setLevel(logging.DEBUG)
     file_logger.addHandler(fh)
 
     return file_logger

@@ -11,9 +11,9 @@ router.get('/', async function (req, res, next) {
     const doc = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)})
 
     if(!doc)
-        res.status(404).send('Account Not Found!');
+        return res.status(404).send('Account Not Found!');
     else
-        res.send(doc);
+        return res.send(doc);
 
 });
 

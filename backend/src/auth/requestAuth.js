@@ -1,6 +1,6 @@
 import Account from '../dal/Account';
 
-export function validateBasicAuth (cryptr, req, res, next) {
+export function validateBasicAuth(cryptr, req, res, next) {
     const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
     const [username, password] = new Buffer.from(b64auth, 'base64').toString().split(':');
 
@@ -10,7 +10,12 @@ export function validateBasicAuth (cryptr, req, res, next) {
 
         const decryptedPass = cryptr.decrypt(doc.Password);
 
-        if (username && password && username === doc.UserName && password === decryptedPass)
+        if (!username || !password) {
+            res.set('WWW-Authenticate', 'Basic realm="401"');
+            res.status(401).send('Authentication required.');
+        }
+
+        if (username === doc.UserName && password === decryptedPass)
             next();
         else {
             res.set('WWW-Authenticate', 'Basic realm="401"');
@@ -19,7 +24,7 @@ export function validateBasicAuth (cryptr, req, res, next) {
     })
 }
 
-export function validateAPI (req, res, next) {
+export function validateAPI(req, res, next) {
     const apiKey = req.header('monitor-api-key');
     if (!apiKey) {
         res.set('WWW-Authenticate', 'Basic realm="401"');
@@ -27,12 +32,12 @@ export function validateAPI (req, res, next) {
     }
     Account.findOne({APIKey: apiKey}, (error, doc) => {
         if (error)
-            res.send(500, {error});
-        if(doc)
+            return res.send(500, {error});
+        if (doc)
             next();
         else {
             res.set('WWW-Authenticate', 'Basic realm="401"');
-            res.status(401).send('Authentication required.');
+            return res.status(401).send('Authentication required.');
         }
     });
 }

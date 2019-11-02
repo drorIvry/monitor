@@ -39,8 +39,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.post('/generate', generate);
-app.post('/state', stateRouter);
-app.use('/register', (req, res, next) => {register(cryptr, req, res, next)});
+app.use('/state', stateRouter);
+app.post('/register', (req, res, next) => {register(cryptr, req, res, next)});
 
 module.exports = app;
 
