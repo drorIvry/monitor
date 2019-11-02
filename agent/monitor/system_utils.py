@@ -4,15 +4,15 @@ import platform
 
 import psutil
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('agent-monitor')
 
 
 def if_available(func):
     def inner(*args, **kwargs):
         try:
             response = func(*args, **kwargs)
-        except Exception:
-            # logger.exception('Error While getting system status')
+        except Exception as e:
+            logger.debug('Error While getting system status', extra={'exception': e})
             return 'N/A'
         else:
             return response
@@ -154,7 +154,7 @@ def get_fans_status():
 def get_sys_battery():
     battery = psutil.sensors_battery()
     return {
-        'percent': battery.parcent,
+        'percent': battery.percent,
         'secsleft': battery.secsleft,
         'power_plugged': battery.power_plugged
     }
