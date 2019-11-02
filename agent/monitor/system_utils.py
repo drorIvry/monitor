@@ -1,7 +1,8 @@
-import platform
-import psutil
-import logging
 import datetime
+import logging
+import platform
+
+import psutil
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ def read_system_status(root):
         'cpu': {
             'total_load': get_cpu_load(),
             'cpu_count': cpu_count(),
+            'cores':  cores_count(),
         },
         'os': get_os_info(),
         'memory': get_memory_load(),
@@ -47,12 +49,16 @@ def get_os_info():
         'version': platform.version(),
         'fullname': platform.platform(),
         'architecture': platform.machine(),
-        'processor': platform.machine(),
+        'processor': platform.processor(),
     }
 
 
 def cpu_count():
     return psutil.cpu_count()
+
+
+def cores_count():
+    return psutil.cpu_count(logical=False)
 
 
 def get_memory_load():
@@ -165,4 +171,3 @@ def get_users():
         }
         for user in users
     ]
-

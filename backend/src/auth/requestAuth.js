@@ -21,7 +21,6 @@ export function validateBasicAuth (cryptr, req, res, next) {
 
 export function validateAPI (req, res, next) {
     const apiKey = req.header('monitor-api-key');
-
     if (!apiKey) {
         res.set('WWW-Authenticate', 'Basic realm="401"');
         res.status(401).send('Authentication required.');

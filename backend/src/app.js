@@ -20,7 +20,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(
     function (req, res, next) {
-        console.log(req.path);
         if (req.header('authorization'))
             validateBasicAuth(cryptr, req, res, next);
         else if (req.path === '/register')
