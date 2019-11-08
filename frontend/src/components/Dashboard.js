@@ -1,5 +1,4 @@
 import React from 'react';
-import Frame from './Frame';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -7,6 +6,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import UsageChart from './UsageChart'
 import Copyright from './Copyright';
+import Frame from './Frame';
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({

@@ -13,7 +13,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, reportsItemList } from './ListItems';
+import { mainListItems, reportsItemList,  accountList } from './ListItems';
 
 const drawerWidth = 240;
 
@@ -146,6 +146,8 @@ export default function Fame() {
                 <List>{mainListItems}</List>
                 <Divider />
                 <List>{reportsItemList(['a','bs '])}</List>
+                <Divider />
+                <List>{accountList}</List>
             </Drawer>
         </div>
     );

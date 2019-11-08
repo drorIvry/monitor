@@ -1,6 +1,7 @@
 import SignIn from './components/Login'
 import SignUp from './components/Register'
 import Dashboard from './components/Dashboard'
+import Reports from './components/Reports'
 
 import React from "react";
 import {
@@ -22,6 +23,9 @@ export default function App() {
               </Route>
               <Route path="/dashboard">
                 <Dashboard />
+              </Route>
+              <Route path="/reports">
+                <Reports />
               </Route>
             </Switch>
           </div>
