@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import DiskChart from './DiskChart'
+import UsageChart from './UsageChart'
 import Copyright from './Copyright';
 const drawerWidth = 240;
 
@@ -78,16 +78,17 @@ export default function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
-                        <Grid item xs={12} md={6} lg={8}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
-                                <h1>Memory</h1>
+                                <h2>Memory</h2>
+                                <UsageChart/>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
-                        <Grid item xs={12} md={6} lg={4}>
+                        <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Disk</h2>
-                                <DiskChart/>
+                                <UsageChart/>
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}

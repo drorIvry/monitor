@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-    PieChart, Pie, Tooltip, Cell,
+    PieChart, Pie, Tooltip, Cell, Legend,
 } from 'recharts';
 
 function convertToGB(value) {
@@ -24,14 +24,14 @@ const data = [
 const COLORS = ['#ff4e46', '#00C49F', '#FFBB28', '#ff4e46'];
 
 
-export default class DiskChart extends PureComponent {
+export default class UsageChart extends PureComponent {
 
     render() {
         return (
             <PieChart width={350} height={250} onMouseEnter={this.onPieEnter}>
                 <Pie
                     data={data}
-                    cx={180}
+                    cx={220}
                     cy={100}
                     innerRadius={60}
                     outerRadius={80}
@@ -43,6 +43,7 @@ export default class DiskChart extends PureComponent {
                         data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }
                 </Pie>
+                <Legend />
                 <Tooltip content={getTooltip}/>
 
             </PieChart>
