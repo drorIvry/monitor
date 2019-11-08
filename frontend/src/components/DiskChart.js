@@ -3,13 +3,25 @@ import {
     PieChart, Pie, Tooltip, Cell,
 } from 'recharts';
 
+function convertToGB(value) {
+    return value/1024/1024/1024;
+}
+
+function getTooltip({ active, payload, label }){
+    if (active) {
+        return (
+            <div>
+                <p>{payload[0].name + ': ' + Number(payload[0].value).toFixed(3) + 'GB'}</p>
+            </div>
+        )
+    }
+}
+
 const data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
+    { name: 'Used', value: convertToGB(179340664832)},
+    { name: 'Free', value: convertToGB(75590176768)},
 ];
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#ff4e46', '#00C49F', '#FFBB28', '#ff4e46'];
 
 
 export default class DiskChart extends PureComponent {
@@ -31,7 +43,7 @@ export default class DiskChart extends PureComponent {
                         data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                     }
                 </Pie>
-                <Tooltip />
+                <Tooltip content={getTooltip}/>
 
             </PieChart>
         );
