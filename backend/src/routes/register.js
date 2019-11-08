@@ -24,7 +24,7 @@ export async function register (cryptr, req, res, next) {
         Password: encryptedPassword,
         FirstName: firstName,
         LastName: lastName,
-        APIKey: [generatedKey],
+        APIKeys: [generatedKey],
         Active: true,
     });
 

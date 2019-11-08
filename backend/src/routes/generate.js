@@ -9,20 +9,22 @@ export async function generate (req, res, next) {
 
 
     const generatedKey = uuidv4();
-    const doc = await Account.find({
+    const doc = await Account.findOne({
         UserName: username
     });
 
     if (!doc)
         return res.send(400, 'Bad Request');
 
+
+    console.log(doc)
     Account.updateOne(
         {
             UserName: username
         },
         {
             $set: {
-                APIKey: [...doc.APIKey, generatedKey],
+                APIKeys: [...doc.APIKeys, generatedKey],
                 Active: true,
             }
         },
