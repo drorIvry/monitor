@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 
 import Account from '../dal/Account'
-export function generate (req, res, next) {
+export async function generate (req, res, next) {
     const username = req.body.username;
 
     if (!username)
@@ -9,14 +9,20 @@ export function generate (req, res, next) {
 
 
     const generatedKey = uuidv4();
+    const doc = await Account.find({
+        UserName: username
+    });
 
-    Account.update(
+    if (!doc)
+        return res.send(400, 'Bad Request');
+
+    Account.updateOne(
         {
             UserName: username
         },
         {
             $set: {
-                APIKey: generatedKey,
+                APIKey: [...doc.APIKey, generatedKey],
                 Active: true,
             }
         },

@@ -4,6 +4,9 @@ import uuidv4 from 'uuid/v4'
 export async function register (cryptr, req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+
 
     if (!username || !password)
         return res.send(400, 'Bad Request');
@@ -19,7 +22,9 @@ export async function register (cryptr, req, res, next) {
     const account = new Account({
         UserName: username,
         Password: encryptedPassword,
-        APIKey: generatedKey,
+        FirstName: firstName,
+        LastName: lastName,
+        APIKey: [generatedKey],
         Active: true,
     });
 
