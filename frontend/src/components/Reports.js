@@ -25,7 +25,6 @@ const rows = [
     createData(4, 'monitor5', '15 Mar, 2019', 'PC-2'),
 ];
 
-const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,26 +41,6 @@ const useStyles = makeStyles(theme => ({
         ...theme.mixins.toolbar,
     },
 
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
     appBarSpacer: theme.mixins.toolbar,
     content: {
         flexGrow: 1,
@@ -132,7 +111,7 @@ export default function Reports() {
                             </Table>
                         </div>
                         <TablePagination
-                            rowsPerPageOptions={[1, 25, 100]}
+                            rowsPerPageOptions={[10, 25, 100]}
                             component="div"
                             count={rows.length}
                             rowsPerPage={rowsPerPage}

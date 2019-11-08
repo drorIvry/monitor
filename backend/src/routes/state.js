@@ -21,7 +21,9 @@ router.post('/', async function(req, res, next){
     const apiKey = req.header('monitor-api-key');
     const account = await Account.findOne({APIKey: apiKey});
     const accountID = account._id.toString();
-    const data = parseData(req.body, accountID);
+    const previous = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
+
+    const data = parseData(req.body, accountID, previous);
 
     SystemState.updateOne(
         {AccountID: mongoose.Types.ObjectId(accountID)},
@@ -37,10 +39,10 @@ router.post('/', async function(req, res, next){
         })
 });
 
-function parseData(data, accountID){
+function parseData(data, accountID, previous){
     return {
         AccountID: mongoose.Types.ObjectId(accountID),
-        CPU: data.cpu,
+        CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}] : [{...data.cpu, time: new Date()}],
         OS: data.os,
         Memory: data.memory,
         Disk: data.disk,
