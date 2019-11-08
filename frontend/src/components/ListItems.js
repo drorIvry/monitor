@@ -8,6 +8,8 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AlarmIcon from '@material-ui/icons/Warning';
+
 
 import AssignmentIcon from '@material-ui/icons/Assignment';
 
@@ -30,6 +32,12 @@ export const mainListItems = (
                 <LayersIcon />
             </ListItemIcon>
             <ListItemText primary="Monitors" />
+        </ListItem>
+        <ListItem button onClick={event => window.location = '/alerts'}>
+            <ListItemIcon >
+                <AlarmIcon />
+            </ListItemIcon>
+            <ListItemText primary="Alerts" />
         </ListItem>
 
     </div>
@@ -65,5 +73,6 @@ export const accountList = (
             </ListItemIcon>
             <ListItemText primary="Logout" />
         </ListItem>
+
     </div>
 );
