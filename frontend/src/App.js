@@ -13,13 +13,15 @@ export default function App() {
     return (
         <Router>
           <div>
-              <Dashboard />
             <Switch>
               <Route path="/login">
                 <SignIn />
               </Route>
               <Route path="/register">
                 <SignUp />
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard />
               </Route>
             </Switch>
           </div>

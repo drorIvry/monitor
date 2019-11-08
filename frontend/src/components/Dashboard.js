@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
+import DiskChart from './DiskChart'
 import Copyright from './Copyright';
 const drawerWidth = 240;
 
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
     },
     fixedHeight: {
-        height: 240,
+        height: 350,
     },
 }));
 
@@ -78,15 +78,16 @@ export default function Dashboard() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         {/* Chart */}
-                        <Grid item xs={12} md={8} lg={9}>
+                        <Grid item xs={12} md={6} lg={8}>
                             <Paper className={fixedHeightPaper}>
                                 <h1>Memory</h1>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
-                        <Grid item xs={12} md={4} lg={3}>
+                        <Grid item xs={12} md={6} lg={4}>
                             <Paper className={fixedHeightPaper}>
-                                <h1>Disk</h1>
+                                <h2>Disk</h2>
+                                <DiskChart/>
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}
