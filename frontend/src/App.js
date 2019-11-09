@@ -1,6 +1,6 @@
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {ThemeProvider} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
+import {connect} from 'react-redux';
 
 import SignIn from './components/Login';
 import SignUp from './components/Register';
@@ -19,17 +19,14 @@ import {
     Route,
 } from "react-router-dom";
 
-export default function App() {
-    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-
+function App({darkMode}) {
     const theme = React.useMemo(
         () =>
             createMuiTheme({
                 palette: {
-                    type: prefersDarkMode ? 'dark' : 'light',
+                    type: darkMode.darkMode ? 'dark' : 'light',
                 },
             }),
-        [prefersDarkMode],
     );
 
     return (
@@ -65,3 +62,11 @@ export default function App() {
         </Router>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        darkMode: state.darkMode,
+    };
+};
+
+export default connect(mapStateToProps)(App);

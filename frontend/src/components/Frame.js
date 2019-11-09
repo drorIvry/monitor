@@ -16,6 +16,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems,  accountList } from './ListItems';
+import {connect} from 'react-redux';
+import {toggleDarkMode} from '../actions/DarkModeAction'
 
 const drawerWidth = 240;
 
@@ -106,7 +108,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function Fame() {
+function Frame({darkMode, onSwitchClick }) {
+    console.log('!!!!!!!!', onSwitchClick,)
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
@@ -157,7 +160,7 @@ export default function Fame() {
                 <Divider />
                 <FormControlLabel
                     className={classes.darkmode}
-                    control={<Switch className={classes.switchMode} checked={false} onChange={null} />}
+                    control={<Switch className={classes.switchMode} checked={darkMode.darkMode} onChange={()=> onSwitchClick()} />}
                     label="Dark Mode"
                 />
                 <List>{accountList}</List>
@@ -165,3 +168,19 @@ export default function Fame() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        darkMode: state.darkMode,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSwitchClick: () => {
+            dispatch(toggleDarkMode());
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Frame);
