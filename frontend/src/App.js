@@ -7,6 +7,7 @@ import SignUp from './components/Register'
 import Dashboard from './components/Dashboard'
 import Reports from './components/Reports'
 import Monitors from './components/Monitors'
+import Alerts from './components/Alerts'
 
 import history from './history';
 
@@ -50,6 +51,9 @@ export default function App() {
                         </Route>
                         <Route path="/monitors">
                             <Monitors/>
+                        </Route>
+                        <Route path="/alerts">
+                            <Alerts/>
                         </Route>
                     </Switch>
                 </ThemeProvider>
