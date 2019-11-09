@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 
 import Frame from './Frame';
@@ -30,6 +31,9 @@ const rows = [
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
+    },
+    button: {
+        margin: theme.spacing(1),
     },
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
@@ -126,6 +130,10 @@ export default function Monitors() {
                             onChangePage={handleChangePage}
                             onChangeRowsPerPage={handleChangeRowsPerPage}
                         />
+
+                        <Button variant="outlined" className={classes.button}>
+                            Add new Monitor
+                        </Button>
                     </Paper>
                 </Container>
                 <Copyright/>
