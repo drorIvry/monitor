@@ -12,7 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Copyright from './Copyright'
+
+import Copyright from './Copyright';
+import history from '../history';
 
 const useStyles = makeStyles(theme => ({
     '@global': {
@@ -90,7 +92,7 @@ export default function SignIn() {
                     </Button>
                     <Grid container>
                         <Grid item>
-                            <Link href="/register" variant="body2">
+                            <Link onClick={event => history.push('/register')} variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

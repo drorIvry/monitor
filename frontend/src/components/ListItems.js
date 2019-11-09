@@ -43,13 +43,7 @@ export const mainListItems = (
 
 export const accountList = (
     <div>
-        <ListItem button onClick={event => history.push('/account')}>
-            <ListItemIcon>
-                <PeopleIcon />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-        </ListItem>
-        <ListItem button onClick={event => history.push('/logout')}>
+        <ListItem button onClick={event => history.push('/login')}>
             <ListItemIcon>
                 <ExitToAppIcon />
             </ListItemIcon>
