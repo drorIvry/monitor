@@ -26,21 +26,11 @@ export default function MemoryCard() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <Paper className={fixedHeightPaper}>
-            <h2>Memory</h2>
+            <h2>Fans</h2>
             <List>
                 <ListItem>
                     <ListItemText
-                        primary={"Total: " + 16+ "GB"}
-                    />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary={"Free: " + 10 + "GB"}
-                    />
-                </ListItem>
-                <ListItem>
-                    <ListItemText
-                        primary={"Percent: " + 49.5 + "%"}
+                        primary={"N/A"}
                     />
                 </ListItem>
             </List>

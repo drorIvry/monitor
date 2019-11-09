@@ -48,20 +48,20 @@
     }
   ],
   "Disk": {
-      "partitions": [
-        {
-          "device": "C:\\",
-          "mount_point": "C:\\",
-          "fstype": "NTFS",
-          "opts": "rw,fixed"
-        },
-        {
-          "device": "D:\\",
-          "mount_point": "D:\\",
-          "fstype": "NTFS",
-          "opts": "rw,fixed"
-        }
-      ],
+    "partitions": [
+      {
+        "device": "C:\\",
+        "mount_point": "C:\\",
+        "fstype": "NTFS",
+        "opts": "rw,fixed"
+      },
+      {
+        "device": "D:\\",
+        "mount_point": "D:\\",
+        "fstype": "NTFS",
+        "opts": "rw,fixed"
+      }
+    ],
     "usage": {
       "total": 254930841600,
       "used": 166543454208,
@@ -214,11 +214,11 @@
     }
   ],
   "OS": {
-    "name": "Windows",
-    "version": "10.0.17134",
-    "fullname": "Windows-10-10.0.17134-SP0",
-    "architecture": "AMD64",
-    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel"
+      "name": "Windows",
+      "version": "10.0.17134",
+      "fullname": "Windows-10-10.0.17134-SP0",
+      "architecture": "AMD64",
+      "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel"
   },
   "Temperatures": "N/A",
   "TimeStamp": "2019-11-08T18:45:58.408057",

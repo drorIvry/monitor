@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
     },
     fixedHeight: {
-        height: 350,
+        height: 450,
     },
 }));
 
@@ -26,7 +26,7 @@ export default function MemoryCard() {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <Paper className={fixedHeightPaper}>
-            <h2>Memory</h2>
+            <h2>Users</h2>
             <List>
                 <ListItem>
                     <ListItemText

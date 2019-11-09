@@ -9,6 +9,14 @@ import Frame from './Frame';
 import Copyright from './Copyright';
 import CPUCard from './report_cards/CPUCard';
 import DiskCard from './report_cards/DiskCard';
+import MemoryCard from './report_cards/MemoryCard';
+import FansCard from './report_cards/FansCard';
+import BatteryCard from './report_cards/BatteryCard';
+import NetworkCard from './report_cards/NetworkCard';
+import OSCard from './report_cards/OSCard';
+import TempCard from './report_cards/TempCard';
+import UsersCard from './report_cards/UsersCard';
+
 
 import history from '../history';
 
@@ -64,44 +72,31 @@ export default function ReportPage() {
                             <CPUCard/>
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Memory</h2>
-                            </Paper>
+                            <MemoryCard />
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={4} lg={4}>
                             <DiskCard />
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Fans</h2>
-                            </Paper>
+                            <NetworkCard/>
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Temperatures</h2>
-                            </Paper>
+                            <OSCard/>
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Battery</h2>
-                            </Paper>
+                            <UsersCard />
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Network</h2>
-                            </Paper>
+                            <FansCard />
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Operating system</h2>
-                            </Paper>
+                            <TempCard />
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
-                            <Paper className={fixedHeightPaper}>
-                                <h2>Uesrs</h2>
-                            </Paper>
+                            <BatteryCard/>
                         </Grid>
+
                     </Grid>
                 </Container>
                 <Copyright/>
