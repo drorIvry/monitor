@@ -6,3 +6,228 @@
   "log_level": "INFO",
   "root_path": "c:\\"
 }
+
+{
+  "_id": "5dc5b7b2af8e3b2d63774692",
+  "AccountID": "5dbdb011c186030ea0a373a7",
+  "Battery": {
+    "percent": 100,
+    "secsleft": -2,
+    "power_plugged": true
+  },
+  "CPU": [
+    {
+      "total_load": 0,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-08T18:45:06.264Z"
+    },
+    {
+      "total_load": 9.7,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-08T18:45:28.358Z"
+    },
+    {
+      "total_load": 5.6,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-08T18:45:38.381Z"
+    },
+    {
+      "total_load": 5,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-08T18:45:48.398Z"
+    },
+    {
+      "total_load": 6.9,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-08T18:45:58.414Z"
+    }
+  ],
+  "Disk": {
+      "partitions": [
+        {
+          "device": "C:\\",
+          "mount_point": "C:\\",
+          "fstype": "NTFS",
+          "opts": "rw,fixed"
+        },
+        {
+          "device": "D:\\",
+          "mount_point": "D:\\",
+          "fstype": "NTFS",
+          "opts": "rw,fixed"
+        }
+      ],
+    "usage": {
+      "total": 254930841600,
+      "used": 166543454208,
+      "free": 88387387392,
+      "percent": 65.3
+    }
+  },
+  "Fans": "N/A",
+  "Memory": {
+    "total": 17136209920,
+    "available": 8651579392,
+    "percent": 49.5,
+    "used": 8484630528,
+    "free": 8651579392
+  },
+  "Network": [
+    {
+      "name": "Ethernet",
+      "address": [
+        "B0-6E-BF-1B-AB-98",
+        "169.254.96.192",
+        "fe80::6c87:f0bb:1a15:60c0"
+      ],
+      "mask": [
+        null,
+        "255.255.0.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "VirtualBox Host-Only Network",
+      "address": [
+        "0A-00-27-00-00-11",
+        "192.168.56.1",
+        "fe80::648c:85ea:7b76:42e3"
+      ],
+      "mask": [
+        null,
+        "255.255.255.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Local Area Connection* 1",
+      "address": [
+        "FA-34-41-84-1C-91",
+        "169.254.98.40",
+        "fe80::f8d9:51c8:ab3a:6228"
+      ],
+      "mask": [
+        null,
+        "255.255.0.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Local Area Connection* 2",
+      "address": [
+        "F8-34-41-84-1C-92",
+        "169.254.121.233",
+        "fe80::18f8:c3f3:234:79e9"
+      ],
+      "mask": [
+        null,
+        "255.255.0.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Wi-Fi",
+      "address": [
+        "F8-34-41-84-1C-91",
+        "10.0.0.10",
+        "fe80::b8d7:1bf1:b284:a020"
+      ],
+      "mask": [
+        null,
+        "255.255.255.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "Loopback Pseudo-Interface 1",
+      "address": [
+        "127.0.0.1",
+        "::1"
+      ],
+      "mask": [
+        "255.0.0.0",
+        null
+      ],
+      "broadcast": [
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null
+      ]
+    }
+  ],
+  "OS": {
+    "name": "Windows",
+    "version": "10.0.17134",
+    "fullname": "Windows-10-10.0.17134-SP0",
+    "architecture": "AMD64",
+    "processor": "Intel64 Family 6 Model 158 Stepping 9, GenuineIntel"
+  },
+  "Temperatures": "N/A",
+  "TimeStamp": "2019-11-08T18:45:58.408057",
+  "Users": [
+    {
+      "name": "Dror",
+      "terminal": null,
+      "host": "0.0.0.0"
+    }
+  ],
+  "__v": 0
+}

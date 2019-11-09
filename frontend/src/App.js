@@ -2,12 +2,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {ThemeProvider} from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 
-import SignIn from './components/Login'
-import SignUp from './components/Register'
-import Dashboard from './components/Dashboard'
-import Reports from './components/Reports'
-import Monitors from './components/Monitors'
-import Alerts from './components/Alerts'
+import SignIn from './components/Login';
+import SignUp from './components/Register';
+import Dashboard from './components/Dashboard';
+import Reports from './components/Reports';
+import ReportPage from './components/ReportPage';
+import Monitors from './components/Monitors';
+import Alerts from './components/Alerts';
 
 import history from './history';
 
@@ -54,6 +55,9 @@ export default function App() {
                         </Route>
                         <Route path="/alerts">
                             <Alerts/>
+                        </Route>
+                        <Route path={`/report/:reportID`}>
+                            <ReportPage />
                         </Route>
                     </Switch>
                 </ThemeProvider>
