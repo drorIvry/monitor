@@ -43,22 +43,6 @@ export const mainListItems = (
     </div>
 );
 
-export function reportsItemList(reports){
-    return (
-        <div>
-            <ListSubheader inset>Saved reports</ListSubheader>
-            {reports.map((report) => {
-                return <ListItem button onClick={event => history.push('/reports/'+ report)}>
-                    <ListItemIcon>
-                        <AssignmentIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={report} />
-                </ListItem>
-            })}
-        </div>
-    );
-}
-
 export const accountList = (
     <div>
         <ListItem button onClick={event => history.push('/account')}>
