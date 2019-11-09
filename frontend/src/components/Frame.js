@@ -17,7 +17,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems,  accountList } from './ListItems';
 import {connect} from 'react-redux';
-import {toggleDarkMode} from '../actions/DarkModeAction'
+import history from '../history'
+import {toggleDarkMode} from '../actions/DarkModeAction';
+import {toggleDrawer} from '../actions/DrawerActions';
 
 const drawerWidth = 240;
 
@@ -108,35 +110,34 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Frame({darkMode, onSwitchClick }) {
+function Frame({darkMode, drawer, onDrawerClick, onSwitchClick }) {
     console.log('!!!!!!!!', onSwitchClick,)
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
-        setOpen(true);
+        onDrawerClick(true);
     };
     const handleDrawerClose = () => {
-        setOpen(false);
+        onDrawerClick(false);
     };
 
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="absolute" className={clsx(classes.appBar, drawer.open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                        onClick={event => onDrawerClick(true)}
+                        className={clsx(classes.menuButton, drawer.open && classes.menuButtonHidden)}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
-                    <IconButton color="inherit">
+                    <IconButton color="inherit" onClick={event => {history.push('/alerts')}}>
                         <Badge badgeContent={10} color="secondary">
                             <NotificationsIcon />
                         </Badge>
@@ -146,12 +147,12 @@ function Frame({darkMode, onSwitchClick }) {
             <Drawer
                 variant="permanent"
                 classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+                    paper: clsx(classes.drawerPaper, !drawer.open && classes.drawerPaperClose),
                 }}
-                open={open}
+                open={drawer.open}
             >
                 <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
+                    <IconButton onClick={event => onDrawerClick(false)}>
                         <ChevronLeftIcon />
                     </IconButton>
                 </div>
@@ -172,6 +173,7 @@ function Frame({darkMode, onSwitchClick }) {
 const mapStateToProps = (state) => {
     return {
         darkMode: state.darkMode,
+        drawer: state.drawer,
     };
 };
 
@@ -179,6 +181,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSwitchClick: () => {
             dispatch(toggleDarkMode());
+        },
+        onDrawerClick: (isOpen) => {
+            dispatch(toggleDrawer(isOpen));
         }
     };
 };
