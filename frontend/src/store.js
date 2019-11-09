@@ -4,4 +4,7 @@ import reducers from './reducers';
 import {applyMiddleware} from 'redux';
 import promiseMiddleware  from 'redux-promise-middleware';
 
-export default createStore(reducers,{}, applyMiddleware(logger, promiseMiddleware()));
+export default createStore(
+    reducers,
+    applyMiddleware(logger, promiseMiddleware),
+);
