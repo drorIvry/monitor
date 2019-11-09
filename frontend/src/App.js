@@ -6,6 +6,8 @@ import SignIn from './components/Login'
 import SignUp from './components/Register'
 import Dashboard from './components/Dashboard'
 import Reports from './components/Reports'
+import Monitors from './components/Monitors'
+
 import history from './history';
 
 import React from "react";
@@ -45,6 +47,9 @@ export default function App() {
                         </Route>
                         <Route path="/reports">
                             <Reports/>
+                        </Route>
+                        <Route path="/monitors">
+                            <Monitors/>
                         </Route>
                     </Switch>
                 </ThemeProvider>
