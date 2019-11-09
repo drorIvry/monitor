@@ -9,31 +9,31 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AlarmIcon from '@material-ui/icons/Warning';
-
-
 import AssignmentIcon from '@material-ui/icons/Assignment';
+
+import history from '../history'
 
 export const mainListItems = (
     <div>
-        <ListItem button onClick={event => window.location = '/dashboard'}>
+        <ListItem button onClick={event => history.push('/dashboard')}>
             <ListItemIcon>
                 <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button onClick={event => window.location = '/reports'}>
+        <ListItem button onClick={event => history.push('/reports')}>
             <ListItemIcon>
                 <BarChartIcon />
             </ListItemIcon>
             <ListItemText primary="Reports" />
         </ListItem>
-        <ListItem button onClick={event => window.location = '/monitors'}>
+        <ListItem button onClick={event => history.push('/monitors')}>
             <ListItemIcon >
                 <LayersIcon />
             </ListItemIcon>
             <ListItemText primary="Monitors" />
         </ListItem>
-        <ListItem button onClick={event => window.location = '/alerts'}>
+        <ListItem button onClick={event => history.push('/alerts')}>
             <ListItemIcon >
                 <AlarmIcon />
             </ListItemIcon>
@@ -48,7 +48,7 @@ export function reportsItemList(reports){
         <div>
             <ListSubheader inset>Saved reports</ListSubheader>
             {reports.map((report) => {
-                return <ListItem button onClick={event => window.location = '/reports/'+ report}>
+                return <ListItem button onClick={event => history.push('/reports/'+ report)}>
                     <ListItemIcon>
                         <AssignmentIcon />
                     </ListItemIcon>
@@ -61,13 +61,13 @@ export function reportsItemList(reports){
 
 export const accountList = (
     <div>
-        <ListItem button onClick={event => window.location = '/account'}>
+        <ListItem button onClick={event => history.push('/account')}>
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
             <ListItemText primary="Account" />
         </ListItem>
-        <ListItem button onClick={event => window.location = '/logout'}>
+        <ListItem button onClick={event => history.push('/logout')}>
             <ListItemIcon>
                 <ExitToAppIcon />
             </ListItemIcon>

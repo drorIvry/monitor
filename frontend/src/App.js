@@ -2,17 +2,18 @@ import SignIn from './components/Login'
 import SignUp from './components/Register'
 import Dashboard from './components/Dashboard'
 import Reports from './components/Reports'
+import history from './history';
 
 import React from "react";
 import {
-    BrowserRouter as Router,
+    Router,
     Switch,
     Route,
 } from "react-router-dom";
 
 export default function App() {
     return (
-        <Router>
+        <Router history={history}>
           <div>
             <Switch>
               <Route path="/login">
