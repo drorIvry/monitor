@@ -100,6 +100,9 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: 18,
         paddingTop: 18,
 
+    },
+    switchMode:{
+        marginRight: 10,
     }
 }));
 
@@ -154,7 +157,7 @@ export default function Fame() {
                 <Divider />
                 <FormControlLabel
                     className={classes.darkmode}
-                    control={<Switch checked={false} onChange={null} />}
+                    control={<Switch className={classes.switchMode} checked={false} onChange={null} />}
                     label="Dark Mode"
                 />
                 <List>{accountList}</List>
