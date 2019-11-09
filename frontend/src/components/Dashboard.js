@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import UsageChart from './UsageChart'
 import Copyright from './Copyright';
 import Frame from './Frame';
+import CpuChar from './CpuChart'
 
 
 const drawerWidth = 240;
@@ -97,6 +98,7 @@ export default function Dashboard() {
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h1>CPU</h1>
+                                <CpuChar/>
                             </Paper>
                         </Grid>
                     </Grid>
