@@ -1,5 +1,6 @@
-UI design
-UI iplementation
-agent deploy
-server logs
-server deploy
+redux hookup
+FE <> BE
+prog bar
+refactor monitor DB
+assign key to agent
+agent config script

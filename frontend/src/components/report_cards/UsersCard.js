@@ -66,13 +66,13 @@ export default function MemoryCard() {
                                 </ListItem>
                                 <Collapse in={open.indexOf(key) !== -1} timeout="auto" unmountOnExit>
                                     <List component="div" disablePadding>
-                                        <ListItem button className={classes.nested}>
+                                        <ListItem  className={classes.nested}>
                                             <ListItemText primary={"User Name: " + partition.name}/>
                                         </ListItem>
-                                        <ListItem button className={classes.nested}>
+                                        <ListItem  className={classes.nested}>
                                             <ListItemText primary={"Terminal: " + partition.terminal}/>
                                         </ListItem>
-                                        <ListItem button className={classes.nested}>
+                                        <ListItem  className={classes.nested}>
                                             <ListItemText primary={"Host: " + partition.host}/>
                                         </ListItem>
                                     </List>
