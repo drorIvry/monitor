@@ -111,14 +111,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Frame({darkMode, drawer, onDrawerClick, onSwitchClick }) {
-    console.log('!!!!!!!!', onSwitchClick,)
     const classes = useStyles();
-    const handleDrawerOpen = () => {
-        onDrawerClick(true);
-    };
-    const handleDrawerClose = () => {
-        onDrawerClick(false);
-    };
 
     return (
         <div className={classes.root}>

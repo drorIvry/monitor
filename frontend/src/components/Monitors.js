@@ -105,7 +105,7 @@ export default function Monitors() {
                                 <TableBody>
                                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={row.id}  onClick={event => history.push('/reports/'+ row.name)}>
+                                            <TableRow hover tabIndex={-1} key={row.id}>
                                                 <TableCell>{row.monitor}</TableCell>
                                                 <TableCell>{row.date}</TableCell>
                                                 <TableCell>{row.name}</TableCell>

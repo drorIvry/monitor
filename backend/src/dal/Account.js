@@ -6,6 +6,6 @@ export default mongoose.model('account', mongoose.Schema({
     Password: String,
     FirstName: String,
     LastName: String,
-    APIKeys: [String],
+    APIKeys: [Object],
     Active: Boolean,
 }));

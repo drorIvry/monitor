@@ -17,14 +17,13 @@ export async function register (cryptr, req, res, next) {
         return res.send(400, 'User Exists');
 
     const encryptedPassword = cryptr.encrypt(password);
-    const generatedKey = uuidv4();
 
     const account = new Account({
         UserName: username,
         Password: encryptedPassword,
         FirstName: firstName,
         LastName: lastName,
-        APIKeys: [generatedKey],
+        APIKeys: [],
         Active: true,
     });
 

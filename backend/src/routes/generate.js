@@ -3,6 +3,9 @@ import uuidv4 from 'uuid/v4';
 import Account from '../dal/Account'
 export async function generate (req, res, next) {
     const username = req.body.username;
+    const monitorName = req.body.monitorName;
+    const pcName = req.body.pcNameame;
+
 
     if (!username)
         return res.send(400, 'Bad Request');
@@ -17,14 +20,17 @@ export async function generate (req, res, next) {
         return res.send(400, 'Bad Request');
 
 
-    console.log(doc)
     Account.updateOne(
         {
             UserName: username
         },
         {
             $set: {
-                APIKeys: [...doc.APIKeys, generatedKey],
+                APIKeys: [...doc.APIKeys, {
+                    APIKey: generatedKey,
+                    monitorName,
+                    pcName,
+                }],
                 Active: true,
             }
         },
