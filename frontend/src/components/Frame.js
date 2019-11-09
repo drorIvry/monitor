@@ -8,6 +8,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -94,6 +96,11 @@ const useStyles = makeStyles(theme => ({
     fixedHeight: {
         height: 240,
     },
+    darkmode:{
+        paddingLeft: 18,
+        paddingTop: 18,
+
+    }
 }));
 
 export default function Fame() {
@@ -145,6 +152,11 @@ export default function Fame() {
                 <Divider />
                 <List>{mainListItems}</List>
                 <Divider />
+                <FormControlLabel
+                    className={classes.darkmode}
+                    control={<Switch checked={false} onChange={null} />}
+                    label="Dark Mode"
+                />
                 <List>{accountList}</List>
             </Drawer>
         </div>
