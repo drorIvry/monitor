@@ -1,6 +1,6 @@
 redux hookup
 FE <> BE
 prog bar
-refactor monitor DB
+refactor get monitor report
 assign key to agent
 agent config script

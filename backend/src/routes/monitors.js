@@ -72,6 +72,7 @@ router.post('/', async function (req, res, next) {
         {
             $set: {
                 Monitors: [...accoumt_doc.Monitors, mongoose.Types.ObjectId(response._id)],
+                APIKeys: [...accoumt_doc.APIKeys, generatedKey],
                 Active: true,
             }
         },

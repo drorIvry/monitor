@@ -8,4 +8,5 @@ export default mongoose.model('account', mongoose.Schema({
     LastName: String,
     Monitors: [mongoose.Schema.Types.ObjectId],
     Active: Boolean,
+    APIKeys: [String],
 }));

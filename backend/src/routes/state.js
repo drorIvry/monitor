@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', async function (req, res, next) {
     const accountID = req.query['account-id'];
-    const doc = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)})
+    const doc = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
 
     if(!doc)
         return res.status(404).send('Account Not Found!');
