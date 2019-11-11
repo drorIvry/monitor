@@ -29,5 +29,5 @@ export async function register (cryptr, req, res, next) {
 
     await account.save();
 
-    return res.send({key: generatedKey});
+    return res.send({success: true});
 }

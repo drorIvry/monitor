@@ -9,6 +9,7 @@ import Cryptr from 'cryptr';
 
 import {generate} from './routes/generate';
 import stateRouter from './routes/state';
+import monitorsRouter from './routes/monitors';
 import {register} from './routes/register';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
@@ -21,10 +22,10 @@ db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(
     function (req, res, next) {
-        if (req.header('authorization'))
-            validateBasicAuth(cryptr, req, res, next);
-        else if (req.path === '/register')
+        if (req.path === '/register')
             next();
+        else if (req.header('authorization'))
+            validateBasicAuth(cryptr, req, res, next);
         else
             validateAPI(req, res, next);
     }
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.post('/generate', generate);
 app.use('/state', stateRouter);
+app.use('/monitors', monitorsRouter);
 app.post('/register', (req, res, next) => {register(cryptr, req, res, next)});
 
 module.exports = app;

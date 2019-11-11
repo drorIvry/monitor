@@ -6,6 +6,6 @@ export default mongoose.model('account', mongoose.Schema({
     Password: String,
     FirstName: String,
     LastName: String,
-    APIKeys: [Object],
+    Monitors: [mongoose.Schema.Types.ObjectId],
     Active: Boolean,
 }));
