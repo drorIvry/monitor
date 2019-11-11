@@ -38,7 +38,7 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.post('/generate', generate);
+app.post('/register', register);
 app.use('/state', stateRouter);
 app.use('/monitors', monitorsRouter);
 

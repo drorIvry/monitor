@@ -1,4 +1,5 @@
 import Account from '../dal/Account';
+import Monitors from '../dal/Monitors';
 
 export function validateBasicAuth(cryptr, req, res, next) {
     const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
@@ -30,7 +31,7 @@ export function validateAPI(req, res, next) {
         res.set('WWW-Authenticate', 'Basic realm="401"');
         res.status(401).send('Authentication required.');
     }
-    Account.findOne({APIKey: apiKey}, (error, doc) => {
+    Monitors.findOne({APIKey: apiKey}, (error, doc) => {
         if (error)
             return res.send(500, {error});
         if (doc)
