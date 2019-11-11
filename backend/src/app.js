@@ -7,7 +7,6 @@ import helmet from 'helmet';
 import errorhandler from 'errorhandler';
 import Cryptr from 'cryptr';
 
-import {generate} from './routes/generate';
 import stateRouter from './routes/state';
 import monitorsRouter from './routes/monitors';
 import {register} from './routes/register';
@@ -42,7 +41,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/generate', generate);
 app.use('/state', stateRouter);
 app.use('/monitors', monitorsRouter);
-app.post('/register', (req, res, next) => {register(cryptr, req, res, next)});
 
 module.exports = app;
 
