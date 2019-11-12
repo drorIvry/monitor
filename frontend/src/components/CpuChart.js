@@ -3,32 +3,19 @@ import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-const data = [
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 2, amt: 2400,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 5, pv: 1398, amt: 2210,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 34, pv: 9800, amt: 2290,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 66, pv: 3908, amt: 2000,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 99, pv: 4800, amt: 2181,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 4, pv: 3800, amt: 2500,
-    },
-    {
-        name: '2019-11-08T18:45:38.381+00:00', load: 24, pv: 4300, amt: 2100,
-    },
-];
+const data =  [{"total_load": 0, "cpu_count": 8, "cores": 4, "time": "2019-11-08T18:45:06.264Z"}, {
+    "total_load": 9.7,
+    "cpu_count": 8,
+    "cores": 4,
+    "time": "2019-11-08T18:45:28.358Z"
+}, {"total_load": 5.6, "cpu_count": 8, "cores": 4, "time": "2019-11-08T18:45:38.381Z"}, {
+    "total_load": 5,
+    "cpu_count": 8,
+    "cores": 4,
+    "time": "2019-11-08T18:45:48.398Z"
+}, {"total_load": 6.9, "cpu_count": 8, "cores": 4, "time": "2019-11-08T18:45:58.414Z"}];
 
-export default class CpuChart extends PureComponent {
-    render() {
+export default function CpuChart(graph_data) {
         return (
             <LineChart
                 width={1000}
@@ -39,12 +26,13 @@ export default class CpuChart extends PureComponent {
                 }}
             >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="time" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="load" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="total_load" stroke="#82ca9d" />
             </LineChart>
         );
     }
-}
+
+

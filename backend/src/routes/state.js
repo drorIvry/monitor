@@ -7,13 +7,17 @@ import Account from '../dal/Account';
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
-    const accountID = req.query['account-id'];
-    const doc = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
+    const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
+    const [username] = new Buffer.from(b64auth, 'base64').toString().split(':');
 
-    if(!doc)
+    const account_doc = await Account.findOne({UserName: username});
+
+    const docs = await SystemState.find({AccountID: mongoose.Types.ObjectId(account_doc._id)});
+
+    if(!docs)
         return res.status(404).send('Account Not Found!');
     else
-        return res.send(doc);
+        return res.send(docs);
 
 });
 

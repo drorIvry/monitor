@@ -4,7 +4,6 @@ import Monitors from '../dal/Monitors';
 export function validateBasicAuth(cryptr, req, res, next) {
     const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
     const [username, password] = new Buffer.from(b64auth, 'base64').toString().split(':');
-
     Account.findOne({UserName: username}, (error, doc) => {
         if (error)
             res.send(500, {error});
@@ -13,23 +12,25 @@ export function validateBasicAuth(cryptr, req, res, next) {
 
         if (!username || !password) {
             res.set('WWW-Authenticate', 'Basic realm="401"');
-            res.status(401).send('Authentication required.');
+            return res.status(401).send('Authentication required.');
         }
 
         if (username === doc.UserName && password === decryptedPass)
             next();
         else {
             res.set('WWW-Authenticate', 'Basic realm="401"');
-            res.status(401).send('Authentication required.');
+            return res.status(401).send('Authentication required.');
         }
     })
 }
 
 export function validateAPI(req, res, next) {
+    console.log(req.headers)
+
     const apiKey = req.header('monitor-api-key');
     if (!apiKey) {
         res.set('WWW-Authenticate', 'Basic realm="401"');
-        res.status(401).send('Authentication required.');
+        return res.status(401).send('Authentication required.');
     }
     Monitors.findOne({APIKey: apiKey}, (error, doc) => {
         if (error)

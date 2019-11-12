@@ -9,8 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
+import {connect} from 'react-redux';
 
+import {toggleDialog} from '../actions/MonitorDialogActions';
 import Frame from './Frame';
+import AddMonitor from './AddMonitor'
 import Copyright from './Copyright';
 import history from '../history'
 
@@ -71,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Monitors() {
+function Monitors({onDialogClick}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -131,9 +134,10 @@ export default function Monitors() {
                             onChangeRowsPerPage={handleChangeRowsPerPage}
                         />
 
-                        <Button variant="outlined" className={classes.button}>
+                        <Button variant="outlined" className={classes.button} onClick={() => onDialogClick(true)}>
                             Add new Monitor
                         </Button>
+                        <AddMonitor />
                     </Paper>
                 </Container>
                 <Copyright/>
@@ -141,3 +145,19 @@ export default function Monitors() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        dialogStatus: state.monitorDialog,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onDialogClick: (isOpen) => {
+            dispatch(toggleDialog(isOpen));
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Monitors);

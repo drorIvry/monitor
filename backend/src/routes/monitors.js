@@ -2,13 +2,15 @@ import express from 'express';
 import mongoose from 'mongoose';
 import Monitors from '../dal/Monitors';
 import Account from '../dal/Account';
-
+import uuidv4 from 'uuid/v4'
 
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
 
-    const username = req.query['userName'];
+    const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
+    const [username] = new Buffer.from(b64auth, 'base64').toString().split(':');
+
     if (!username)
         return res.send(400, 'Bad Request');
 
@@ -40,10 +42,10 @@ router.delete('/', async function (req, res, next) {
 });
 
 router.post('/', async function (req, res, next) {
-    const username = req.body.username;
+    const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
+    const [username] = new Buffer.from(b64auth, 'base64').toString().split(':');
     const monitorName = req.body.monitorName;
     const pcName = req.body.pcName;
-
 
     if (!username)
         return res.send(400, 'Bad Request');
