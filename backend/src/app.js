@@ -9,7 +9,7 @@ import Cryptr from 'cryptr';
 
 import stateRouter from './routes/state';
 import monitorsRouter from './routes/monitors';
-import {register} from './routes/register';
+import accountsRouter from './routes/account';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
 const app = express();
@@ -38,7 +38,7 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.post('/register', register);
+app.use('/accounts', accountsRouter);
 app.use('/state', stateRouter);
 app.use('/monitors', monitorsRouter);
 
