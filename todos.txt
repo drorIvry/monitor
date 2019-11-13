@@ -5,5 +5,9 @@ FE <> BE
 - states
 - dashboard
 
+use login stuff
+add cookies
+read params at add monitors
+
 assign key to agent
 agent config script
