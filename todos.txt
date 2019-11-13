@@ -1,6 +1,9 @@
 redux hookup
 FE <> BE
-prog bar - /
-refactor get monitor report
+
+- reports
+- states
+- dashboard
+
 assign key to agent
 agent config script
