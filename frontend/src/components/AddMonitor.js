@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux';
 import {addMonitor} from '../serverAPI/monitorActions'
-import {toggleDialog, toggleProgressBard} from '../actions/MonitorDialogActions';
+import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
 
 
 const useStyles = makeStyles(theme => ({
@@ -44,8 +44,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
 
     const onSaveClick = () => {
         toggleProgressbar(true);
-        const monitor = addMonitor('2','1', 'a', 'a');
-        console.log(monitor);
+        addMonitor('2','1', 'a', 'a');
         toggleProgressbar(false);
         onDialogClick(false);
     };
@@ -105,7 +104,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(toggleDialog(isOpen));
         },
         toggleProgressbar: (isOpen) => {
-            dispatch(toggleProgressBard(isOpen));
+            dispatch(toggleProgressBar(isOpen));
         }
     };
 };

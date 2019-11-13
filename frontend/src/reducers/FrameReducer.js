@@ -1,15 +1,14 @@
 import React from 'react';
 
 const initState = {
-    darkMode: true,
+    progressbarVisible: false,
 };
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
-        case "TOGGLE_DARK_MODE": {
-            return {...state, darkMode: !state.darkMode};
+        case "TOGGLE_FRAME_PROGRESSBAR": {
+            return {...state, progressbarVisible: action.payload};
         }
-
         default:
             return state
     }

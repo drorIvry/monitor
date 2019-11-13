@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,21 +13,37 @@ import {connect} from 'react-redux';
 
 import {toggleDialog} from '../actions/MonitorDialogActions';
 import Frame from './Frame';
-import AddMonitor from './AddMonitor'
+import AddMonitor from './AddMonitor';
+import {getMonitors} from '../serverAPI/monitorActions'
 import Copyright from './Copyright';
-import history from '../history'
+import {toggleProgressBar} from '../actions/FrameActions';
 
-// Generate Order Data
-function createData(id, monitor, date, name,) {
-    return {id, monitor, date, name,};
-}
 
 const rows = [
-    createData(0, 'a', '16 Mar, 2019', 'PC-1'),
-    createData(1, 'b', '16 Mar, 2019', 'PC-2'),
-    createData(2, 'c', '16 Mar, 2019', 'PC-3'),
-    createData(3, 'd', '16 Mar, 2019', 'PC-4'),
-    createData(4, 'e', '15 Mar, 2019', 'PC-5'),
+    {
+        "_id": "5dcac82a0ea51943b4ae66a2",
+        "MonitorName": "a",
+        "APIKey": "8022eaa3-3a02-4dfc-a395-ed76d5d42223",
+        "PCName": "a",
+        "Active": true,
+        "__v": 0
+    },
+    {
+        "_id": "5dcac8780ea51943b4ae66a3",
+        "MonitorName": "a",
+        "APIKey": "a771ec20-8446-4802-b026-c03252f86578",
+        "PCName": "a",
+        "Active": true,
+        "__v": 0
+    },
+    {
+        "_id": "5dcac87d0ea51943b4ae66a4",
+        "MonitorName": "a",
+        "APIKey": "c41e60c7-cbb0-4e71-917f-f2faff2cf833",
+        "PCName": "a",
+        "Active": true,
+        "__v": 0
+    }
 ];
 
 
@@ -74,18 +90,22 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Monitors({onDialogClick}) {
+function Monitors({onDialogClick, toggleProgressBar}) {
     const classes = useStyles();
+    const [data, setData] = useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
     const handleChangeRowsPerPage = event => {
         setRowsPerPage(+event.target.value);
         setPage(0);
+    };
+
+    getMonitors('2','1').then(res=>{
+        setData(res.data);
+    });
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
     };
 
     return (
@@ -97,21 +117,21 @@ function Monitors({onDialogClick}) {
                     <Paper>
                         <div className={classes.tableWrapper}>
 
-                            <Table stickyHeader size="large">
+                            <Table stickyHeader size="medium">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Monitor API Key</TableCell>
-                                        <TableCell>Last Report Date</TableCell>
+                                        <TableCell>Monitor Name</TableCell>
                                         <TableCell>PC Name</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                    {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                                         return (
                                             <TableRow hover tabIndex={-1} key={row.id}>
-                                                <TableCell>{row.monitor}</TableCell>
-                                                <TableCell>{row.date}</TableCell>
-                                                <TableCell>{row.name}</TableCell>
+                                                <TableCell>{row.APIKey}</TableCell>
+                                                <TableCell>{row.MonitorName}</TableCell>
+                                                <TableCell>{row.PCName}</TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -137,7 +157,7 @@ function Monitors({onDialogClick}) {
                         <Button variant="outlined" className={classes.button} onClick={() => onDialogClick(true)}>
                             Add new Monitor
                         </Button>
-                        <AddMonitor />
+                        <AddMonitor/>
                     </Paper>
                 </Container>
                 <Copyright/>
@@ -156,7 +176,10 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onDialogClick: (isOpen) => {
             dispatch(toggleDialog(isOpen));
-        }
+        },
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
     };
 };
 

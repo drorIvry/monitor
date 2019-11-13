@@ -15,11 +15,15 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 import { mainListItems,  accountList } from './ListItems';
 import {connect} from 'react-redux';
 import history from '../history'
 import {toggleDarkMode} from '../actions/DarkModeAction';
 import {toggleDrawer} from '../actions/DrawerActions';
+import {toggleProgressBar} from '../actions/FrameActions';
+
 
 const drawerWidth = 240;
 
@@ -107,12 +111,17 @@ const useStyles = makeStyles(theme => ({
     },
     switchMode:{
         marginRight: 10,
-    }
+    },
+    frameProgress: {
+        width: '100%',
+        '& > * + *': {
+            marginTop: theme.spacing(2),
+        },
+    },
 }));
 
-function Frame({darkMode, drawer, onDrawerClick, onSwitchClick }) {
+function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, progressbar,  toggleProgressBar}) {
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -136,7 +145,9 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick }) {
                         </Badge>
                     </IconButton>
                 </Toolbar>
+                {progressbar.progressbarVisible && <LinearProgress color="secondary" />}
             </AppBar>
+
             <Drawer
                 variant="permanent"
                 classes={{
@@ -167,6 +178,7 @@ const mapStateToProps = (state) => {
     return {
         darkMode: state.darkMode,
         drawer: state.drawer,
+        progressbar: state.frame,
     };
 };
 
@@ -177,7 +189,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDrawerClick: (isOpen) => {
             dispatch(toggleDrawer(isOpen));
-        }
+        },
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
     };
 };
 
