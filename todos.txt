@@ -9,7 +9,7 @@ FE <> BE
 use login stuff
 add cookies
 read params at add monitors
-
+prog bar @ monitors
 add allerts to BE
 unit tests
 cypress
