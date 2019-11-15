@@ -10,42 +10,13 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
 import {connect} from 'react-redux';
-
+import axios from 'axios';
+import config from '../serverAPI/config';
 import {toggleDialog} from '../actions/MonitorDialogActions';
 import Frame from './Frame';
 import AddMonitor from './AddMonitor';
-import {getMonitors} from '../serverAPI/monitorActions'
 import Copyright from './Copyright';
 import {toggleProgressBar} from '../actions/FrameActions';
-
-
-const rows = [
-    {
-        "_id": "5dcac82a0ea51943b4ae66a2",
-        "MonitorName": "a",
-        "APIKey": "8022eaa3-3a02-4dfc-a395-ed76d5d42223",
-        "PCName": "a",
-        "Active": true,
-        "__v": 0
-    },
-    {
-        "_id": "5dcac8780ea51943b4ae66a3",
-        "MonitorName": "a",
-        "APIKey": "a771ec20-8446-4802-b026-c03252f86578",
-        "PCName": "a",
-        "Active": true,
-        "__v": 0
-    },
-    {
-        "_id": "5dcac87d0ea51943b4ae66a4",
-        "MonitorName": "a",
-        "APIKey": "c41e60c7-cbb0-4e71-917f-f2faff2cf833",
-        "PCName": "a",
-        "Active": true,
-        "__v": 0
-    }
-];
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -100,11 +71,34 @@ function Monitors({onDialogClick, toggleProgressBar}) {
         setPage(0);
     };
 
-    getMonitors('2','1').then(res=>{
-        setData(res.data);
-    });
+    // getMonitors('2','1').then(res=>{
+    //     setData(res.data);
+    // });
+    useEffect(() => {
+        toggleProgressBar(true);
+        const getMonitors = async () => {
+            try {
+                const response = await axios.get(config.server + '/monitors', {
+                        withCredentials: true,
+                        auth: {
+                            username: '2',
+                            password: '1'
+                        },
+                    },
+                );
+                setData(response.data);
+                toggleProgressBar(false);
 
-    const handleChangePage = (event, newPage) => {
+            } catch (e) {
+                console.log(e);
+                setData([]);
+                toggleProgressBar(false);
+            }
+        };
+        getMonitors();
+
+    }, []);
+        const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
@@ -141,7 +135,7 @@ function Monitors({onDialogClick, toggleProgressBar}) {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rows.length}
+                            count={data.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{

@@ -44,9 +44,10 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
 
     const onSaveClick = () => {
         toggleProgressbar(true);
-        addMonitor('2','1', 'a', 'a');
-        toggleProgressbar(false);
-        onDialogClick(false);
+        addMonitor('2','1', 'a', 'a').then(() => {
+            toggleProgressbar(false);
+            onDialogClick(false);
+        });
     };
 
     return (
