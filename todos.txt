@@ -6,7 +6,7 @@ FE <> BE
 - dashboard
 - alerts
 
-use login stuff
+use login stuff save account id
 add cookies
 read params at add monitors
 prog bar @ monitors
