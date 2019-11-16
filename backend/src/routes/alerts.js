@@ -1,8 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import Alerts from '../dal/Alerts';
-import Account from "../dal/Account";
-import SystemState from "../dal/SystemState";
 
 const router = express.Router();
 
