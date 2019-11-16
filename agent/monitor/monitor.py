@@ -38,7 +38,7 @@ def get_logger(conf_object, name):
 
 
 if __name__ == '__main__':
-    config_file_path = 'C:\\projects\\monitor\\agent\\monitor\\config\\config.json'
+    config_file_path = '/home/dror/develop/monitor/agent/monitor/config/config.json'
     conf = config.config_handler.load_config(config_file_path)
     logger = get_logger(conf, 'agent-monitor')
     logger.info('configuration file loaded')

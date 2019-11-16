@@ -1,8 +1,8 @@
 {
   "remote_server": "http://localhost:3001",
-  "remote_api_key": "f00ea2fb-985c-4ad4-9789-c62f7767802e",
+  "remote_api_key": "206c5fc6-3be7-472c-9d6e-ee54fb2b222d",
   "monitor_interval": 10,
   "log_file": "agent.log",
   "log_level": "INFO",
-  "root_path": "c:\\"
+  "root_path": "/"
 }

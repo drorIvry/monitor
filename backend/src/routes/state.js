@@ -23,7 +23,7 @@ router.get('/', async function (req, res, next) {
 
 router.post('/', async function(req, res, next){
     const apiKey = req.header('monitor-api-key');
-    const account = await Account.findOne({APIKey: apiKey});
+    const account = await Account.findOne({APIKeys: apiKey});
     const accountID = account._id.toString();
     const previous = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
 
