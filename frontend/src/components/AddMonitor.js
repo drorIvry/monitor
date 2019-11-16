@@ -12,6 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import history from '../history';
 import {addMonitor} from '../serverAPI/monitorActions'
 import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
 import config from "../serverAPI/config";
@@ -65,6 +66,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login}) {
         ).then((response)=> {
             toggleProgressbar(false);
             onDialogClick(false);
+            history.push('/monitors');
 
         }).catch((error) => {
             toggleProgressbar(false);

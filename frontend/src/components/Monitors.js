@@ -17,6 +17,7 @@ import Frame from './Frame';
 import AddMonitor from './AddMonitor';
 import Copyright from './Copyright';
 import {toggleProgressBar} from '../actions/FrameActions';
+import {updateMonitors} from '../actions/MonitorsActions';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -61,9 +62,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Monitors({onDialogClick, toggleProgressBar}) {
+function Monitors({onDialogClick, toggleProgressBar, monitors, updateMonitors}) {
     const classes = useStyles();
-    const [data, setData] = useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangeRowsPerPage = event => {
@@ -71,34 +71,24 @@ function Monitors({onDialogClick, toggleProgressBar}) {
         setPage(0);
     };
 
-    // getMonitors('2','1').then(res=>{
-    //     setData(res.data);
-    // });
     useEffect(() => {
         toggleProgressBar(true);
-        const getMonitors = async () => {
-            try {
-                const response = await axios.get(config.server + '/monitors', {
-                        withCredentials: true,
-                        auth: {
-                            username: '2',
-                            password: '1'
-                        },
-                    },
-                );
-                setData(response.data);
-                toggleProgressBar(false);
 
-            } catch (e) {
-                console.log(e);
-                setData([]);
-                toggleProgressBar(false);
-            }
-        };
-        getMonitors();
-
-    }, []);
-        const handleChangePage = (event, newPage) => {
+        axios.get(config.server + '/monitors', {
+                withCredentials: true,
+                auth: {
+                    username: '2',
+                    password: '1'
+                },
+            },
+        ).then((response) => {
+            updateMonitors(response.data);
+            toggleProgressBar(false);
+        }).catch((error) => {
+            console.error(error);
+        })
+    }, monitors.monitors);
+    const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
@@ -120,7 +110,7 @@ function Monitors({onDialogClick, toggleProgressBar}) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                    {monitors.monitors.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                                         return (
                                             <TableRow hover tabIndex={-1} key={row.id}>
                                                 <TableCell>{row.APIKey}</TableCell>
@@ -135,7 +125,7 @@ function Monitors({onDialogClick, toggleProgressBar}) {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={data.length}
+                            count={monitors.monitors.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{
@@ -163,6 +153,7 @@ function Monitors({onDialogClick, toggleProgressBar}) {
 const mapStateToProps = (state) => {
     return {
         dialogStatus: state.monitorDialog,
+        monitors: state.monitors
     };
 };
 
@@ -173,6 +164,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         toggleProgressBar: (isOpen) => {
             dispatch(toggleProgressBar(isOpen));
+        },
+        updateMonitors: (monitors) => {
+            dispatch(updateMonitors(monitors));
         },
     };
 };

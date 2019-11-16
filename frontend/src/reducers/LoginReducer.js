@@ -2,8 +2,8 @@ import React from 'react';
 
 const initState = {
     loggedIn: false,
-    username:'',
-    password:'',
+    username:'2',
+    password:'1',
     accountID:'',
     firstName:''
 };
