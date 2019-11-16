@@ -15,6 +15,8 @@ import axios from 'axios';
 import Copyright from './Copyright'
 import history from '../history';
 import config from '../serverAPI/config';
+import {login} from "../actions/LoginActions";
+import {connect} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
+function SignUp({login, onLogin}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
 
@@ -47,6 +49,7 @@ export default function SignUp() {
     const onRegister = () => {
         console.log(data);
         axios.post(config.server + '/accounts', data).then(response => {
+            onLogin(data.username, response.data.accountID, data.firstName);
             history.push('/dashboard');
         }).catch((error) => {
             console.error(error);
@@ -141,3 +144,19 @@ export default function SignUp() {
         </Container>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        login: state.login,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (username, accountID, firstName) => {
+            dispatch(login(username, accountID, firstName));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
