@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {connect} from "react-redux";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,9 +13,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 import Copyright from './Copyright';
 import history from '../history';
+import {login} from "../actions/LoginActions";
+import config from '../serverAPI/config'
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -36,8 +40,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignIn() {
+function SignIn({login, onLogin}) {
     const classes = useStyles();
+    const [data, setData] = useState([]);
+
+    const handleChange = (key, value) => {
+        setData({...data, [key]:value})
+    };
+
+
+    const onLoginPressed = () => {
+        axios.get(config.server + '/accounts', {
+            withCredentials: true,
+            auth: {
+                username: data.username,
+                password: data.password,
+            },
+        }).then((response) => {
+            onLogin(data.username, response.accountID, response.firstName)
+            history.push('/dashboard')
+        }).catch((error) => {
+            console.error(error);
+        })
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -49,15 +74,16 @@ export default function SignIn() {
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <form className={classes.form} noValidate>
+                <div>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
+                        id="username"
+                        onChange={(event) => {handleChange('username', event.target.value)}}
+                        label="User Name"
+                        name="username"
                         autoComplete="email"
                         autoFocus
                     />
@@ -66,6 +92,7 @@ export default function SignIn() {
                         margin="normal"
                         required
                         fullWidth
+                        onChange={(event) => {handleChange('password', event.target.value)}}
                         name="password"
                         label="Password"
                         type="password"
@@ -82,6 +109,7 @@ export default function SignIn() {
                         variant="contained"
                         color="primary"
                         className={classes.submit}
+                        onClick={onLoginPressed}
                     >
                         Sign In
                     </Button>
@@ -92,7 +120,7 @@ export default function SignIn() {
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
+                </div>
             </div>
             <Box mt={8}>
                 <Copyright />
@@ -100,3 +128,19 @@ export default function SignIn() {
         </Container>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        login: state.login,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (username, accountID, firstName) => {
+            dispatch(login(username, accountID, firstName));
+        },
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn)

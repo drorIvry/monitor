@@ -11,8 +11,10 @@ export async function login(req, res, next) {
 
     const accoun_doc = await Account.findOne({UserName: username});
 
-    return res.send({accountID: accoun_doc._id})
-
+    return res.send({
+        accountID: accoun_doc._id,
+        firstName: accoun_doc.firstName
+    });
 }
 
 export async function register(cryptr, req, res, next){
