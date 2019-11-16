@@ -6,7 +6,12 @@ export function validateBasicAuth(cryptr, req, res, next) {
     const [username, password] = new Buffer.from(b64auth, 'base64').toString().split(':');
     Account.findOne({UserName: username}, (error, doc) => {
         if (error)
-            res.send(500, {error});
+            return res.send(500, {error});
+
+        if(!doc){
+            res.set('WWW-Authenticate', 'Basic realm="401"');
+            return res.status(401).send('Authentication required.');
+        }
 
         const decryptedPass = cryptr.decrypt(doc.Password);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,10 +10,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
 
 import Copyright from './Copyright'
 import history from '../history';
-
+import config from '../serverAPI/config';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -37,6 +38,20 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
     const classes = useStyles();
+    const [data, setData] = useState([]);
+
+    const handleChange = (key, value) => {
+        setData({...data, [key]:value})
+    };
+
+    const onRegister = () => {
+        console.log(data);
+        axios.post(config.server + '/accounts', data).then(response => {
+            history.push('/dashboard');
+        }).catch((error) => {
+            console.error(error);
+        });
+    };
 
     return (
         <Container component="main" maxWidth="xs">
@@ -48,7 +63,7 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <div>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -59,6 +74,7 @@ export default function SignUp() {
                                 fullWidth
                                 id="firstName"
                                 label="First Name"
+                                onChange={(event) => {handleChange('firstName', event.target.value)}}
                                 autoFocus
                             />
                         </Grid>
@@ -69,6 +85,7 @@ export default function SignUp() {
                                 fullWidth
                                 id="lastName"
                                 label="Last Name"
+                                onChange={(event) => {handleChange('lastName', event.target.value)}}
                                 name="lastName"
                                 autoComplete="lname"
                             />
@@ -78,9 +95,10 @@ export default function SignUp() {
                                 variant="outlined"
                                 required
                                 fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
+                                id="username"
+                                label="User Name"
+                                name="username"
+                                onChange={(event) => {handleChange('username', event.target.value)}}
                                 autoComplete="email"
                             />
                         </Grid>
@@ -93,6 +111,7 @@ export default function SignUp() {
                                 label="Password"
                                 type="password"
                                 id="password"
+                                onChange={(event) => {handleChange('password', event.target.value)}}
                                 autoComplete="current-password"
                             />
                         </Grid>
@@ -102,6 +121,7 @@ export default function SignUp() {
                         fullWidth
                         variant="contained"
                         color="primary"
+                        onClick={onRegister}
                         className={classes.submit}
                     >
                         Sign Up
@@ -113,7 +133,7 @@ export default function SignUp() {
                             </Link>
                         </Grid>
                     </Grid>
-                </form>
+                </div>
             </div>
             <Box mt={5}>
                 <Copyright />

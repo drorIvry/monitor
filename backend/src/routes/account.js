@@ -5,7 +5,7 @@ import Account from '../dal/Account';
 
 const router = express.Router();
 
-router.get('/', async function (req, res, next) {
+export async function login(req, res, next) {
     const b64auth = (req.header('authorization') || '').split(' ')[1] || '';
     const [username, password] = new Buffer.from(b64auth, 'base64').toString().split(':');
 
@@ -13,9 +13,9 @@ router.get('/', async function (req, res, next) {
 
     return res.send({accountID: accoun_doc._id})
 
-});
+}
 
-router.post('/', async function(req, res, next){
+export async function register(cryptr, req, res, next){
     const username = req.body.username;
     const password = req.body.password;
     const firstName = req.body.firstName;
@@ -43,7 +43,8 @@ router.post('/', async function(req, res, next){
 
     await account.save();
 
-    return res.send({success: true});
-});
+    const newDoc = await Account.findOne({UserName: username});
 
-export default router;
+
+    return res.send({accountID: newDoc._id});
+}

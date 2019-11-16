@@ -9,7 +9,7 @@ import Cryptr from 'cryptr';
 
 import stateRouter from './routes/state';
 import monitorsRouter from './routes/monitors';
-import accountsRouter from './routes/account';
+import {register, login} from './routes/account';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
 const app = express();
@@ -35,7 +35,8 @@ app.options("/*", function(req, res, next){
 
 app.use(
     function (req, res, next) {
-        if (req.path === '/register')
+        console.log(req.method)
+        if (req.path === '/accounts' && req.method === 'POST')
             next();
         else if (req.header('authorization'))
             validateBasicAuth(cryptr, req, res, next);
@@ -52,9 +53,12 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/accounts', accountsRouter);
 app.use('/state', stateRouter);
 app.use('/monitors', monitorsRouter);
+app.get('/accounts', register);
+app.post('/accounts', (req,res,next) => {
+    register(cryptr, req, res, next);
+});
 
 module.exports = app;
 
