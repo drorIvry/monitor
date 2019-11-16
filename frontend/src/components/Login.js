@@ -57,7 +57,7 @@ function SignIn({login, onLogin}) {
                 password: data.password,
             },
         }).then((response) => {
-            onLogin(data.username, response.accountID, response.firstName)
+            onLogin(data.username, data.password, response.accountID, response.firstName)
             history.push('/dashboard')
         }).catch((error) => {
             console.error(error);
@@ -137,8 +137,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (username, accountID, firstName) => {
-            dispatch(login(username, accountID, firstName));
+        onLogin: (username, password, accountID, firstName) => {
+            dispatch(login(username, password, accountID, firstName));
         },
     }
 };

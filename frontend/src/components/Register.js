@@ -49,7 +49,7 @@ function SignUp({login, onLogin}) {
     const onRegister = () => {
         console.log(data);
         axios.post(config.server + '/accounts', data).then(response => {
-            onLogin(data.username, response.data.accountID, data.firstName);
+            onLogin(data.username, data.password, response.data.accountID, data.firstName);
             history.push('/dashboard');
         }).catch((error) => {
             console.error(error);
@@ -153,8 +153,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (username, accountID, firstName) => {
-            dispatch(login(username, accountID, firstName));
+        onLogin: (username, password, accountID, firstName) => {
+            dispatch(login(username, password, accountID, firstName));
         },
     }
 };

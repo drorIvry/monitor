@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,8 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {addMonitor} from '../serverAPI/monitorActions'
 import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
+import config from "../serverAPI/config";
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,15 +41,37 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
+function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login}) {
     const classes = useStyles();
+    const [data, setData] = useState([]);
+
+    const handleChange = (key, value) => {
+        setData({...data, [key]:value})
+    };
 
     const onSaveClick = () => {
         toggleProgressbar(true);
-        addMonitor('2','1', 'a', 'a').then(() => {
+        console.log(login);
+        axios.post(config.server + '/monitors', {
+                pcName: data.pcName,
+                monitorName: data.monitorName,
+            }, {
+                withCredentials: true,
+                auth: {
+                    username: login.username,
+                    password: login.password,
+                },
+            },
+        ).then((response)=> {
             toggleProgressbar(false);
             onDialogClick(false);
+
+        }).catch((error) => {
+            toggleProgressbar(false);
+            console.error(error);
+            onDialogClick(false);
         });
+
     };
 
     return (
@@ -71,6 +95,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
                     className={classes.monitorsField}
                     margin="normal"
                     required
+                    onChange={(event) => {handleChange('pcName', event.target.value)}}
                     id="name"
                     label="PC Name"
                     variant="outlined"
@@ -79,9 +104,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
                 <TextField
                     className={classes.monitorsField}
                     margin="normal"
-                    onChange={(event) => {
-                        console.log(event.target.value)
-                    } }
+                    onChange={(event) => {handleChange('monitorName', event.target.value)}}
                     required
                     id="name"
                     variant="outlined"
@@ -96,6 +119,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar}) {
 const mapStateToProps = (state) => {
     return {
         dialogStatus: state.monitorDialog,
+        login: state.login,
     };
 };
 

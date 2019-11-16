@@ -3,6 +3,7 @@ import React from 'react';
 const initState = {
     loggedIn: false,
     username:'',
+    password:'',
     accountID:'',
     firstName:''
 };

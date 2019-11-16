@@ -35,7 +35,6 @@ app.options("/*", function(req, res, next){
 
 app.use(
     function (req, res, next) {
-        console.log(req.method)
         if (req.path === '/accounts' && req.method === 'POST')
             next();
         else if (req.header('authorization'))
