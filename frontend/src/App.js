@@ -9,6 +9,7 @@ import Reports from './components/Reports';
 import ReportPage from './components/ReportPage';
 import Monitors from './components/Monitors';
 import Alerts from './components/Alerts';
+import NotFound from './components/NotFound';
 
 import history from './history';
 
@@ -51,6 +52,9 @@ function App({darkMode}) {
                         </Route>
                         <Route path={`/report/:reportID`}>
                             <ReportPage/>
+                        </Route>
+                        <Route>
+                            <NotFound/>
                         </Route>
                     </Switch>
                 </ThemeProvider>
