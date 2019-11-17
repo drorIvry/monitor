@@ -7,7 +7,7 @@ const initState = {
 const reducer = (state = initState, action) => {
     switch (action.type) {
         case "UPDATE_REPORTS": {
-            return {...state, monitors: action.payload};
+            return {...state, reports: action.payload};
         }
         default:
             return state

@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import SystemState from '../dal/SystemState';
 import Account from '../dal/Account';
+import Monitors from '../dal/Monitors';
 
 
 const router = express.Router();
@@ -24,10 +25,14 @@ router.get('/', async function (req, res, next) {
 router.post('/', async function(req, res, next){
     const apiKey = req.header('monitor-api-key');
     const account = await Account.findOne({APIKeys: apiKey});
+    if(!account){
+        return res.send(404,{error:'account not found'})
+    }
     const accountID = account._id.toString();
     const previous = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
+    const monitor = await Monitors.findOne({APIKey: apiKey});
 
-    const data = parseData(req.body, accountID, previous);
+    const data = parseData(req.body, accountID, previous, monitor);
 
     SystemState.updateOne(
         {AccountID: mongoose.Types.ObjectId(accountID)},
@@ -43,9 +48,10 @@ router.post('/', async function(req, res, next){
         })
 });
 
-function parseData(data, accountID, previous){
+function parseData(data, accountID, previous, monitor){
     return {
         AccountID: mongoose.Types.ObjectId(accountID),
+        MonitorID: monitor._id,
         CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}] : [{...data.cpu, time: new Date()}],
         OS: data.os,
         Memory: data.memory,

@@ -16,20 +16,6 @@ import {toggleProgressBar} from "../actions/FrameActions";
 import {updateReports} from "../actions/ReportsActions";
 import {connect} from "react-redux";
 import axios from "axios";
-    
-// Generate Order Data
-function createData(id, monitor, date, name,) {
-    return {id, monitor, date, name,};
-}
-
-const rows = [
-    createData(0, 'monitor1', '16 Mar, 2019', 'PC-2'),
-    createData(1, 'monitor2', '16 Mar, 2019', 'PC-2'),
-    createData(2, 'monitor3', '16 Mar, 2019', 'PC-2'),
-    createData(3, 'monitor4', '16 Mar, 2019', 'PC-2'),
-    createData(4, 'monitor5', '15 Mar, 2019', 'PC-2'),
-];
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -88,7 +74,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                     },
                 },
             );
-
+            console.log(reports.data)
             updateReports(response.data);
             toggleProgressBar(false);
         };
@@ -113,7 +99,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                     <Paper>
                         <div className={classes.tableWrapper}>
 
-                            <Table stickyHeader size="large">
+                            <Table stickyHeader size="medium">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Monitor</TableCell>
@@ -122,12 +108,12 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {reports.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                    {reports.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={row.id}  onClick={event => history.push('/report/'+ row.name)}>
-                                                <TableCell>{row.monitor}</TableCell>
-                                                <TableCell>{row.date}</TableCell>
-                                                <TableCell>{row.name}</TableCell>
+                                            <TableRow hover tabIndex={-1} key={key}  onClick={event => history.push('/report/'+ row.name)}>
+                                                <TableCell>{row.MonitorName}</TableCell>
+                                                <TableCell>{row.TimeStamp}</TableCell>
+                                                <TableCell>{row.PCName}</TableCell>
                                             </TableRow>
                                         );
                                     })}
