@@ -1,5 +1,5 @@
 import {ThemeProvider} from '@material-ui/core/styles';
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 
 import SignIn from './components/Login';
@@ -12,12 +12,8 @@ import Alerts from './components/Alerts';
 
 import history from './history';
 
-import React from "react";
-import {
-    Router,
-    Switch,
-    Route,
-} from "react-router-dom";
+import React from 'react';
+import {Router, Switch, Route} from 'react-router-dom';
 
 function App({darkMode}) {
     const theme = React.useMemo(
@@ -35,26 +31,26 @@ function App({darkMode}) {
                 <ThemeProvider theme={theme}>
 
                     <Switch>
-                        <Route path="/login">
+                        <Route path='/login'>
                             <SignIn/>
                         </Route>
-                        <Route path="/register">
+                        <Route path='/register'>
                             <SignUp/>
                         </Route>
-                        <Route path="/dashboard">
+                        <Route path='/dashboard'>
                             <Dashboard/>
                         </Route>
-                        <Route path="/reports">
+                        <Route exact path='/reports'>
                             <Reports/>
                         </Route>
-                        <Route path="/monitors">
+                        <Route path='/monitors'>
                             <Monitors/>
                         </Route>
-                        <Route path="/alerts">
+                        <Route path='/alerts'>
                             <Alerts/>
                         </Route>
                         <Route path={`/report/:reportID`}>
-                            <ReportPage />
+                            <ReportPage/>
                         </Route>
                     </Switch>
                 </ThemeProvider>
