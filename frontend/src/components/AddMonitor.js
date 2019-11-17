@@ -53,7 +53,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login, moni
     const onSaveClick = () => {
         toggleProgressbar(true);
         console.log(login);
-        axios.post(config.server + '/monitors', {
+        axios.post( '/monitors', {
                 pcName: data.pcName,
                 monitorName: data.monitorName,
             }, {

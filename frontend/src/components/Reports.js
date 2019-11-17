@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,6 +12,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Frame from './Frame';
 import Copyright from './Copyright';
 import history from '../history'
+import {toggleProgressBar} from "../actions/FrameActions";
+import {updateReports} from "../actions/ReportsActions";
+import {connect} from "react-redux";
+import axios from "axios";
     
 // Generate Order Data
 function createData(id, monitor, date, name,) {
@@ -67,10 +71,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Reports() {
+function Reports({reports, updateReports, toggleProgressbar}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            toggleProgressBar(true);
+            const response = await axios.get( '/reports', {
+                    withCredentials: true,
+                    auth: {
+                        username: '2',
+                        password: '1'
+                    },
+                },
+            );
+
+            updateReports(response.data);
+            toggleProgressBar(false);
+        };
+        fetchData();
+    }, [reports.reports.length]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -99,7 +122,7 @@ export default function Reports() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                    {reports.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                                         return (
                                             <TableRow hover tabIndex={-1} key={row.id}  onClick={event => history.push('/report/'+ row.name)}>
                                                 <TableCell>{row.monitor}</TableCell>
@@ -114,7 +137,7 @@ export default function Reports() {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rows.length}
+                            count={reports.reports.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{
@@ -133,3 +156,20 @@ export default function Reports() {
         </div>
     );
 }
+const mapStateToProps = (state) => {
+    return {
+        reports: state.reports
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
+        updateReports: (reports) => {
+            dispatch(updateReports(reports));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Reports);

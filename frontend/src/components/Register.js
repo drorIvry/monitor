@@ -48,7 +48,7 @@ function SignUp({login, onLogin}) {
 
     const onRegister = () => {
         console.log(data);
-        axios.post(config.server + '/accounts', data).then(response => {
+        axios.post( '/accounts', data).then(response => {
             onLogin(data.username, data.password, response.data.accountID, data.firstName);
             history.push('/dashboard');
         }).catch((error) => {

@@ -52,8 +52,8 @@ app.use(errorhandler());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/state', stateRouter);
 app.use('/monitors', monitorsRouter);
+app.use('/state', stateRouter);
 app.get('/accounts', login);
 app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);

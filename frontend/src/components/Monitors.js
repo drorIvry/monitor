@@ -73,22 +73,23 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, dialogStatu
     };
 
     useEffect(() => {
-        toggleProgressBar(true);
-        console.log(monitors.monitors.length);
-        axios.get(config.server + '/monitors', {
-                withCredentials: true,
-                auth: {
-                    username: '2',
-                    password: '1'
-                },
-            },
-        ).then((response) => {
-            updateMonitors(response.data);
+        const fetchData = async () => {
 
+            toggleProgressBar(true);
+            console.log(monitors.monitors.length);
+            const response = await axios.get( '/monitors', {
+                    withCredentials: true,
+                    auth: {
+                        username: '2',
+                        password: '1'
+                    },
+                },
+            );
+
+            updateMonitors(response.data);
             toggleProgressBar(false);
-        }).catch((error) => {
-            console.error(error);
-        })
+        };
+        fetchData();
     }, [monitors.monitors.length]);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
