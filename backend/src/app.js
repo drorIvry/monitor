@@ -20,20 +20,6 @@ mongoose.connect('mongodb://localhost/monitor', {useNewUrlParser: true, useUnifi
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
-
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-app.options("/*", function(req, res, next){
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    res.sendStatus(200);
-});
-
 app.use(
     function (req, res, next) {
         if (req.path === '/accounts' && req.method === 'POST')
@@ -44,7 +30,7 @@ app.use(
             validateAPI(req, res, next);
     }
 );
-
+app.use(express.static(path.join(__dirname,'/build')));
 app.disable('x-powered-by');
 app.use(logger('dev'));
 app.use(express.json());
@@ -59,6 +45,9 @@ app.use('/reports',reportRouter);
 app.get('/accounts', login);
 app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);
+});
+app.get('*', (req, res, next) => {
+    res.sendFile(path.join(__dirname,'/build/index.html'));
 });
 
 module.exports = app;

@@ -50,7 +50,7 @@ function App({darkMode}) {
                         <Route path='/alerts'>
                             <Alerts/>
                         </Route>
-                        <Route path={`/report/:reportID`}>
+                        <Route exsact path={`/report/:reportID`}>
                             <ReportPage/>
                         </Route>
                         <Route>

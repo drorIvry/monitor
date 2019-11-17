@@ -110,7 +110,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                                 <TableBody>
                                     {reports.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={key}  onClick={event => history.push('/report/'+ row.name)}>
+                                            <TableRow hover tabIndex={-1} key={key}  onClick={event => history.push('/report/'+ row.ReportID)}>
                                                 <TableCell>{row.MonitorName}</TableCell>
                                                 <TableCell>{row.TimeStamp}</TableCell>
                                                 <TableCell>{row.PCName}</TableCell>
