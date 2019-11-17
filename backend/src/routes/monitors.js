@@ -67,7 +67,7 @@ router.post('/', async function (req, res, next) {
 
     const response = await monitor.save();
 
-    Account.updateOne(
+    const monitorDoc = await Account.updateOne(
         {
             UserName: username
         },
@@ -81,10 +81,10 @@ router.post('/', async function (req, res, next) {
         err => {
             if (err)
                 res.send(500, {error});
-
-            res.send({key: generatedKey});
         }
     );
+
+    return res.send(monitorDoc)
 });
 
 export default router;

@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
-import {connect} from 'react-redux';
+import {connect,  useSelector} from 'react-redux';
 import axios from 'axios';
 import config from '../serverAPI/config';
 import {toggleDialog} from '../actions/MonitorDialogActions';
@@ -62,10 +62,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Monitors({onDialogClick, toggleProgressBar, monitors, updateMonitors}) {
+function Monitors({onDialogClick, toggleProgressBar, updateMonitors, dialogStatus, monitors}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const a = 3;
     const handleChangeRowsPerPage = event => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -73,7 +74,7 @@ function Monitors({onDialogClick, toggleProgressBar, monitors, updateMonitors}) 
 
     useEffect(() => {
         toggleProgressBar(true);
-
+        console.log(monitors.monitors.length);
         axios.get(config.server + '/monitors', {
                 withCredentials: true,
                 auth: {
@@ -83,11 +84,12 @@ function Monitors({onDialogClick, toggleProgressBar, monitors, updateMonitors}) 
             },
         ).then((response) => {
             updateMonitors(response.data);
+
             toggleProgressBar(false);
         }).catch((error) => {
             console.error(error);
         })
-    }, monitors.monitors);
+    }, [monitors.monitors.length]);
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };

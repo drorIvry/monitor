@@ -13,7 +13,7 @@ import Slide from '@material-ui/core/Slide';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import history from '../history';
-import {addMonitor} from '../serverAPI/monitorActions'
+import {updateMonitors} from '../actions/MonitorsActions';
 import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
 import config from "../serverAPI/config";
 
@@ -42,7 +42,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login}) {
+function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login, monitors, updateMonitors}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
 
@@ -65,6 +65,7 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login}) {
             },
         ).then((response)=> {
             toggleProgressbar(false);
+            updateMonitors([...monitors.monitors, response.data]);
             onDialogClick(false);
             history.push('/monitors');
 
@@ -122,6 +123,7 @@ const mapStateToProps = (state) => {
     return {
         dialogStatus: state.monitorDialog,
         login: state.login,
+        monitors: state.monitors,
     };
 };
 
@@ -132,7 +134,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         toggleProgressbar: (isOpen) => {
             dispatch(toggleProgressBar(isOpen));
-        }
+        },
+        updateMonitors: (monitors) => {
+            dispatch(updateMonitors(monitors));
+        },
     };
 };
 
