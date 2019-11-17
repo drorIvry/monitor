@@ -1,0 +1,10 @@
+login > ec2 >  launch instance > amazon linux 2ami > review and launce > launch 
+
+
+create key pair > download > mv new .pem file to .ssh > chmod 400 .pem file
+
+ec2 > running instances > choose instance > public dns 
+
+ssh -i path/to/.pem ec2-uesr@<DNS NAME>
+
+deploy your app 
