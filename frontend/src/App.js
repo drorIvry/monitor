@@ -50,9 +50,7 @@ function App({darkMode}) {
                         <Route path='/alerts'>
                             <Alerts/>
                         </Route>
-                        <Route exsact path={`/report/:reportID`}>
-                            <ReportPage/>
-                        </Route>
+                        <Route exsact path={`/report/:reportID`} component={ReportPage} />
                         <Route>
                             <NotFound/>
                         </Route>

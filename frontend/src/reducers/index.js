@@ -5,7 +5,8 @@ import MonitorDialogReducer from './MonitorDialogReducer';
 import FrameReducer from './FrameReducer';
 import LoginReducer from './LoginReducer';
 import MonitorsReducer from './MonitorsReducer';
-import ReportsReducer from './ReportsReducer'
+import ReportsSummeryReducer from './ReportsSummeryReducer';
+import ReportsReducer from './ReportsReducer';
 
 export default combineReducers({
     darkMode:DarkModeReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
     frame: FrameReducer,
     login: LoginReducer,
     monitors: MonitorsReducer,
+    reportsSummery: ReportsSummeryReducer,
     reports: ReportsReducer,
 });

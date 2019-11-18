@@ -1,9 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import {useParams} from 'react-router-dom';
 import Frame from './Frame';
 import Copyright from './Copyright';
@@ -16,9 +15,11 @@ import NetworkCard from './report_cards/NetworkCard';
 import OSCard from './report_cards/OSCard';
 import TempCard from './report_cards/TempCard';
 import UsersCard from './report_cards/UsersCard';
-
-
 import history from '../history';
+import {toggleProgressBar} from "../actions/FrameActions";
+import {updateReports} from "../actions/ReportsActions";
+import {connect} from "react-redux";
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -56,10 +57,30 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ReportPage() {
+function ReportPage({reports, toggleProgressBar, updateReports, match}) {
     const classes = useStyles();
     let {reportID} = useParams();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            toggleProgressBar(true);
+            const response = await axios.get( '/report/' + match.params.reportID, {
+                    withCredentials: true,
+                    auth: {
+                        username: '2',
+                        password: '1'
+                    },
+                },
+            );
+            updateReports(response.data);
+            toggleProgressBar(false);
+        };
+        fetchData();
+    }, []);
+
 
     return (
         <div className={classes.root}>
@@ -69,7 +90,7 @@ export default function ReportPage() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} md={4} lg={4}>
-                            <CPUCard/>
+                            <CPUCard />
                         </Grid>
                         <Grid item xs={12} md={4} lg={4}>
                             <MemoryCard />
@@ -104,3 +125,21 @@ export default function ReportPage() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        reports: state.reports
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
+        updateReports: (reports) => {
+            dispatch(updateReports(reports));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportPage);

@@ -1,6 +1,6 @@
-export function updateReports(monitors) {
+export function updateReports(reports) {
     return {
         type: "UPDATE_REPORTS",
-        payload: monitors
+        payload: reports
     }
 }

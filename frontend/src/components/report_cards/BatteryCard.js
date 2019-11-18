@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {connect} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -20,9 +21,13 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MemoryCard() {
+function BatteryCard({data}) {
+    console.log(data)
+
+    // fix the fetch@@@
     const classes = useStyles();
     let {reportID} = useParams();
+    console.log(reportID)
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     return (
         <Paper className={fixedHeightPaper}>
@@ -30,20 +35,28 @@ export default function MemoryCard() {
             <List>
                 <ListItem>
                     <ListItemText
-                        primary={"Percent: " + 88+ "%"}
+                        primary={"Percent: " + data.reports.percent+ "%"}
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        primary={"Time Left: " + "10:23:22"}
+                        primary={"Time Left: " + data.reports.secsleft < 0 ? 'N/A' : data.reports.secsleft}
                     />
                 </ListItem>
                 <ListItem>
                     <ListItemText
-                        primary={"Plugged In: " + "No"}
+                        primary={"Plugged In: " +data.reports.power_plugged? 'Yes' : "No"}
                     />
                 </ListItem>
             </List>
         </Paper>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        data: state.reports
+    };
+};
+
+export default connect(mapStateToProps)(BatteryCard);

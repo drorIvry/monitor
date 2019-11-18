@@ -9,7 +9,8 @@ import Cryptr from 'cryptr';
 
 import stateRouter from './routes/state';
 import monitorsRouter from './routes/monitors';
-import reportRouter from './routes/report_summery'
+import reportSummeryRouter from './routes/report_summery';
+import {getReport} from './routes/report';
 import {register, login} from './routes/account';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 
@@ -40,7 +41,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use('/monitors', monitorsRouter);
 app.use('/state', stateRouter);
-app.use('/reports',reportRouter);
+app.get('/report/:reportID', getReport);
+app.use('/reports',reportSummeryRouter);
 app.get('/accounts', login);
 app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);

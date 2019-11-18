@@ -13,7 +13,7 @@ import Frame from './Frame';
 import Copyright from './Copyright';
 import history from '../history'
 import {toggleProgressBar} from "../actions/FrameActions";
-import {updateReports} from "../actions/ReportsActions";
+import {updateReportsSummery} from "../actions/ReportsSummeryActions";
 import {connect} from "react-redux";
 import axios from "axios";
 
@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Reports({reports, updateReports, toggleProgressbar}) {
+function Reports({reportsSummery, updateReportsSummery, toggleProgressbar}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -74,12 +74,11 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                     },
                 },
             );
-            console.log(reports.data)
-            updateReports(response.data);
+            updateReportsSummery(response.data);
             toggleProgressBar(false);
         };
         fetchData();
-    }, [reports.reports.length]);
+    }, [reportsSummery.reports.length]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -108,7 +107,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {reports.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
+                                    {reportsSummery.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
                                         return (
                                             <TableRow hover tabIndex={-1} key={key}  onClick={event => history.push('/report/'+ row.ReportID)}>
                                                 <TableCell>{row.MonitorName}</TableCell>
@@ -123,7 +122,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={reports.reports.length}
+                            count={reportsSummery.reports.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{
@@ -144,7 +143,7 @@ function Reports({reports, updateReports, toggleProgressbar}) {
 }
 const mapStateToProps = (state) => {
     return {
-        reports: state.reports
+        reportsSummery: state.reportsSummery
     };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -152,8 +151,8 @@ const mapDispatchToProps = (dispatch) => {
         toggleProgressBar: (isOpen) => {
             dispatch(toggleProgressBar(isOpen));
         },
-        updateReports: (reports) => {
-            dispatch(updateReports(reports));
+        updateReportsSummery: (reports) => {
+            dispatch(updateReportsSummery(reports));
         },
     };
 };
