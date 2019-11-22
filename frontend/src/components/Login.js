@@ -50,7 +50,7 @@ function SignIn({login, onLogin}) {
 
 
     const onLoginPressed = () => {
-        axios.get('/accounts', {
+        axios.get('/login', {
             withCredentials: true,
             auth: {
                 username: data.username,

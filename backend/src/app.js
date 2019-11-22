@@ -43,7 +43,7 @@ app.use('/monitors', monitorsRouter);
 app.use('/state', stateRouter);
 app.get('/report/:reportID', getReport);
 app.use('/reports',reportSummeryRouter);
-app.get('/accounts', login);
+app.get('/login', login);
 app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);
 });
