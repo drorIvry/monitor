@@ -4,7 +4,6 @@ import {
 } from 'recharts';
 
 export default function CpuChart({graph_data}) {
-        console.log(graph_data)
         return (
             <LineChart
                 width={1000}

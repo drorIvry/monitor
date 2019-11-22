@@ -76,6 +76,15 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const convertToGB = (value) =>  {
+        return value/1024/1024/1024;
+    }
+    const createData = (raw) => {
+        return [
+            { name: 'Used', value: convertToGB(raw.used)},
+            { name: 'Free', value: convertToGB(raw.free)},
+        ];
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -107,14 +116,14 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Memory</h2>
-                                <UsageChart data={[]}/>
+                                <UsageChart data={createData(dashboard.Memory)}/>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Disk</h2>
-                                <UsageChart data={[]}/>
+                                <UsageChart data={createData(dashboard.Disk)}/>
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}
