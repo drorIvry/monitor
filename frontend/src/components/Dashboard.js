@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
+function Dashboard({dashboard, updateDashboard, toggleProgressBar, login}) {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -93,8 +93,8 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
             const response = await axios.get('/dashboard', {
                     withCredentials: true,
                     auth: {
-                        username: '2',
-                        password: '1'
+                        username: login.username,
+                        password: login.password,
                     },
                 },
             );
@@ -143,7 +143,8 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
 
 const mapStateToProps = (state) => {
     return {
-        dashboard: state.dashboard
+        dashboard: state.dashboard,
+        login: state.login,
     };
 };
 const mapDispatchToProps = (dispatch) => {

@@ -14,7 +14,6 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {makeStyles} from '@material-ui/core/styles';
 
-import {useParams} from 'react-router-dom';
 import {toggleProgressBar} from "../actions/FrameActions";
 import {updateReports} from "../actions/ReportsActions";
 
@@ -57,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ReportPage({reports, toggleProgressBar, updateReports, match}) {
+function ReportPage({reports, toggleProgressBar, updateReports, match, login}) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState({
@@ -91,8 +90,8 @@ function ReportPage({reports, toggleProgressBar, updateReports, match}) {
             const response = await axios.get('/report/' + match.params.reportID, {
                     withCredentials: true,
                     auth: {
-                        username: '2',
-                        password: '1'
+                        username: login.username,
+                        password: login.password,
                     },
                 },
             );
@@ -336,7 +335,8 @@ function ReportPage({reports, toggleProgressBar, updateReports, match}) {
 
 const mapStateToProps = (state) => {
     return {
-        reports: state.reports
+        reports: state.reports,
+        login: state.login,
     };
 };
 const mapDispatchToProps = (dispatch) => {

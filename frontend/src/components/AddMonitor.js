@@ -15,7 +15,6 @@ import axios from 'axios';
 import history from '../history';
 import {updateMonitors} from '../actions/MonitorsActions';
 import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
-import config from "../serverAPI/config";
 
 
 const useStyles = makeStyles(theme => ({

@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Reports({reportsSummery, updateReportsSummery, toggleProgressbar}) {
+function Reports({reportsSummery, updateReportsSummery, toggleProgressbar, login,}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -69,8 +69,8 @@ function Reports({reportsSummery, updateReportsSummery, toggleProgressbar}) {
             const response = await axios.get( '/reports', {
                     withCredentials: true,
                     auth: {
-                        username: '2',
-                        password: '1'
+                        username: login.username,
+                        password: login.password,
                     },
                 },
             );
@@ -143,7 +143,8 @@ function Reports({reportsSummery, updateReportsSummery, toggleProgressbar}) {
 }
 const mapStateToProps = (state) => {
     return {
-        reportsSummery: state.reportsSummery
+        reportsSummery: state.reportsSummery,
+        login: state.login,
     };
 };
 const mapDispatchToProps = (dispatch) => {

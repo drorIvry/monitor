@@ -14,7 +14,6 @@ import axios from 'axios';
 
 import Copyright from './Copyright'
 import history from '../history';
-import config from '../serverAPI/config';
 import {login} from "../actions/LoginActions";
 import {connect} from "react-redux";
 

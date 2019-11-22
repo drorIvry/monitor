@@ -18,7 +18,6 @@ import axios from 'axios';
 import Copyright from './Copyright';
 import history from '../history';
 import {login} from "../actions/LoginActions";
-import config from '../serverAPI/config'
 
 const useStyles = makeStyles(theme => ({
     paper: {

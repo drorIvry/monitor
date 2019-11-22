@@ -16,7 +16,7 @@ import history from './history';
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
 
-function App({darkMode}) {
+function App({darkMode, login}) {
     const theme = React.useMemo(
         () =>
             createMuiTheme({
@@ -25,6 +25,9 @@ function App({darkMode}) {
                 },
             }),
     );
+
+    if(!login.loggedIn)
+        history.push('/login');
 
     return (
         <Router history={history}>
@@ -64,6 +67,7 @@ function App({darkMode}) {
 const mapStateToProps = (state) => {
     return {
         darkMode: state.darkMode,
+        login: state.login,
     };
 };
 

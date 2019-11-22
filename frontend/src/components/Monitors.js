@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Monitors({onDialogClick, toggleProgressBar, updateMonitors, dialogStatus, monitors}) {
+function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, monitors}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -113,8 +113,8 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, dialogStatu
             const response = await axios.get( '/monitors', {
                     withCredentials: true,
                     auth: {
-                        username: '2',
-                        password: '1'
+                        username: login.username,
+                        password: login.password,
                     },
                 },
             );
@@ -231,7 +231,8 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, dialogStatu
 const mapStateToProps = (state) => {
     return {
         dialogStatus: state.monitorDialog,
-        monitors: state.monitors
+        monitors: state.monitors,
+        login: state.login,
     };
 };
 
