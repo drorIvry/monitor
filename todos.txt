@@ -1,15 +1,10 @@
-redux hookup
-use actual passwords
-
-FE <> BE
 
 - alerts
-
-use login stuff save account id
 add cookies
-add allerts to BE
+clean code
 unit tests
 cypress
-
+deploy and install with docker
+heroku(?)
 assign key to agent
 agent config script
