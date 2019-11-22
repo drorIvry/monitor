@@ -1,7 +1,8 @@
 redux hookup
+use actual passwords
+
 FE <> BE
 
-- dashboard
 - alerts
 
 use login stuff save account id

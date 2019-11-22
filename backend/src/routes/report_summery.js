@@ -24,6 +24,7 @@ router.get('/', async function (req, res, next) {
 
     for (const report of reports) {
        const monitor = await Monitors.findOne({_id: report.MonitorID});
+
         reportSummaries.push({
             PCName: monitor.PCName,
             MonitorName: monitor.MonitorName,

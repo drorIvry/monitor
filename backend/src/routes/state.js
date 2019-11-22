@@ -35,7 +35,10 @@ router.post('/', async function(req, res, next){
     const data = parseData(req.body, accountID, previous, monitor);
 
     SystemState.updateOne(
-        {AccountID: mongoose.Types.ObjectId(accountID)},
+        {
+            AccountID: mongoose.Types.ObjectId(accountID),
+            MonitorID: monitor._id
+        },
         {...data},
         {upsert: true},
         err => {

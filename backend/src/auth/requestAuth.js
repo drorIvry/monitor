@@ -30,7 +30,6 @@ export function validateBasicAuth(cryptr, req, res, next) {
 }
 
 export function validateAPI(req, res, next) {
-    console.log(req.headers)
 
     const apiKey = req.header('monitor-api-key');
     if (!apiKey) {
