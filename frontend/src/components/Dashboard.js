@@ -116,14 +116,14 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Memory</h2>
-                                <UsageChart data={createData(dashboard.Memory)}/>
+                                {loaded &&<UsageChart data={createData(dashboard.Memory)}/>}
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Disk</h2>
-                                <UsageChart data={createData(dashboard.Disk)}/>
+                                {loaded &&<UsageChart data={createData(dashboard.Disk)}/>}
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}
