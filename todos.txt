@@ -1,7 +1,6 @@
 redux hookup
 FE <> BE
 
-- states
 - dashboard
 - alerts
 

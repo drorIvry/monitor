@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -7,7 +7,11 @@ import Paper from '@material-ui/core/Paper';
 import UsageChart from './UsageChart'
 import Copyright from './Copyright';
 import Frame from './Frame';
-import CpuChar from './CpuChart'
+import CpuChart from './CpuChart'
+import {toggleProgressBar} from "../actions/FrameActions";
+import {updateDashboard} from "../actions/DashboardActions";
+import {connect} from "react-redux";
+import axios from "axios";
 
 
 const drawerWidth = 240;
@@ -68,10 +72,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Dashboard() {
+function Dashboard({dashboard, updateDashboard, toggleProgressBar, }) {
     const classes = useStyles();
+    const [loaded, setLoaded] = React.useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
+    useEffect(() => {
+        const fetchData = async () => {
+
+            toggleProgressBar(true);
+            const response = await axios.get('/dashboard', {
+                    withCredentials: true,
+                    auth: {
+                        username: '2',
+                        password: '1'
+                    },
+                },
+            );
+            updateDashboard(response.data);
+            toggleProgressBar(false);
+            setLoaded(true);
+        };
+        fetchData();
+    }, []);
 
     return (
         <div className={classes.root}>
@@ -84,21 +107,21 @@ export default function Dashboard() {
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Memory</h2>
-                                <UsageChart/>
+                                <UsageChart data={[]}/>
                             </Paper>
                         </Grid>
                         {/* Recent Deposits */}
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Disk</h2>
-                                <UsageChart/>
+                                <UsageChart data={[]}/>
                             </Paper>
                         </Grid>
                         {/* Recent Orders */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h1>CPU</h1>
-                                <CpuChar/>
+                                {loaded && <CpuChart graph_data={dashboard.CPU}/>}
                             </Paper>
                         </Grid>
                     </Grid>
@@ -108,3 +131,21 @@ export default function Dashboard() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => {
+    return {
+        dashboard: state.dashboard
+    };
+};
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
+        updateDashboard: (data) => {
+            dispatch(updateDashboard(data));
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

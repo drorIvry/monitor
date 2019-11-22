@@ -7,6 +7,7 @@ import LoginReducer from './LoginReducer';
 import MonitorsReducer from './MonitorsReducer';
 import ReportsSummeryReducer from './ReportsSummeryReducer';
 import ReportsReducer from './ReportsReducer';
+import DashboardReducer from './DashboardReducer';
 
 export default combineReducers({
     darkMode:DarkModeReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
     monitors: MonitorsReducer,
     reportsSummery: ReportsSummeryReducer,
     reports: ReportsReducer,
+    dashboard: DashboardReducer,
 });

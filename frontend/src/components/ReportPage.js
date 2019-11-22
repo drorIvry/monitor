@@ -59,7 +59,6 @@ const useStyles = makeStyles(theme => ({
 
 function ReportPage({reports, toggleProgressBar, updateReports, match}) {
     const classes = useStyles();
-    let {reportID} = useParams();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState({
         disk: [],
