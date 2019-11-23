@@ -1,4 +1,3 @@
-- alerts
 clean code
 unit tests
 cypress

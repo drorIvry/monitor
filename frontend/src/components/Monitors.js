@@ -139,8 +139,8 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, toggleSnack
             {
                 withCredentials: true,
                 auth: {
-                    username: 2,
-                    password: 1,
+                    username: login.username,
+                    password: login.password,
                 },
             }).then((response) => {
             toggleProgressBar(false);
@@ -152,7 +152,7 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, toggleSnack
             toggleSnackbar(true, error.message);
             onDialogClick(false);
         });
-    }
+    };
 
     return (
         <div className={classes.root}>
