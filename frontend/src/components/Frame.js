@@ -133,7 +133,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, toggleProgressBar, toggleSnackbar}) {
+function Frame({alerts, darkMode, drawer, onDrawerClick, onSwitchClick, frame, toggleProgressBar, toggleSnackbar}) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
@@ -170,7 +170,7 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, togglePro
                     <IconButton color="inherit" onClick={event => {
                         history.push('/alerts')
                     }}>
-                        <Badge badgeContent={10} color="secondary">
+                        <Badge badgeContent={alerts.alerts.length} color="secondary">
                             <NotificationsIcon/>
                         </Badge>
                     </IconButton>
@@ -233,6 +233,7 @@ const mapStateToProps = (state) => {
         darkMode: state.darkMode,
         drawer: state.drawer,
         frame: state.frame,
+        alerts: state.alerts,
     };
 };
 

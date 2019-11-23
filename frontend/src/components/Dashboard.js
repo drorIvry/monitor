@@ -12,6 +12,7 @@ import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateDashboard} from "../actions/DashboardActions";
 import {connect} from "react-redux";
 import axios from "axios";
+import {updateAlerts} from "../actions/AlertsActions";
 
 
 const drawerWidth = 240;
@@ -72,7 +73,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Dashboard({dashboard, updateDashboard, toggleProgressBar, toggleSnackbar, login}) {
+function Dashboard({dashboard, updateDashboard, updateAlerts, toggleProgressBar, toggleSnackbar, login}) {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -101,6 +102,16 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, toggleSnackba
                 updateDashboard(response.data);
                 toggleProgressBar(false);
                 setLoaded(true);
+
+                const alertsResponse = await axios.get('/alerts', {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
+                    },
+                );
+                updateAlerts(alertsResponse.data);
             }
             catch (e) {
                 toggleProgressBar(false);
@@ -161,7 +172,10 @@ const mapDispatchToProps = (dispatch) => {
         },
         toggleSnackbar: (isOpen, text) => {
             dispatch(toggleSnackbar(isOpen, text))
-        }
+        },
+        updateAlerts: (monitors) => {
+            dispatch(updateAlerts(monitors));
+        },
     };
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -12,20 +12,35 @@ import TableRow from '@material-ui/core/TableRow';
 import Frame from './Frame';
 import Copyright from './Copyright';
 import history from '../history'
+import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
+import {updateAlerts} from "../actions/AlertsActions";
+import {connect} from "react-redux";
+import axios from "axios";
 
 // Generate Order Data
 function createData(id,  date, pcName, alertDescription) {
     return {id, alertDescription, date, pcName,};
 }
 
-const rows = [
-    createData(0, 'heat', '16 Mar, 2019', 'PC-1'),
-    createData(1, 'memory outage', '16 Mar, 2019', 'PC-2'),
-    createData(2, 'c', '16 Mar, 2019', 'PC-3'),
-    createData(3, 'd', '16 Mar, 2019', 'PC-4'),
-    createData(4, 'e', '15 Mar, 2019', 'PC-5'),
-];
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
 
+    // Remember the latest function.
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -67,9 +82,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Alerts() {
+function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
+    const [loaded, setLoaded] = React.useState(false);
+    const [delay, setDelay] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const handleChangePage = (event, newPage) => {
@@ -80,6 +97,30 @@ export default function Alerts() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    useInterval(() => {
+        const fetchData = async () => {
+            try {
+                toggleProgressBar(true);
+                const response = await axios.get('/alerts', {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
+                    },
+                );
+                updateAlerts(response.data);
+                toggleProgressBar(false);
+                setLoaded(true);
+                setDelay(10*1000);
+            } catch (e) {
+                toggleProgressBar(false);
+                toggleSnackbar(true, e.message);
+            }
+
+        };
+        fetchData();
+    }, delay);
 
     return (
         <div className={classes.root}>
@@ -87,7 +128,7 @@ export default function Alerts() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer}/>
                 <Container maxWidth="lg" className={classes.container}>
-                    <Paper>
+                    {loaded && <Paper>
                         <div className={classes.tableWrapper}>
 
                             <Table stickyHeader size="medium">
@@ -99,12 +140,12 @@ export default function Alerts() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                                    {alerts.alerts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={row.id}>
-                                                <TableCell>{row.alertDescription}</TableCell>
-                                                <TableCell>{row.date}</TableCell>
-                                                <TableCell>{row.pcName}</TableCell>
+                                            <TableRow hover tabIndex={-1} key={key}>
+                                                <TableCell>{row.Alert}</TableCell>
+                                                <TableCell>{row.AlertDate}</TableCell>
+                                                <TableCell>{row.PCName}</TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -114,7 +155,7 @@ export default function Alerts() {
                         <TablePagination
                             rowsPerPageOptions={[10, 25, 100]}
                             component="div"
-                            count={rows.length}
+                            count={alerts.alerts.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
                             backIconButtonProps={{
@@ -126,10 +167,32 @@ export default function Alerts() {
                             onChangePage={handleChangePage}
                             onChangeRowsPerPage={handleChangeRowsPerPage}
                         />
-                    </Paper>
+                    </Paper>}
                 </Container>
                 <Copyright/>
             </main>
         </div>
     );
 }
+const mapStateToProps = (state) => {
+    return {
+        alerts: state.alerts,
+        login: state.login,
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        toggleProgressBar: (isOpen) => {
+            dispatch(toggleProgressBar(isOpen));
+        },
+        updateAlerts: (monitors) => {
+            dispatch(updateAlerts(monitors));
+        },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text));
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alerts);
