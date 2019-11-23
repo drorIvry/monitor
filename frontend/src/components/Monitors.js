@@ -16,7 +16,7 @@ import {toggleDialog} from '../actions/MonitorDialogActions';
 import Frame from './Frame';
 import AddMonitor from './AddMonitor';
 import Copyright from './Copyright';
-import {toggleProgressBar} from '../actions/FrameActions';
+import {toggleProgressBar, toggleSnackbar} from '../actions/FrameActions';
 import {updateMonitors} from '../actions/MonitorsActions';
 import history from "../history";
 
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, monitors}) {
+function Monitors({onDialogClick, toggleProgressBar, updateMonitors, toggleSnackbar, login, monitors}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -107,20 +107,24 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, moni
 
     useEffect(() => {
         const fetchData = async () => {
-
-            toggleProgressBar(true);
-            console.log(monitors.monitors.length);
-            const response = await axios.get( '/monitors', {
-                    withCredentials: true,
-                    auth: {
-                        username: login.username,
-                        password: login.password,
+            try {
+                toggleProgressBar(true);
+                const response = await axios.get('/monitors', {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
                     },
-                },
-            );
+                );
 
-            updateMonitors(response.data);
-            toggleProgressBar(false);
+                updateMonitors(response.data);
+                toggleProgressBar(false);
+            } catch (e) {
+                toggleProgressBar(false);
+                toggleSnackbar(true, e.message);
+            }
+
         };
         fetchData();
     }, [monitors.monitors.length]);
@@ -133,18 +137,19 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, moni
                 apiKeys: selected,
             },
             {
-            withCredentials: true,
-            auth: {
-                username:2,
-                password: 1,
-            },
-        }).then((response)=> {
+                withCredentials: true,
+                auth: {
+                    username: 2,
+                    password: 1,
+                },
+            }).then((response) => {
             toggleProgressBar(false);
             updateMonitors([...monitors.monitors, response.data]);
             onDialogClick(false);
         }).catch((error) => {
             toggleProgressBar(false);
             console.error(error);
+            toggleSnackbar(true, error.message);
             onDialogClick(false);
         });
     }
@@ -166,7 +171,7 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, moni
                                                 indeterminate={selected.length > 0 && selected.length < monitors.monitors.length}
                                                 checked={selected.length === monitors.monitors.length}
                                                 onChange={handleSelectAllClick}
-                                                inputProps={{ 'aria-label': 'select all desserts' }}
+                                                inputProps={{'aria-label': 'select all desserts'}}
                                             />
                                         </TableCell>
                                         <TableCell>Monitor API Key</TableCell>
@@ -180,11 +185,12 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, moni
                                         const labelId = `enhanced-table-checkbox-${index}`;
 
                                         return (
-                                            <TableRow hover tabIndex={-1} key={row.id} onClick={event => handleClick(event, row.APIKey)}>
+                                            <TableRow hover tabIndex={-1} key={row.id}
+                                                      onClick={event => handleClick(event, row.APIKey)}>
                                                 <TableCell padding="checkbox">
                                                     <Checkbox
                                                         checked={isItemSelected}
-                                                        inputProps={{ 'aria-labelledby': labelId }}
+                                                        inputProps={{'aria-labelledby': labelId}}
 
                                                     />
                                                 </TableCell>
@@ -217,7 +223,8 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, login, moni
                             Add new Monitor
                         </Button>
                         <AddMonitor/>
-                        {selected.length > 0 && <Button variant="outlined" className={classes.button} onClick={onDeletePressed}>
+                        {selected.length > 0 &&
+                        <Button variant="outlined" className={classes.button} onClick={onDeletePressed}>
                             Delete
                         </Button>}
                     </Paper>
@@ -247,6 +254,9 @@ const mapDispatchToProps = (dispatch) => {
         updateMonitors: (monitors) => {
             dispatch(updateMonitors(monitors));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text));
+        }
     };
 };
 

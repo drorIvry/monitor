@@ -8,7 +8,7 @@ import UsageChart from './UsageChart'
 import Copyright from './Copyright';
 import Frame from './Frame';
 import CpuChart from './CpuChart'
-import {toggleProgressBar} from "../actions/FrameActions";
+import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateDashboard} from "../actions/DashboardActions";
 import {connect} from "react-redux";
 import axios from "axios";
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Dashboard({dashboard, updateDashboard, toggleProgressBar, login}) {
+function Dashboard({dashboard, updateDashboard, toggleProgressBar, toggleSnackbar, login}) {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(false);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -88,19 +88,26 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, login}) {
 
     useEffect(() => {
         const fetchData = async () => {
-
-            toggleProgressBar(true);
-            const response = await axios.get('/dashboard', {
-                    withCredentials: true,
-                    auth: {
-                        username: login.username,
-                        password: login.password,
+            try{
+                toggleProgressBar(true);
+                const response = await axios.get('/dashboard', {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
                     },
-                },
-            );
-            updateDashboard(response.data);
-            toggleProgressBar(false);
-            setLoaded(true);
+                );
+                updateDashboard(response.data);
+                toggleProgressBar(false);
+                setLoaded(true);
+            }
+            catch (e) {
+                toggleProgressBar(false);
+                toggleSnackbar(true,e.message)
+
+            }
+
         };
         fetchData();
     }, []);
@@ -112,21 +119,18 @@ function Dashboard({dashboard, updateDashboard, toggleProgressBar, login}) {
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid container spacing={3}>
-                        {/* Chart */}
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Memory</h2>
                                 {loaded &&<UsageChart data={createData(dashboard.Memory)}/>}
                             </Paper>
                         </Grid>
-                        {/* Recent Deposits */}
                         <Grid item xs={12} md={6} lg={6}>
                             <Paper className={fixedHeightPaper}>
                                 <h2>Disk</h2>
                                 {loaded &&<UsageChart data={createData(dashboard.Disk)}/>}
                             </Paper>
                         </Grid>
-                        {/* Recent Orders */}
                         <Grid item xs={12}>
                             <Paper className={classes.paper}>
                                 <h1>CPU</h1>
@@ -155,6 +159,9 @@ const mapDispatchToProps = (dispatch) => {
         updateDashboard: (data) => {
             dispatch(updateDashboard(data));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text))
+        }
     };
 };
 

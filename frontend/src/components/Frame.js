@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,13 +16,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import ErrorIcon from '@material-ui/icons/Error';
+import Snackbar from '@material-ui/core/Snackbar';
+import SnackbarContent from '@material-ui/core/SnackbarContent';
+import CloseIcon from '@material-ui/icons/Close';
 
-import { mainListItems,  accountList } from './ListItems';
+import {accountList, mainListItems} from './ListItems';
 import {connect} from 'react-redux';
 import history from '../history'
 import {toggleDarkMode} from '../actions/DarkModeAction';
 import {toggleDrawer} from '../actions/DrawerActions';
-import {toggleProgressBar} from '../actions/FrameActions';
+import {toggleProgressBar, toggleSnackbar} from '../actions/FrameActions';
 
 
 const drawerWidth = 240;
@@ -104,12 +108,19 @@ const useStyles = makeStyles(theme => ({
     fixedHeight: {
         height: 240,
     },
-    darkmode:{
+    darkmode: {
         paddingLeft: 18,
         paddingTop: 18,
 
     },
-    switchMode:{
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    error: {
+        backgroundColor: theme.palette.error.dark,
+    },
+    switchMode: {
         marginRight: 10,
     },
     frameProgress: {
@@ -120,11 +131,20 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, progressbar,  toggleProgressBar}) {
+function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, toggleProgressBar, toggleSnackbar}) {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        toggleSnackbar(false, '');
+    };
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar position="absolute" className={clsx(classes.appBar, drawer.open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
@@ -134,18 +154,20 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, progressbar,  to
                         onClick={event => onDrawerClick(true)}
                         className={clsx(classes.menuButton, drawer.open && classes.menuButtonHidden)}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                         Dashboard
                     </Typography>
-                    <IconButton color="inherit" onClick={event => {history.push('/alerts')}}>
+                    <IconButton color="inherit" onClick={event => {
+                        history.push('/alerts')
+                    }}>
                         <Badge badgeContent={10} color="secondary">
-                            <NotificationsIcon />
+                            <NotificationsIcon/>
                         </Badge>
                     </IconButton>
                 </Toolbar>
-                {progressbar.progressbarVisible && <LinearProgress color="secondary" />}
+                {frame.progressbarVisible && <LinearProgress color="secondary"/>}
             </AppBar>
 
             <Drawer
@@ -157,19 +179,43 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, progressbar,  to
             >
                 <div className={classes.toolbarIcon}>
                     <IconButton onClick={event => onDrawerClick(false)}>
-                        <ChevronLeftIcon />
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>{mainListItems}</List>
-                <Divider />
+                <Divider/>
                 <FormControlLabel
                     className={classes.darkmode}
-                    control={<Switch className={classes.switchMode} checked={darkMode.darkMode} onChange={()=> onSwitchClick()} />}
+                    control={<Switch className={classes.switchMode} checked={darkMode.darkMode}
+                                     onChange={() => onSwitchClick()}/>}
                     label="Dark Mode"
                 />
                 <List>{accountList}</List>
             </Drawer>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={frame.snackbarVisible}
+                autoHideDuration={6000}
+                onClose={handleClose}
+            >
+                <SnackbarContent
+                    className={classes.error}
+                    aria-describedby="client-snackbar"
+                    message={ <span id="client-snackbar" className={classes.message}>
+                         <ErrorIcon className={classes.error} />
+                        {frame.snackbarText}
+                     </span>}
+                    action={[
+                        <IconButton key="close" aria-label="close" color="inherit" onClick={handleClose}>
+                            <CloseIcon className={classes.icon}/>
+                        </IconButton>,
+                    ]}
+                />
+            </Snackbar>
         </div>
     );
 }
@@ -178,7 +224,7 @@ const mapStateToProps = (state) => {
     return {
         darkMode: state.darkMode,
         drawer: state.drawer,
-        progressbar: state.frame,
+        frame: state.frame,
     };
 };
 
@@ -193,6 +239,9 @@ const mapDispatchToProps = (dispatch) => {
         toggleProgressBar: (isOpen) => {
             dispatch(toggleProgressBar(isOpen));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text))
+        }
     };
 };
 

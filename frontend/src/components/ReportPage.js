@@ -14,7 +14,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import {makeStyles} from '@material-ui/core/styles';
 
-import {toggleProgressBar} from "../actions/FrameActions";
+import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateReports} from "../actions/ReportsActions";
 
 import Copyright from './Copyright';
@@ -85,19 +85,23 @@ function ReportPage({reports, toggleProgressBar, updateReports, match, login}) {
     };
     useEffect(() => {
         const fetchData = async () => {
-
-            toggleProgressBar(true);
-            const response = await axios.get('/report/' + match.params.reportID, {
-                    withCredentials: true,
-                    auth: {
-                        username: login.username,
-                        password: login.password,
+            try {
+                toggleProgressBar(true);
+                const response = await axios.get('/report/' + match.params.reportID, {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
                     },
-                },
-            );
-            updateReports(response.data);
-            toggleProgressBar(false);
-            setLoaded(true);
+                );
+                updateReports(response.data);
+                toggleProgressBar(false);
+                setLoaded(true);
+            } catch (e) {
+                toggleProgressBar(false);
+                toggleSnackbar(true, e.message);
+            }
         };
         fetchData();
     }, []);
@@ -162,11 +166,12 @@ function ReportPage({reports, toggleProgressBar, updateReports, match, login}) {
                                     {reports.reports.Disk.partitions.map((partition, key) => {
                                             return (
                                                 <div key={key}>
-                                                    <ListItem button onClick={event => handleClick('disk',key)}>
+                                                    <ListItem button onClick={event => handleClick('disk', key)}>
                                                         <ListItemText primary={partition.device}/>
                                                         {(open.disk.indexOf(key) !== -1) ? <ExpandLess/> : <ExpandMore/>}
                                                     </ListItem>
-                                                    <Collapse in={open.disk.indexOf(key) !== -1} timeout="auto" unmountOnExit>
+                                                    <Collapse in={open.disk.indexOf(key) !== -1} timeout="auto"
+                                                              unmountOnExit>
                                                         <List component="div" disablePadding>
                                                             <ListItem className={classes.nested}>
                                                                 <ListItemText primary={"FS type: " + partition.fstype}/>
@@ -199,7 +204,8 @@ function ReportPage({reports, toggleProgressBar, updateReports, match, login}) {
                                                         <ListItemText primary={partition.name}/>
                                                         {(open.network.indexOf(key) !== -1) ? <ExpandLess/> : <ExpandMore/>}
                                                     </ListItem>
-                                                    <Collapse in={open.network.indexOf(key) !== -1} timeout="auto" unmountOnExit>
+                                                    <Collapse in={open.network.indexOf(key) !== -1} timeout="auto"
+                                                              unmountOnExit>
                                                         <List component="div" disablePadding>
                                                             <ListItem className={classes.nested}>
                                                                 <ListItemText primary={"Address: " + partition.address[0]}/>
@@ -257,7 +263,8 @@ function ReportPage({reports, toggleProgressBar, updateReports, match, login}) {
                                                         <ListItemText primary={partition.name}/>
                                                         {(open.users.indexOf(key) !== -1) ? <ExpandLess/> : <ExpandMore/>}
                                                     </ListItem>
-                                                    <Collapse in={open.users.indexOf(key) !== -1} timeout="auto" unmountOnExit>
+                                                    <Collapse in={open.users.indexOf(key) !== -1} timeout="auto"
+                                                              unmountOnExit>
                                                         <List component="div" disablePadding>
                                                             <ListItem className={classes.nested}>
                                                                 <ListItemText primary={"User Name: " + partition.name}/>
@@ -347,6 +354,9 @@ const mapDispatchToProps = (dispatch) => {
         updateReports: (reports) => {
             dispatch(updateReports(reports));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text));
+        }
     };
 };
 

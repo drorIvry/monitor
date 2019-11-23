@@ -1,4 +1,4 @@
-
+snack bar for errors
 - alerts
 add cookies
 clean code

@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 
@@ -42,6 +42,8 @@ const useStyles = makeStyles(theme => ({
 function SignIn({login, onLogin}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
+    const [err, setErr] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
     const handleChange = (key, value) => {
         setData({...data, [key]:value})
@@ -59,6 +61,8 @@ function SignIn({login, onLogin}) {
             onLogin(data.username, data.password, response.accountID, response.firstName)
             history.push('/dashboard')
         }).catch((error) => {
+            setErr(true);
+            setErrorText('Incorrect Username / Password.');
             console.error(error);
         })
     };
@@ -79,6 +83,8 @@ function SignIn({login, onLogin}) {
                         margin="normal"
                         required
                         fullWidth
+                        error={err}
+                        helperText={errorText}
                         id="username"
                         onChange={(event) => {handleChange('username', event.target.value)}}
                         label="User Name"
@@ -91,6 +97,8 @@ function SignIn({login, onLogin}) {
                         margin="normal"
                         required
                         fullWidth
+                        error={err}
+                        helperText={errorText}
                         onChange={(event) => {handleChange('password', event.target.value)}}
                         name="password"
                         label="Password"

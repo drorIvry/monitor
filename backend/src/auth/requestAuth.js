@@ -9,21 +9,18 @@ export function validateBasicAuth(cryptr, req, res, next) {
             return res.send(500, {error});
 
         if(!doc){
-            res.set('WWW-Authenticate', 'Basic realm="401"');
-            return res.status(401).send('Authentication required.');
+            return res.status(401).end('Authentication required.');
         }
 
         const decryptedPass = cryptr.decrypt(doc.Password);
 
         if (!username || !password) {
-            res.set('WWW-Authenticate', 'Basic realm="401"');
             return res.status(401).send('Authentication required.');
         }
 
         if (username === doc.UserName && password === decryptedPass)
             next();
         else {
-            res.set('WWW-Authenticate', 'Basic realm="401"');
             return res.status(401).send('Authentication required.');
         }
     })

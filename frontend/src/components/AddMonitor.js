@@ -15,6 +15,7 @@ import axios from 'axios';
 import history from '../history';
 import {updateMonitors} from '../actions/MonitorsActions';
 import {toggleDialog, toggleProgressBar} from '../actions/MonitorDialogActions';
+import {toggleSnackbar} from "../actions/FrameActions";
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +42,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login, monitors, updateMonitors}) {
+function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login, monitors, updateMonitors, toggleSnackbar}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
 
@@ -70,6 +71,8 @@ function AddMonitor({dialogStatus, onDialogClick, toggleProgressbar, login, moni
         }).catch((error) => {
             toggleProgressbar(false);
             console.error(error);
+            toggleProgressBar(false);
+            toggleSnackbar(true, error.message);
             onDialogClick(false);
         });
 
@@ -136,6 +139,9 @@ const mapDispatchToProps = (dispatch) => {
         updateMonitors: (monitors) => {
             dispatch(updateMonitors(monitors));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text));
+        }
     };
 };
 

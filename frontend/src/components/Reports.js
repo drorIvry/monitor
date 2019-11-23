@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Frame from './Frame';
 import Copyright from './Copyright';
 import history from '../history'
-import {toggleProgressBar} from "../actions/FrameActions";
+import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateReportsSummery} from "../actions/ReportsSummeryActions";
 import {connect} from "react-redux";
 import axios from "axios";
@@ -57,25 +57,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Reports({reportsSummery, updateReportsSummery, toggleProgressbar, login,}) {
+function Reports({reportsSummery, updateReportsSummery, toggleProgressbar, toggleSnackbar, login,}) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     useEffect(() => {
         const fetchData = async () => {
-
-            toggleProgressBar(true);
-            const response = await axios.get( '/reports', {
-                    withCredentials: true,
-                    auth: {
-                        username: login.username,
-                        password: login.password,
+            try {
+                toggleProgressBar(true);
+                const response = await axios.get('/reports', {
+                        withCredentials: true,
+                        auth: {
+                            username: login.username,
+                            password: login.password,
+                        },
                     },
-                },
-            );
-            updateReportsSummery(response.data);
-            toggleProgressBar(false);
+                );
+                updateReportsSummery(response.data);
+                toggleProgressBar(false);
+            } catch (e) {
+                toggleProgressBar(false);
+                toggleSnackbar(true, e.message);
+            }
         };
         fetchData();
     }, [reportsSummery.reports.length]);
@@ -109,7 +113,8 @@ function Reports({reportsSummery, updateReportsSummery, toggleProgressbar, login
                                 <TableBody>
                                     {reportsSummery.reports.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, key) => {
                                         return (
-                                            <TableRow hover tabIndex={-1} key={key}  onClick={event => history.push('/report/'+ row.ReportID)}>
+                                            <TableRow hover tabIndex={-1} key={key}
+                                                      onClick={event => history.push('/report/' + row.ReportID)}>
                                                 <TableCell>{row.MonitorName}</TableCell>
                                                 <TableCell>{row.TimeStamp}</TableCell>
                                                 <TableCell>{row.PCName}</TableCell>
@@ -141,6 +146,7 @@ function Reports({reportsSummery, updateReportsSummery, toggleProgressbar, login
         </div>
     );
 }
+
 const mapStateToProps = (state) => {
     return {
         reportsSummery: state.reportsSummery,
@@ -155,6 +161,9 @@ const mapDispatchToProps = (dispatch) => {
         updateReportsSummery: (reports) => {
             dispatch(updateReportsSummery(reports));
         },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text));
+        }
     };
 };
 
