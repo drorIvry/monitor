@@ -1,4 +1,6 @@
 import React from 'react';
+import { useCookies } from 'react-cookie';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -7,6 +9,8 @@ import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AlarmIcon from '@material-ui/icons/Warning';
+import {logout} from '../actions/LoginActions';
+import { useDispatch } from 'react-redux'
 
 import history from '../history'
 
@@ -40,14 +44,16 @@ export const mainListItems = (
     </div>
 );
 
-export const accountList = (
-    <div>
-        <ListItem button onClick={event => history.push('/login')}>
-            <ListItemIcon>
-                <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-        </ListItem>
+export function accountList(onLogout) {
+    return (
+        <div>
+            <ListItem button onClick={onLogout}>
+                <ListItemIcon>
+                    <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+            </ListItem>
 
-    </div>
-);
+        </div>
+    );
+}

@@ -22,11 +22,13 @@ import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 
 import {accountList, mainListItems} from './ListItems';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 import history from '../history'
 import {toggleDarkMode} from '../actions/DarkModeAction';
 import {toggleDrawer} from '../actions/DrawerActions';
 import {toggleProgressBar, toggleSnackbar} from '../actions/FrameActions';
+import {useCookies} from "react-cookie";
+import {logout} from "../actions/LoginActions";
 
 
 const drawerWidth = 240;
@@ -134,7 +136,13 @@ const useStyles = makeStyles(theme => ({
 function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, toggleProgressBar, toggleSnackbar}) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);
+    const [cookies, setCookie, removeCookie] = useCookies(['login']);
+    const dispatch = useDispatch();
 
+    const onLogout = () => {
+        removeCookie('login');
+        dispatch(logout());
+    };
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -157,7 +165,7 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, togglePro
                         <MenuIcon/>
                     </IconButton>
                     <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
+                        Monitor
                     </Typography>
                     <IconButton color="inherit" onClick={event => {
                         history.push('/alerts')
@@ -191,7 +199,7 @@ function Frame({darkMode, drawer, onDrawerClick, onSwitchClick, frame, togglePro
                                      onChange={() => onSwitchClick()}/>}
                     label="Dark Mode"
                 />
-                <List>{accountList}</List>
+                <List>{accountList(onLogout)}</List>
             </Drawer>
             <Snackbar
                 anchorOrigin={{

@@ -1,6 +1,6 @@
-import {ThemeProvider} from '@material-ui/core/styles';
-import {createMuiTheme} from '@material-ui/core/styles';
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
+import {useCookies} from 'react-cookie';
 
 import SignIn from './components/Login';
 import SignUp from './components/Register';
@@ -13,10 +13,13 @@ import NotFound from './components/NotFound';
 
 import history from './history';
 
-import React from 'react';
-import {Router, Switch, Route} from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {Route, Router, Switch} from 'react-router-dom';
+import axios from "axios";
+import {toggleSnackbar} from "./actions/FrameActions";
+import {login} from "./actions/LoginActions";
 
-function App({darkMode, login}) {
+function App({darkMode, login, onLogin,}) {
     const theme = React.useMemo(
         () =>
             createMuiTheme({
@@ -25,8 +28,25 @@ function App({darkMode, login}) {
                 },
             }),
     );
+    const [cookies, setCookie] = useCookies(['login']);
+    useEffect(() => {
+        axios.get('/login', {
+            withCredentials: true,
+            auth: {
+                username: cookies.login.username,
+                password: cookies.login.password,
+            },
+        }).then((response) => {
+            onLogin(cookies.login.username, cookies.login.password, response.accountID, response.firstName);
+            history.push('/dashboard')
+        }).catch((error) => {
+            console.error(error);
+            toggleSnackbar(true, 'Error while logging in.')
+        });
+    }, []);
 
-    if(!login.loggedIn)
+
+    if (!login.loggedIn)
         history.push('/login');
 
     return (
@@ -53,7 +73,7 @@ function App({darkMode, login}) {
                         <Route path='/alerts'>
                             <Alerts/>
                         </Route>
-                        <Route exsact path={`/report/:reportID`} component={ReportPage} />
+                        <Route exsact path={`/report/:reportID`} component={ReportPage}/>
                         <Route>
                             <NotFound/>
                         </Route>
@@ -71,4 +91,16 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(App);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (username, password, accountID, firstName) => {
+            dispatch(login(username, password, accountID, firstName));
+        },
+        toggleSnackbar: (isOpen, text) => {
+            dispatch(toggleSnackbar(isOpen, text))
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

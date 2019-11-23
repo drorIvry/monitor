@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {connect} from "react-redux";
+import {useCookies} from 'react-cookie';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
@@ -42,14 +43,18 @@ const useStyles = makeStyles(theme => ({
 function SignIn({login, onLogin}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
+    const [remember, setRemember] = useState(false);
+    const [cookies, setCookie] = useCookies(['login']);
     const [err, setErr] = useState(false);
     const [errorText, setErrorText] = useState('');
 
     const handleChange = (key, value) => {
-        setData({...data, [key]:value})
+        setData({...data, [key]: value})
     };
 
-
+    const toggleRemember = () => {
+        setRemember(!remember);
+    }
     const onLoginPressed = () => {
         axios.get('/login', {
             withCredentials: true,
@@ -58,7 +63,14 @@ function SignIn({login, onLogin}) {
                 password: data.password,
             },
         }).then((response) => {
-            onLogin(data.username, data.password, response.accountID, response.firstName)
+
+            if(remember){
+                setCookie('login', {
+                    username: data.username,
+                    password: data.password,
+                })
+            }
+            onLogin(data.username, data.password, response.accountID, response.firstName);
             history.push('/dashboard')
         }).catch((error) => {
             setErr(true);
@@ -69,10 +81,10 @@ function SignIn({login, onLogin}) {
 
     return (
         <Container component="main" maxWidth="xs">
-            <CssBaseline />
+            <CssBaseline/>
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
@@ -86,7 +98,9 @@ function SignIn({login, onLogin}) {
                         error={err}
                         helperText={errorText}
                         id="username"
-                        onChange={(event) => {handleChange('username', event.target.value)}}
+                        onChange={(event) => {
+                            handleChange('username', event.target.value)
+                        }}
                         label="User Name"
                         name="username"
                         autoComplete="email"
@@ -99,17 +113,19 @@ function SignIn({login, onLogin}) {
                         fullWidth
                         error={err}
                         helperText={errorText}
-                        onChange={(event) => {handleChange('password', event.target.value)}}
+                        onChange={(event) => {
+                            handleChange('password', event.target.value)
+                        }}
                         name="password"
                         label="Password"
                         type="password"
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
+                    <Grid container>
+                        <Checkbox value={remember}  color="primary" onClick={toggleRemember}/>
+                        <p> Remember me</p>
+                    </Grid>
                     <Button
                         type="submit"
                         fullWidth
@@ -130,7 +146,7 @@ function SignIn({login, onLogin}) {
                 </div>
             </div>
             <Box mt={8}>
-                <Copyright />
+                <Copyright/>
             </Box>
         </Container>
     );
