@@ -1,7 +1,7 @@
 import React from 'react';
 
 const initState = {
-    loggedIn: true,
+    loggedIn: false,
     username:'',
     password:'',
     accountID:'',
