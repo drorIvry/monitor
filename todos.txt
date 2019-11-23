@@ -1,5 +1,4 @@
 - alerts
-add cookies
 clean code
 unit tests
 cypress

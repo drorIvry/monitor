@@ -12,6 +12,7 @@ import monitorsRouter from './routes/monitors';
 import reportSummeryRouter from './routes/report_summery';
 import dashboardRouter from './routes/dashboard';
 import deleteMonitorRouter from './routes/delete_monitors';
+import alertRouter from './routes/alerts';
 import {getReport} from './routes/report';
 import {login, register} from './routes/account';
 import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
@@ -45,6 +46,7 @@ app.use('/monitors', monitorsRouter);
 app.use('/state', stateRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/delete-monitor', deleteMonitorRouter);
+app.use('/alerts', alertRouter);
 app.get('/report/:reportID', getReport);
 app.use('/reports',reportSummeryRouter);
 app.get('/login', login);
@@ -52,7 +54,7 @@ app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);
 });
 app.get('*', (req, res, next) => {
-    res.sendFile(path.join(__dirname,'/build/index.html'));
+    res.sendFile(path.join(__dirname,'..', '/build/index.html'));
 });
 
 module.exports = app;

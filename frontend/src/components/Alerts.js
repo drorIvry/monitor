@@ -90,7 +90,7 @@ export default function Alerts() {
                     <Paper>
                         <div className={classes.tableWrapper}>
 
-                            <Table stickyHeader size="large">
+                            <Table stickyHeader size="medium">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Alert</TableCell>

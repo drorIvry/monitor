@@ -30,19 +30,21 @@ function App({darkMode, login, onLogin,}) {
     );
     const [cookies, setCookie] = useCookies(['login']);
     useEffect(() => {
-        axios.get('/login', {
-            withCredentials: true,
-            auth: {
-                username: cookies.login.username,
-                password: cookies.login.password,
-            },
-        }).then((response) => {
-            onLogin(cookies.login.username, cookies.login.password, response.accountID, response.firstName);
-            history.push('/dashboard')
-        }).catch((error) => {
-            console.error(error);
-            toggleSnackbar(true, 'Error while logging in.')
-        });
+        if (cookies.login) {
+            axios.get('/login', {
+                withCredentials: true,
+                auth: {
+                    username: cookies.login.username,
+                    password: cookies.login.password,
+                },
+            }).then((response) => {
+                onLogin(cookies.login.username, cookies.login.password, response.accountID, response.firstName);
+                history.push('/dashboard')
+            }).catch((error) => {
+                console.error(error);
+                toggleSnackbar(true, 'Error while logging in.')
+            });
+        }
     }, []);
 
 

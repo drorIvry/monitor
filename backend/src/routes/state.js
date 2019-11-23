@@ -3,7 +3,9 @@ import mongoose from 'mongoose';
 import SystemState from '../dal/SystemState';
 import Account from '../dal/Account';
 import Monitors from '../dal/Monitors';
+import Alerts from '../dal/Alerts';
 
+import getAlerts from './GetAlerts';
 
 const router = express.Router();
 
@@ -15,26 +17,40 @@ router.get('/', async function (req, res, next) {
 
     const docs = await SystemState.find({AccountID: mongoose.Types.ObjectId(account_doc._id)});
 
-    if(!docs)
+    if (!docs)
         return res.status(404).send('Account Not Found!');
     else
         return res.send(docs);
 
 });
 
-router.post('/', async function(req, res, next){
+router.post('/', async function (req, res, next) {
     const apiKey = req.header('monitor-api-key');
     const account = await Account.findOne({APIKeys: apiKey});
-    if(!account){
-        return res.send(404,{error:'account not found'})
+    if (!account) {
+        return res.send(404, {error: 'account not found'})
     }
     const accountID = account._id.toString();
     const previous = await SystemState.findOne({AccountID: mongoose.Types.ObjectId(accountID)});
     const monitor = await Monitors.findOne({APIKey: apiKey});
 
     const data = parseData(req.body, accountID, previous, monitor);
+    const alerts = getAlerts(req.body, monitor, account._id);
+    console.log(alerts);
+    const alertRequests = alerts.map(alert => {
+            return {
 
-    SystemState.updateOne(
+                insertOne: {
+                    document: alert
+                }
+
+            }
+        }
+    );
+
+    await Alerts.bulkWrite(alertRequests);
+
+    await SystemState.updateOne(
         {
             AccountID: mongoose.Types.ObjectId(accountID),
             MonitorID: monitor._id
@@ -51,7 +67,7 @@ router.post('/', async function(req, res, next){
         })
 });
 
-function parseData(data, accountID, previous, monitor){
+function parseData(data, accountID, previous, monitor) {
     return {
         AccountID: mongoose.Types.ObjectId(accountID),
         MonitorID: monitor._id,
