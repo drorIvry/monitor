@@ -1,0 +1,7 @@
+clean code
+unit tests
+cypress
+deploy and install with docker
+heroku(?)
+assign key to agent
+agent config script
