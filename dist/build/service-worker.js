@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Welcome to your Workbox-powered service worker!
  *
@@ -14,7 +12,7 @@
  */
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 importScripts("/precache-manifest.10dbddd6d11db47ecd0cdfdb2a1430ba.js");
-self.addEventListener('message', function (event) {
+self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }

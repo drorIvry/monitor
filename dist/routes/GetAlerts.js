@@ -1,16 +1,6 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = getAlerts;
-
-var _Alerts = _interopRequireDefault(require("../dal/Alerts"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function getAlerts(data, monitor, accountID) {
-  var alerts = [];
+import Alerts from '../dal/Alerts';
+export default function getAlerts(data, monitor, accountID) {
+  const alerts = [];
 
   if (data.cpu.total_load > 80) {
     alerts.push(getCPUAlert(data.cpu.total_load, monitor, accountID));
@@ -32,7 +22,7 @@ function getAlerts(data, monitor, accountID) {
 }
 
 function getCPUAlert(load, monitor, accountID) {
-  return new _Alerts["default"]({
+  return new Alerts({
     MonitorName: monitor.MonitorName,
     Alert: 'CPU Is Overloaded. CPU  Load: ' + load + '%',
     PCName: monitor.PCName,
@@ -43,7 +33,7 @@ function getCPUAlert(load, monitor, accountID) {
 }
 
 function getMemoryAlert(load, monitor, accountID) {
-  return new _Alerts["default"]({
+  return new Alerts({
     MonitorName: monitor.MonitorName,
     Alert: 'Memory Is Running Out. Memory  Load: ' + load + '%',
     PCName: monitor.PCName,
@@ -54,7 +44,7 @@ function getMemoryAlert(load, monitor, accountID) {
 }
 
 function getDiskAlert(load, monitor, accountID) {
-  return new _Alerts["default"]({
+  return new Alerts({
     MonitorName: monitor.MonitorName,
     Alert: 'Disk Space Is Running Out. Disk  Load: ' + load + '%',
     PCName: monitor.PCName,
@@ -65,7 +55,7 @@ function getDiskAlert(load, monitor, accountID) {
 }
 
 function getBatteryAlert(load, monitor, accountID) {
-  return new _Alerts["default"]({
+  return new Alerts({
     MonitorName: monitor.MonitorName,
     Alert: 'Battery Is Running Out. Battery Remaining: ' + load + '%',
     PCName: monitor.PCName,

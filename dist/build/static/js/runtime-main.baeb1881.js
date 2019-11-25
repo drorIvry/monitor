@@ -1,20 +1,10 @@
-"use strict";
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 !function (e) {
   function r(r) {
-    for (var n, f, l = r[0], i = r[1], a = r[2], c = 0, s = []; c < l.length; c++) {
-      f = l[c], Object.prototype.hasOwnProperty.call(o, f) && o[f] && s.push(o[f][0]), o[f] = 0;
-    }
+    for (var n, f, l = r[0], i = r[1], a = r[2], c = 0, s = []; c < l.length; c++) f = l[c], Object.prototype.hasOwnProperty.call(o, f) && o[f] && s.push(o[f][0]), o[f] = 0;
 
-    for (n in i) {
-      Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]);
-    }
+    for (n in i) Object.prototype.hasOwnProperty.call(i, n) && (e[n] = i[n]);
 
-    for (p && p(r); s.length;) {
-      s.shift()();
-    }
+    for (p && p(r); s.length;) s.shift()();
 
     return u.push.apply(u, a || []), t();
   }
@@ -61,20 +51,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     });
   }, f.t = function (e, r) {
     if (1 & r && (e = f(e)), 8 & r) return e;
-    if (4 & r && "object" === _typeof(e) && e && e.__esModule) return e;
+    if (4 & r && "object" === typeof e && e && e.__esModule) return e;
     var t = Object.create(null);
     if (f.r(t), Object.defineProperty(t, "default", {
       enumerable: !0,
       value: e
-    }), 2 & r && "string" != typeof e) for (var n in e) {
-      f.d(t, n, function (r) {
-        return e[r];
-      }.bind(null, n));
-    }
+    }), 2 & r && "string" != typeof e) for (var n in e) f.d(t, n, function (r) {
+      return e[r];
+    }.bind(null, n));
     return t;
   }, f.n = function (e) {
     var r = e && e.__esModule ? function () {
-      return e["default"];
+      return e.default;
     } : function () {
       return e;
     };
@@ -86,9 +74,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       i = l.push.bind(l);
   l.push = r, l = l.slice();
 
-  for (var a = 0; a < l.length; a++) {
-    r(l[a]);
-  }
+  for (var a = 0; a < l.length; a++) r(l[a]);
 
   var p = i;
   t();
