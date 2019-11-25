@@ -1,9 +1,11 @@
-(this.webpackJsonpfrontend = this.webpackJsonpfrontend || []).push([[0], {
-  313: function (e, t, a) {
+"use strict";
+
+((void 0).webpackJsonpfrontend = (void 0).webpackJsonpfrontend || []).push([[0], {
+  313: function _(e, t, a) {
     e.exports = a(513);
   },
-  318: function (e, t, a) {},
-  513: function (e, t, a) {
+  318: function _(e, t, a) {},
+  513: function _(e, t, a) {
     "use strict";
 
     a.r(t);
@@ -99,7 +101,7 @@
       };
     }, function (e) {
       return {
-        onLogin: function (t, a, r, n) {
+        onLogin: function onLogin(t, a, r, n) {
           e(R(t, a, r, n));
         }
       };
@@ -127,7 +129,7 @@
           U = Object(l.a)(L, 2),
           W = U[0],
           F = U[1],
-          H = function (e, t) {
+          H = function H(e, t) {
         s(function (e) {
           for (var t = 1; t < arguments.length; t++) {
             var a = null != arguments[t] ? arguments[t] : {};
@@ -160,7 +162,7 @@
         error: G,
         helperText: W,
         id: "username",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           H("username", e.target.value);
         },
         label: "User Name",
@@ -174,7 +176,7 @@
         fullWidth: !0,
         error: G,
         helperText: W,
-        onChange: function (e) {
+        onChange: function onChange(e) {
           H("password", e.target.value);
         },
         name: "password",
@@ -187,7 +189,7 @@
       }, n.a.createElement(O.a, {
         value: P,
         color: "primary",
-        onClick: function () {
+        onClick: function onClick() {
           k(!P);
         }
       }), n.a.createElement("p", null, " Remember me")), n.a.createElement(f.a, {
@@ -196,7 +198,7 @@
         variant: "contained",
         color: "primary",
         className: a.submit,
-        onClick: function () {
+        onClick: function onClick() {
           D.a.get("/login", {
             withCredentials: !0,
             auth: {
@@ -208,7 +210,7 @@
               username: i.username,
               password: i.password
             }), t(i.username, i.password, e.accountID, e.firstName), C.push("/dashboard");
-          }).catch(function (e) {
+          })["catch"](function (e) {
             _(!0), F("Incorrect Username / Password."), console.error(e);
           });
         }
@@ -217,7 +219,7 @@
       }, n.a.createElement(h.a, {
         item: !0
       }, n.a.createElement(E.a, {
-        onClick: function (e) {
+        onClick: function onClick(e) {
           return C.push("/register");
         },
         variant: "body2"
@@ -267,7 +269,7 @@
       };
     }, function (e) {
       return {
-        onLogin: function (t, a, r, n) {
+        onLogin: function onLogin(t, a, r, n) {
           e(R(t, a, r, n));
         }
       };
@@ -280,7 +282,7 @@
           c = Object(l.a)(o, 2),
           i = c[0],
           s = c[1],
-          u = function (e, t) {
+          u = function u(e, t) {
         s(function (e) {
           for (var t = 1; t < arguments.length; t++) {
             var a = null != arguments[t] ? arguments[t] : {};
@@ -320,7 +322,7 @@
         fullWidth: !0,
         id: "firstName",
         label: "First Name",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           u("firstName", e.target.value);
         },
         autoFocus: !0
@@ -334,7 +336,7 @@
         fullWidth: !0,
         id: "lastName",
         label: "Last Name",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           u("lastName", e.target.value);
         },
         name: "lastName",
@@ -349,7 +351,7 @@
         id: "username",
         label: "User Name",
         name: "username",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           u("username", e.target.value);
         },
         autoComplete: "email"
@@ -364,7 +366,7 @@
         label: "Password",
         type: "password",
         id: "password",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           u("password", e.target.value);
         },
         autoComplete: "current-password"
@@ -373,10 +375,10 @@
         fullWidth: !0,
         variant: "contained",
         color: "primary",
-        onClick: function () {
+        onClick: function onClick() {
           console.log(i), D.a.post("/accounts", i).then(function (e) {
             t(i.username, i.password, e.data.accountID, i.firstName), C.push("/dashboard");
-          }).catch(function (e) {
+          })["catch"](function (e) {
             console.error(e);
           });
         },
@@ -387,7 +389,7 @@
       }, n.a.createElement(h.a, {
         item: !0
       }, n.a.createElement(E.a, {
-        onClick: function (e) {
+        onClick: function onClick(e) {
           return C.push("/login");
         },
         variant: "body2"
@@ -439,12 +441,12 @@
 
       return Object(z.a)(t, e), Object(K.a)(t, [{
         key: "convertToGB",
-        value: function (e) {
+        value: function value(e) {
           return e / 1024 / 1024 / 1024;
         }
       }, {
         key: "render",
-        value: function () {
+        value: function value() {
           return n.a.createElement(Y.g, {
             width: 350,
             height: 250,
@@ -506,28 +508,28 @@
         Te = a.n(Ie),
         Ae = n.a.createElement("div", null, n.a.createElement(je.a, {
       button: !0,
-      onClick: function (e) {
+      onClick: function onClick(e) {
         return C.push("/dashboard");
       }
     }, n.a.createElement(we.a, null, n.a.createElement(ke.a, null)), n.a.createElement(Pe.a, {
       primary: "Dashboard"
     })), n.a.createElement(je.a, {
       button: !0,
-      onClick: function (e) {
+      onClick: function onClick(e) {
         return C.push("/reports");
       }
     }, n.a.createElement(we.a, null, n.a.createElement(Se.a, null)), n.a.createElement(Pe.a, {
       primary: "Reports"
     })), n.a.createElement(je.a, {
       button: !0,
-      onClick: function (e) {
+      onClick: function onClick(e) {
         return C.push("/monitors");
       }
     }, n.a.createElement(we.a, null, n.a.createElement(Ce.a, null)), n.a.createElement(Pe.a, {
       primary: "Monitors"
     })), n.a.createElement(je.a, {
       button: !0,
-      onClick: function (e) {
+      onClick: function onClick(e) {
         return C.push("/alerts");
       }
     }, n.a.createElement(we.a, null, n.a.createElement(Te.a, null)), n.a.createElement(Pe.a, {
@@ -668,13 +670,13 @@
       };
     }, function (e) {
       return {
-        onSwitchClick: function () {
+        onSwitchClick: function onSwitchClick() {
           e({
             type: "TOGGLE_DARK_MODE",
             payload: null
           });
         },
-        onDrawerClick: function (t) {
+        onDrawerClick: function onDrawerClick(t) {
           e(function (e) {
             return {
               type: "TOGGLE_DRAWER",
@@ -682,10 +684,10 @@
             };
           }(t));
         },
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -704,7 +706,7 @@
           O = Object(l.a)(b, 3),
           E = (O[0], O[1], O[2]),
           h = Object(u.c)(),
-          y = function (e, t) {
+          y = function y(e, t) {
         "clickaway" !== t && s(!1, "");
       };
 
@@ -719,7 +721,7 @@
         edge: "start",
         color: "inherit",
         "aria-label": "open drawer",
-        onClick: function (e) {
+        onClick: function onClick(e) {
           return o(!0);
         },
         className: Object(W.a)(m.menuButton, r.open && m.menuButtonHidden)
@@ -731,7 +733,7 @@
         className: m.title
       }, "Monitor"), n.a.createElement(le.a, {
         color: "inherit",
-        onClick: function (e) {
+        onClick: function onClick(e) {
           C.push("/alerts");
         }
       }, n.a.createElement(ie.a, {
@@ -748,7 +750,7 @@
       }, n.a.createElement("div", {
         className: m.toolbarIcon
       }, n.a.createElement(le.a, {
-        onClick: function (e) {
+        onClick: function onClick(e) {
           return o(!1);
         }
       }, n.a.createElement(me.a, null))), n.a.createElement(ne.a, null), n.a.createElement(re.a, null, Ae), n.a.createElement(ne.a, null), n.a.createElement(oe.a, {
@@ -756,7 +758,7 @@
         control: n.a.createElement(ce.a, {
           className: m.switchMode,
           checked: a.darkMode,
-          onChange: function () {
+          onChange: function onChange() {
             return c();
           }
         }),
@@ -917,10 +919,10 @@
       };
     }, function (e) {
       return {
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        updateDashboard: function (t) {
+        updateDashboard: function updateDashboard(t) {
           e(function (e) {
             return {
               type: "UPDATE_DASHBOARD",
@@ -928,10 +930,10 @@
             };
           }(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         },
-        updateAlerts: function (t) {
+        updateAlerts: function updateAlerts(t) {
           e(We(t));
         }
       };
@@ -948,10 +950,10 @@
           d = m[0],
           f = m[1],
           g = Object(W.a)(u.paper, u.fixedHeight),
-          b = function (e) {
+          b = function b(e) {
         return e / 1024 / 1024 / 1024;
       },
-          O = function (e) {
+          O = function O(e) {
         return [{
           name: "Used",
           value: b(e.used)
@@ -966,35 +968,37 @@
           var e = Object(U.a)(L.a.mark(function e() {
             var t, r;
             return L.a.wrap(function (e) {
-              for (;;) switch (e.prev = e.next) {
-                case 0:
-                  return e.prev = 0, c(!0), e.next = 4, D.a.get("/dashboard", {
-                    withCredentials: !0,
-                    auth: {
-                      username: s.username,
-                      password: s.password
-                    }
-                  });
+              for (;;) {
+                switch (e.prev = e.next) {
+                  case 0:
+                    return e.prev = 0, c(!0), e.next = 4, D.a.get("/dashboard", {
+                      withCredentials: !0,
+                      auth: {
+                        username: s.username,
+                        password: s.password
+                      }
+                    });
 
-                case 4:
-                  return t = e.sent, a(t.data), c(!1), f(!0), e.next = 10, D.a.get("/alerts", {
-                    withCredentials: !0,
-                    auth: {
-                      username: s.username,
-                      password: s.password
-                    }
-                  });
+                  case 4:
+                    return t = e.sent, a(t.data), c(!1), f(!0), e.next = 10, D.a.get("/alerts", {
+                      withCredentials: !0,
+                      auth: {
+                        username: s.username,
+                        password: s.password
+                      }
+                    });
 
-                case 10:
-                  r = e.sent, o(r.data), e.next = 18;
-                  break;
+                  case 10:
+                    r = e.sent, o(r.data), e.next = 18;
+                    break;
 
-                case 14:
-                  e.prev = 14, e.t0 = e.catch(0), c(!1), i(!0, e.t0.message);
+                  case 14:
+                    e.prev = 14, e.t0 = e["catch"](0), c(!1), i(!0, e.t0.message);
 
-                case 18:
-                case "end":
-                  return e.stop();
+                  case 18:
+                  case "end":
+                    return e.stop();
+                }
               }
             }, e, null, [[0, 14]]);
           }));
@@ -1120,10 +1124,10 @@
       };
     }, function (e) {
       return {
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        updateReportsSummery: function (t) {
+        updateReportsSummery: function updateReportsSummery(t) {
           e(function (e) {
             return {
               type: "UPDATE_REPORTS_SUMMERY",
@@ -1131,7 +1135,7 @@
             };
           }(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -1154,26 +1158,28 @@
           var e = Object(U.a)(L.a.mark(function e() {
             var t;
             return L.a.wrap(function (e) {
-              for (;;) switch (e.prev = e.next) {
-                case 0:
-                  return e.prev = 0, J(!0), e.next = 4, D.a.get("/reports", {
-                    withCredentials: !0,
-                    auth: {
-                      username: c.username,
-                      password: c.password
-                    }
-                  });
+              for (;;) {
+                switch (e.prev = e.next) {
+                  case 0:
+                    return e.prev = 0, J(!0), e.next = 4, D.a.get("/reports", {
+                      withCredentials: !0,
+                      auth: {
+                        username: c.username,
+                        password: c.password
+                      }
+                    });
 
-                case 4:
-                  t = e.sent, a(t.data), J(!1), e.next = 13;
-                  break;
+                  case 4:
+                    t = e.sent, a(t.data), J(!1), e.next = 13;
+                    break;
 
-                case 9:
-                  e.prev = 9, e.t0 = e.catch(0), J(!1), o(!0, e.t0.message);
+                  case 9:
+                    e.prev = 9, e.t0 = e["catch"](0), J(!1), o(!0, e.t0.message);
 
-                case 13:
-                case "end":
-                  return e.stop();
+                  case 13:
+                  case "end":
+                    return e.stop();
+                }
               }
             }, e, null, [[0, 9]]);
           }));
@@ -1200,7 +1206,7 @@
           hover: !0,
           tabIndex: -1,
           key: t,
-          onClick: function (t) {
+          onClick: function onClick(t) {
             return C.push("/report/" + e.ReportID);
           }
         }, n.a.createElement(Ye.a, null, e.MonitorName), n.a.createElement(Ye.a, null, e.TimeStamp), n.a.createElement(Ye.a, null, e.PCName));
@@ -1216,10 +1222,10 @@
         nextIconButtonProps: {
           "aria-label": "next page"
         },
-        onChangePage: function (e, t) {
+        onChangePage: function onChangePage(e, t) {
           m(t);
         },
-        onChangeRowsPerPage: function (e) {
+        onChangeRowsPerPage: function onChangeRowsPerPage(e) {
           b(+e.target.value), m(0);
         }
       }))), n.a.createElement(S, null)));
@@ -1298,10 +1304,10 @@
       };
     }, function (e) {
       return {
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        updateReports: function (t) {
+        updateReports: function updateReports(t) {
           e(function (e) {
             return {
               type: "UPDATE_REPORTS",
@@ -1309,7 +1315,7 @@
             };
           }(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -1333,10 +1339,10 @@
           b = Object(l.a)(g, 2),
           O = b[0],
           E = b[1],
-          y = function (e) {
+          y = function y(e) {
         return (e / 1024 / 1024 / 1024).toFixed(3);
       },
-          v = function (e, t) {
+          v = function v(e, t) {
         var a = d[e].indexOf(t),
             r = it({}, d);
         -1 === a ? r[e].push(t) : r[e].splice(a, 1), f(r);
@@ -1347,26 +1353,28 @@
           var e = Object(U.a)(L.a.mark(function e() {
             var t;
             return L.a.wrap(function (e) {
-              for (;;) switch (e.prev = e.next) {
-                case 0:
-                  return e.prev = 0, a(!0), e.next = 4, D.a.get("/report/" + c.params.reportID, {
-                    withCredentials: !0,
-                    auth: {
-                      username: i.username,
-                      password: i.password
-                    }
-                  });
+              for (;;) {
+                switch (e.prev = e.next) {
+                  case 0:
+                    return e.prev = 0, a(!0), e.next = 4, D.a.get("/report/" + c.params.reportID, {
+                      withCredentials: !0,
+                      auth: {
+                        username: i.username,
+                        password: i.password
+                      }
+                    });
 
-                case 4:
-                  t = e.sent, o(t.data), a(!1), E(!0), e.next = 14;
-                  break;
+                  case 4:
+                    t = e.sent, o(t.data), a(!1), E(!0), e.next = 14;
+                    break;
 
-                case 10:
-                  e.prev = 10, e.t0 = e.catch(0), a(!1), X(!0, e.t0.message);
+                  case 10:
+                    e.prev = 10, e.t0 = e["catch"](0), a(!1), X(!0, e.t0.message);
 
-                case 14:
-                case "end":
-                  return e.stop();
+                  case 14:
+                  case "end":
+                    return e.stop();
+                }
               }
             }, e, null, [[0, 10]]);
           }));
@@ -1424,13 +1432,13 @@
           key: t
         }, n.a.createElement(je.a, {
           button: !0,
-          onClick: function (e) {
+          onClick: function onClick(e) {
             return v("disk", t);
           }
         }, n.a.createElement(Pe.a, {
           primary: e.device
         }), -1 !== d.disk.indexOf(t) ? n.a.createElement(nt.a, null) : n.a.createElement(ct.a, null)), n.a.createElement(at.a, {
-          in: -1 !== d.disk.indexOf(t),
+          "in": -1 !== d.disk.indexOf(t),
           timeout: "auto",
           unmountOnExit: !0
         }, n.a.createElement(re.a, {
@@ -1461,13 +1469,13 @@
           key: t
         }, n.a.createElement(je.a, {
           button: !0,
-          onClick: function (e) {
+          onClick: function onClick(e) {
             return v("network", t);
           }
         }, n.a.createElement(Pe.a, {
           primary: e.name
         }), -1 !== d.network.indexOf(t) ? n.a.createElement(nt.a, null) : n.a.createElement(ct.a, null)), n.a.createElement(at.a, {
-          in: -1 !== d.network.indexOf(t),
+          "in": -1 !== d.network.indexOf(t),
           timeout: "auto",
           unmountOnExit: !0
         }, n.a.createElement(re.a, {
@@ -1507,13 +1515,13 @@
           key: t
         }, n.a.createElement(je.a, {
           button: !0,
-          onClick: function (e) {
+          onClick: function onClick(e) {
             return v("users", t);
           }
         }, n.a.createElement(Pe.a, {
           primary: e.name
         }), -1 !== d.users.indexOf(t) ? n.a.createElement(nt.a, null) : n.a.createElement(ct.a, null)), n.a.createElement(at.a, {
-          in: -1 !== d.users.indexOf(t),
+          "in": -1 !== d.users.indexOf(t),
           timeout: "auto",
           unmountOnExit: !0
         }, n.a.createElement(re.a, {
@@ -1639,16 +1647,16 @@
       };
     }, function (e) {
       return {
-        onDialogClick: function (t) {
+        onDialogClick: function onDialogClick(t) {
           e(mt(t));
         },
-        toggleProgressbar: function (t) {
+        toggleProgressbar: function toggleProgressbar(t) {
           e(dt(t));
         },
-        updateMonitors: function (t) {
+        updateMonitors: function updateMonitors(t) {
           e(bt(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -1665,7 +1673,7 @@
           g = Object(l.a)(d, 2),
           O = g[0],
           E = g[1],
-          h = function (e, t) {
+          h = function h(e, t) {
         E(function (e) {
           for (var t = 1; t < arguments.length; t++) {
             var a = null != arguments[t] ? arguments[t] : {};
@@ -1682,7 +1690,7 @@
 
       return n.a.createElement("div", null, n.a.createElement(ft.a, {
         open: t.dialogOpen,
-        onClose: function () {
+        onClose: function onClose() {
           return a(!1);
         },
         TransitionComponent: ht
@@ -1691,7 +1699,7 @@
       }, n.a.createElement(ae.a, null, n.a.createElement(le.a, {
         edge: "start",
         color: "inherit",
-        onClick: function () {
+        onClick: function onClick() {
           return a(!1);
         },
         "aria-label": "close"
@@ -1701,7 +1709,7 @@
       }, "Add Monitor"), n.a.createElement(f.a, {
         autoFocus: !0,
         color: "inherit",
-        onClick: function () {
+        onClick: function onClick() {
           o(!0), D.a.post("/monitors", {
             pcName: O.pcName,
             monitorName: O.monitorName
@@ -1713,7 +1721,7 @@
             }
           }).then(function (e) {
             o(!1), s([].concat(Object(pt.a)(i.monitors), [e.data])), a(!1), C.push("/monitors");
-          }).catch(function (e) {
+          })["catch"](function (e) {
             o(!1), console.error(e), dt(!1), u(!0, e.message), a(!1);
           });
         }
@@ -1723,7 +1731,7 @@
         className: p.monitorsField,
         margin: "normal",
         required: !0,
-        onChange: function (e) {
+        onChange: function onChange(e) {
           h("pcName", e.target.value);
         },
         id: "name",
@@ -1733,7 +1741,7 @@
       }), n.a.createElement(b.a, {
         className: p.monitorsField,
         margin: "normal",
-        onChange: function (e) {
+        onChange: function onChange(e) {
           h("monitorName", e.target.value);
         },
         required: !0,
@@ -1820,16 +1828,16 @@
       };
     }, function (e) {
       return {
-        onDialogClick: function (t) {
+        onDialogClick: function onDialogClick(t) {
           e(mt(t));
         },
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        updateMonitors: function (t) {
+        updateMonitors: function updateMonitors(t) {
           e(bt(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -1858,26 +1866,28 @@
           var e = Object(U.a)(L.a.mark(function e() {
             var t;
             return L.a.wrap(function (e) {
-              for (;;) switch (e.prev = e.next) {
-                case 0:
-                  return e.prev = 0, a(!0), e.next = 4, D.a.get("/monitors", {
-                    withCredentials: !0,
-                    auth: {
-                      username: i.username,
-                      password: i.password
-                    }
-                  });
+              for (;;) {
+                switch (e.prev = e.next) {
+                  case 0:
+                    return e.prev = 0, a(!0), e.next = 4, D.a.get("/monitors", {
+                      withCredentials: !0,
+                      auth: {
+                        username: i.username,
+                        password: i.password
+                      }
+                    });
 
-                case 4:
-                  t = e.sent, o(t.data), a(!1), e.next = 13;
-                  break;
+                  case 4:
+                    t = e.sent, o(t.data), a(!1), e.next = 13;
+                    break;
 
-                case 9:
-                  e.prev = 9, e.t0 = e.catch(0), a(!1), c(!0, e.t0.message);
+                  case 9:
+                    e.prev = 9, e.t0 = e["catch"](0), a(!1), c(!0, e.t0.message);
 
-                case 13:
-                case "end":
-                  return e.stop();
+                  case 13:
+                  case "end":
+                    return e.stop();
+                }
               }
             }, e, null, [[0, 9]]);
           }));
@@ -1904,7 +1914,7 @@
       }, n.a.createElement(O.a, {
         indeterminate: w.length > 0 && w.length < s.monitors.length,
         checked: w.length === s.monitors.length,
-        onChange: function (e) {
+        onChange: function onChange(e) {
           if (e.target.checked) {
             var t = s.monitors.map(function (e) {
               return e.APIKey;
@@ -1923,7 +1933,7 @@
           hover: !0,
           tabIndex: -1,
           key: e.id,
-          onClick: function (t) {
+          onClick: function onClick(t) {
             return function (e, t) {
               var a = w.indexOf(t),
                   r = [];
@@ -1950,22 +1960,22 @@
         nextIconButtonProps: {
           "aria-label": "next page"
         },
-        onChangePage: function (e, t) {
+        onChangePage: function onChangePage(e, t) {
           g(t);
         },
-        onChangeRowsPerPage: function (e) {
+        onChangeRowsPerPage: function onChangeRowsPerPage(e) {
           y(+e.target.value), g(0);
         }
       }), n.a.createElement(f.a, {
         variant: "outlined",
         className: u.button,
-        onClick: function () {
+        onClick: function onClick() {
           return t(!0);
         }
       }, "Add new Monitor"), n.a.createElement(yt, null), w.length > 0 && n.a.createElement(f.a, {
         variant: "outlined",
         className: u.button,
-        onClick: function () {
+        onClick: function onClick() {
           D.a.post("/delete-monitor", {
             apiKeys: w
           }, {
@@ -1976,7 +1986,7 @@
             }
           }).then(function (e) {
             a(!1), o([].concat(Object(pt.a)(s.monitors), [e.data])), t(!1);
-          }).catch(function (e) {
+          })["catch"](function (e) {
             a(!1), console.error(e), c(!0, e.message), t(!1);
           });
         }
@@ -2058,13 +2068,13 @@
       };
     }, function (e) {
       return {
-        toggleProgressBar: function (t) {
+        toggleProgressBar: function toggleProgressBar(t) {
           e(J(t));
         },
-        updateAlerts: function (t) {
+        updateAlerts: function updateAlerts(t) {
           e(We(t));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -2114,26 +2124,28 @@
           var e = Object(U.a)(L.a.mark(function e() {
             var t;
             return L.a.wrap(function (e) {
-              for (;;) switch (e.prev = e.next) {
-                case 0:
-                  return e.prev = 0, o(!0), e.next = 4, D.a.get("/alerts", {
-                    withCredentials: !0,
-                    auth: {
-                      username: a.username,
-                      password: a.password
-                    }
-                  });
+              for (;;) {
+                switch (e.prev = e.next) {
+                  case 0:
+                    return e.prev = 0, o(!0), e.next = 4, D.a.get("/alerts", {
+                      withCredentials: !0,
+                      auth: {
+                        username: a.username,
+                        password: a.password
+                      }
+                    });
 
-                case 4:
-                  t = e.sent, c(t.data), o(!1), h(!0), w(1e4), e.next = 15;
-                  break;
+                  case 4:
+                    t = e.sent, c(t.data), o(!1), h(!0), w(1e4), e.next = 15;
+                    break;
 
-                case 11:
-                  e.prev = 11, e.t0 = e.catch(0), o(!1), i(!0, e.t0.message);
+                  case 11:
+                    e.prev = 11, e.t0 = e["catch"](0), o(!1), i(!0, e.t0.message);
 
-                case 15:
-                case "end":
-                  return e.stop();
+                  case 15:
+                  case "end":
+                    return e.stop();
+                }
               }
             }, e, null, [[0, 11]]);
           }));
@@ -2160,7 +2172,7 @@
       }, n.a.createElement(O.a, {
         indeterminate: I.length > 0 && I.length < t.alerts.length,
         checked: I.length === t.alerts.length,
-        onChange: function (e) {
+        onChange: function onChange(e) {
           if (e.target.checked) {
             var a = t.alerts.map(function (e) {
               return e._id;
@@ -2179,7 +2191,7 @@
           hover: !0,
           tabIndex: -1,
           key: t,
-          onClick: function (t) {
+          onClick: function onClick(t) {
             return function (e, t) {
               var a = I.indexOf(t),
                   r = [];
@@ -2206,16 +2218,16 @@
         nextIconButtonProps: {
           "aria-label": "next page"
         },
-        onChangePage: function (e, t) {
+        onChangePage: function onChangePage(e, t) {
           d(t);
         },
-        onChangeRowsPerPage: function (e) {
+        onChangeRowsPerPage: function onChangeRowsPerPage(e) {
           C(+e.target.value), d(0);
         }
       }), I.length > 0 && n.a.createElement(f.a, {
         variant: "outlined",
         className: s.button,
-        onClick: function () {
+        onClick: function onClick() {
           D.a.post("/delete-alerts", {
             alertIds: I
           }, {
@@ -2226,7 +2238,7 @@
             }
           }).then(function (e) {
             o(!1), w(0);
-          }).catch(function (e) {
+          })["catch"](function (e) {
             o(!1), console.error(e), i(!0, e.message);
           });
         }
@@ -2245,10 +2257,10 @@
       };
     }, function (e) {
       return {
-        onLogin: function (t, a, r, n) {
+        onLogin: function onLogin(t, a, r, n) {
           e(R(t, a, r, n));
         },
-        toggleSnackbar: function (t, a) {
+        toggleSnackbar: function toggleSnackbar(t, a) {
           e(X(t, a));
         }
       };
@@ -2275,7 +2287,7 @@
           }
         }).then(function (e) {
           o(d.login.username, d.login.password, e.accountID, e.firstName), C.push("/dashboard");
-        }).catch(function (e) {
+        })["catch"](function (e) {
           console.error(e), X(!0, "Error while logging in.");
         });
       }, []), a.loggedIn || C.push("/login"), n.a.createElement(Ct.b, {
@@ -2334,7 +2346,7 @@
     var Gt = {
       darkMode: !0
     },
-        _t = function () {
+        _t = function _t() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Gt,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2378,7 +2390,7 @@
     var Wt = {
       open: !1
     },
-        Ft = function () {
+        Ft = function Ft() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Wt,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2423,7 +2435,7 @@
       dialogOpen: !1,
       progressbarVisible: !1
     },
-        qt = function () {
+        qt = function qt() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Vt,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2474,7 +2486,7 @@
       snackbarVisible: !1,
       snackbarText: ""
     },
-        Xt = function () {
+        Xt = function Xt() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Jt,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2525,7 +2537,7 @@
       accountID: "",
       firstName: ""
     },
-        ea = function () {
+        ea = function ea() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : Zt,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2572,7 +2584,7 @@
     var ra = {
       monitors: []
     },
-        na = function () {
+        na = function na() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ra,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2616,7 +2628,7 @@
     var la = {
       reports: []
     },
-        ia = function () {
+        ia = function ia() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : la,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2660,7 +2672,7 @@
     var pa = {
       reports: {}
     },
-        ma = function () {
+        ma = function ma() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : pa,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2707,7 +2719,7 @@
       Memory: {},
       data: []
     },
-        ba = function () {
+        ba = function ba() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ga,
           t = arguments.length > 1 ? arguments[1] : void 0;
 
@@ -2749,7 +2761,7 @@
     var ha = {
       alerts: []
     },
-        ya = function () {
+        ya = function ya() {
       var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : ha,
           t = arguments.length > 1 ? arguments[1] : void 0;
 

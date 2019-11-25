@@ -1,3 +1,5 @@
+"use strict";
+
 self.__precacheManifest = (self.__precacheManifest || []).concat([{
   "revision": "7b6873b746b25e043e058422280a3d35",
   "url": "/index.html"
