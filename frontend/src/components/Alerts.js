@@ -59,6 +59,9 @@ const useStyles = makeStyles(theme => ({
         padding: '0 8px',
         ...theme.mixins.toolbar,
     },
+    button: {
+        margin: theme.spacing(1),
+    },
 
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -160,7 +163,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
     }, delay);
 
     const onDeletePressed = () => {
-        axios.post('/delete-alert', {
+        axios.post('/delete-alerts', {
                 alertIds: selected,
             },
             {

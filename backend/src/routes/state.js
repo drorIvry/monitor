@@ -36,7 +36,6 @@ router.post('/', async function (req, res, next) {
 
     const data = parseData(req.body, accountID, previous, monitor);
     const alerts = getAlerts(req.body, monitor, account._id);
-    console.log(alerts);
     const alertRequests = alerts.map(alert => {
             return {
 

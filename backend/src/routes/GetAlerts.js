@@ -2,17 +2,16 @@ import Alerts from '../dal/Alerts'
 
 export default function getAlerts(data, monitor, accountID){
     const alerts = [];
-    console.log(data)
     if(data.cpu.total_load > 80){
         alerts.push(getCPUAlert(data.cpu.total_load, monitor, accountID));
     }
 
     if(data.memory.percent > 80){
-        alerts.push(getMemoryAlert(data.cpu.percent, monitor, accountID));
+        alerts.push(getMemoryAlert(data.memory.percent, monitor, accountID));
     }
 
-    if(data.disk.usage.percent > 80){
-        alerts.push(getDiskAlert(data.cpu.percent, monitor, accountID));
+    if(data.disk.usage.percent > 85){
+        alerts.push(getDiskAlert(data.disk.usage.percent, monitor, accountID));
     }
 
     if(data.battery.percent < 10){
