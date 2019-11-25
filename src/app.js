@@ -21,7 +21,7 @@ import {validateAPI, validateBasicAuth} from "./auth/requestAuth";
 const app = express();
 const cryptr = new Cryptr('myTotalySecretKey');
 
-mongoose.connect('mongodb://drorivry:mRaU@KAx5pD6L99@ds031319.mlab.com:31319/pcmonitor', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://drorivry:Aa123456@ds031319.mlab.com:31319/pcmonitor', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 

@@ -41,7 +41,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var app = (0, _express["default"])();
 var cryptr = new _cryptr["default"]('myTotalySecretKey');
 
-_mongoose["default"].connect('mongodb://localhost/monitor', {
+_mongoose["default"].connect('mongodb://drorivry:Aa123456@ds031319.mlab.com:31319/pcmonitor', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
