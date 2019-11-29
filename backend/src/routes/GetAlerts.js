@@ -17,7 +17,6 @@ export default function getAlerts(data, monitor, accountID){
     if(data.battery.percent < 10){
         alerts.push(getBatteryAlert(data.cpu.percent, monitor, accountID));
     }
-
     return alerts;
 }
 

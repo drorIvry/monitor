@@ -1,5 +1,8 @@
 clean code
+save last 10 cpu reads
+add errors to register page
 unit tests
+
 cypress
 deploy and install with docker
 heroku(?)

@@ -35,19 +35,6 @@ router.post('/', async function (req, res, next) {
     const monitor = await Monitors.findOne({APIKey: apiKey});
 
     const data = parseData(req.body, accountID, previous, monitor);
-    const alerts = getAlerts(req.body, monitor, account._id);
-    const alertRequests = alerts.map(alert => {
-            return {
-
-                insertOne: {
-                    document: alert
-                }
-
-            }
-        }
-    );
-
-    await Alerts.bulkWrite(alertRequests);
 
     await SystemState.updateOne(
         {
@@ -63,7 +50,23 @@ router.post('/', async function (req, res, next) {
                 res.send({
                     'success': true
                 });
-        })
+        });
+
+    const alerts = getAlerts(req.body, monitor, account._id);
+    if (alerts.length > 0) {
+        const alertRequests = alerts.map(alert => {
+                return {
+
+                    insertOne: {
+                        document: alert
+                    }
+
+                }
+            }
+        );
+
+        await Alerts.bulkWrite(alertRequests);
+    }
 });
 
 function parseData(data, accountID, previous, monitor) {
