@@ -13,6 +13,7 @@
     "watch": "nodemon"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.7.0",
     "cookie-parser": "~1.4.4",
     "core-js": "^3.4.2",
     "cryptr": "^6.0.0",
