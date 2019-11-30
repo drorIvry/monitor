@@ -19,6 +19,17 @@ Cypress.Commands.add("login", (user, password) => {
     cy.get('#password').type(password, {force: true});
     cy.contains('Sign In').click();
 });
+
+Cypress.Commands.add("loadReport", () => {
+    cy.login('a','a');
+    cy.server();
+    cy.route('GET', '/dashboard', '{}}');
+    cy.route('GET', '/reports', 'fixture:reports_response');
+    cy.route('GET', 'report/5dd831719f1397e47b93498e', 'fixture:report_page_response');
+    cy.contains('Reports').click();
+    cy.contains('2019-11-30T14:21:58.438713').click();
+    cy.location('pathname').should('include', 'report/5dd831719f1397e47b93498e');
+});
 //
 //
 // -- This is a child command --
