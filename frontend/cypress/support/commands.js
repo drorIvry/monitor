@@ -10,7 +10,15 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add("login", (user, password) => {
+    cy.visit('http://localhost:3000/login');
+    cy.server();
+    cy.route('/login', {accountID:'yes'});
+    cy.clearCookies();
+    cy.get('#username').type(user, {force: true});
+    cy.get('#password').type(password, {force: true});
+    cy.contains('Sign In').click();
+});
 //
 //
 // -- This is a child command --

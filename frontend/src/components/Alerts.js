@@ -149,6 +149,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
                 setLoaded(true);
                 setDelay(10 * 1000);
             } catch (e) {
+                setDelay(10 * 1000);
                 toggleProgressBar(false);
                 toggleSnackbar(true, e.message);
             }

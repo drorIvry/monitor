@@ -28,7 +28,7 @@ export default class UsageChart extends PureComponent {
 
     render() {
         return (
-            <PieChart width={350} height={250} onMouseEnter={this.onPieEnter}>
+            <PieChart width={350} id={this.props.id} height={250} onMouseEnter={this.onPieEnter}>
                 <Pie
                     data={this.props.data}
                     cx={220}
