@@ -168,6 +168,7 @@ function Monitors({onDialogClick, toggleProgressBar, updateMonitors, toggleSnack
                                     <TableRow>
                                         <TableCell padding="checkbox">
                                             <Checkbox
+                                                id={'select-all'}
                                                 indeterminate={selected.length > 0 && selected.length < monitors.monitors.length}
                                                 checked={selected.length === monitors.monitors.length}
                                                 onChange={handleSelectAllClick}
