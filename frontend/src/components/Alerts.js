@@ -19,11 +19,6 @@ import axios from "axios";
 import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 
-// Generate Order Data
-function createData(id, date, pcName, alertDescription) {
-    return {id, alertDescription, date, pcName,};
-}
-
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 

@@ -46,26 +46,29 @@ router.post('/', async function (req, res, next) {
         err => {
             if (err)
                 res.send(500, {err});
-            else
-                res.send({
-                    'success': true
-                });
         });
 
     const alerts = getAlerts(req.body, monitor, account._id);
-    if (alerts.length > 0) {
-        const alertRequests = alerts.map(alert => {
-                return {
 
-                    insertOne: {
-                        document: alert
-                    }
-
-                }
+    for (const alert of alerts) {
+        await Alerts.updateOne(
+            {
+                MonitorID: alert.MonitorID,
+                PCName: alert.PCName,
+                Alert: alert.Alert,
+                AccountID: alert.AccountID,
+            },
+            {...alert},
+            {upsert: true},
+            err => {
+                if (err)
+                    res.send(500, {err});
+                else
+                    return res.send({
+                        'success': true
+                    });
             }
         );
-
-        await Alerts.bulkWrite(alertRequests);
     }
 });
 
@@ -73,7 +76,7 @@ function parseData(data, accountID, previous, monitor) {
     return {
         AccountID: mongoose.Types.ObjectId(accountID),
         MonitorID: monitor._id,
-        CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}] : [{...data.cpu, time: new Date()}],
+        CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}].slice(-10) : [{...data.cpu, time: new Date()}],
         OS: data.os,
         Memory: data.memory,
         Disk: data.disk,

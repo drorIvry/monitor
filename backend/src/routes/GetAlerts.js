@@ -21,45 +21,45 @@ export default function getAlerts(data, monitor, accountID){
 }
 
 function getCPUAlert(load, monitor, accountID) {
-    return new Alerts({
+    return {
         MonitorName: monitor.MonitorName,
         Alert: 'CPU Is Overloaded. CPU  Load: ' + load +'%',
         PCName: monitor.PCName,
         AlertDate: new Date(),
         MonitorID: monitor._id,
         AccountID: accountID,
-    })
+    }
 }
 
 function getMemoryAlert(load, monitor, accountID) {
-    return new Alerts({
+    return {
         MonitorName: monitor.MonitorName,
         Alert: 'Memory Is Running Out. Memory  Load: ' + load+'%',
         PCName: monitor.PCName,
         AlertDate: new Date(),
         MonitorID: monitor._id,
         AccountID: accountID,
-    })
+    }
 }
 
 function getDiskAlert(load, monitor, accountID) {
-    return new Alerts({
+    return {
         MonitorName: monitor.MonitorName,
         Alert: 'Disk Space Is Running Out. Disk  Load: ' + load+'%',
         PCName: monitor.PCName,
         AlertDate: new Date(),
         MonitorID: monitor._id,
         AccountID: accountID,
-    })
+    }
 }
 
 function getBatteryAlert(load, monitor, accountID) {
-    return new Alerts({
+    return {
         MonitorName: monitor.MonitorName,
         Alert: 'Battery Is Running Out. Battery Remaining: ' + load+'%',
         PCName: monitor.PCName,
         AlertDate: new Date(),
         MonitorID: monitor._id,
         AccountID: accountID,
-    })
+    }
 }

@@ -40,6 +40,8 @@ const useStyles = makeStyles(theme => ({
 function SignUp({login, onLogin}) {
     const classes = useStyles();
     const [data, setData] = useState([]);
+    const [err, setErr] = useState(false);
+    const [errorText, setErrorText] = useState('');
 
     const handleChange = (key, value) => {
         setData({...data, [key]:value})
@@ -51,7 +53,8 @@ function SignUp({login, onLogin}) {
             onLogin(data.username, data.password, response.data.accountID, data.firstName);
             history.push('/dashboard');
         }).catch((error) => {
-            console.error(error);
+            setErr(true);
+            setErrorText('Invalid input, Username Taken');
         });
     };
 
@@ -97,6 +100,8 @@ function SignUp({login, onLogin}) {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                error={err}
+                                helperText={errorText}
                                 id="username"
                                 label="User Name"
                                 name="username"
@@ -109,6 +114,8 @@ function SignUp({login, onLogin}) {
                                 variant="outlined"
                                 required
                                 fullWidth
+                                error={err}
+                                helperText={errorText}
                                 name="password"
                                 label="Password"
                                 type="password"

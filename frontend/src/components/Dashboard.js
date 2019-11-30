@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -16,6 +16,27 @@ import {updateAlerts} from "../actions/AlertsActions";
 
 
 const drawerWidth = 240;
+
+function useInterval(callback, delay) {
+    const savedCallback = useRef();
+
+    // Remember the latest function.
+    useEffect(() => {
+        savedCallback.current = callback;
+    }, [callback]);
+
+    // Set up the interval.
+    useEffect(() => {
+        function tick() {
+            savedCallback.current();
+        }
+
+        if (delay !== null) {
+            let id = setInterval(tick, delay);
+            return () => clearInterval(id);
+        }
+    }, [delay]);
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -76,6 +97,7 @@ const useStyles = makeStyles(theme => ({
 function Dashboard({dashboard, updateDashboard, updateAlerts, toggleProgressBar, toggleSnackbar, login}) {
     const classes = useStyles();
     const [loaded, setLoaded] = React.useState(false);
+    const [delay, setDelay] = React.useState(0);
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const convertToGB = (value) =>  {
         return value/1024/1024/1024;
@@ -87,7 +109,7 @@ function Dashboard({dashboard, updateDashboard, updateAlerts, toggleProgressBar,
         ];
     };
 
-    useEffect(() => {
+    useInterval(() => {
         const fetchData = async () => {
             try{
                 toggleProgressBar(true);
@@ -112,16 +134,19 @@ function Dashboard({dashboard, updateDashboard, updateAlerts, toggleProgressBar,
                     },
                 );
                 updateAlerts(alertsResponse.data);
+                setDelay(10*1000)
             }
             catch (e) {
                 toggleProgressBar(false);
                 toggleSnackbar(true,e.message)
+                setDelay(10*1000)
+
 
             }
 
         };
         fetchData();
-    }, []);
+    }, delay);
 
     return (
         <div className={classes.root}>
