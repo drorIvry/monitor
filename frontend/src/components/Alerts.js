@@ -193,6 +193,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
                                             <Checkbox
                                                 indeterminate={selected.length > 0 && selected.length < alerts.alerts.length}
                                                 checked={selected.length === alerts.alerts.length}
+                                                id={'select-all'}
                                                 onChange={handleSelectAllClick}
                                                 inputProps={{'aria-label': 'select all desserts'}}
                                             />
