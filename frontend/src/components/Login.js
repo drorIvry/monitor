@@ -123,7 +123,7 @@ function SignIn({login, onLogin}) {
                         autoComplete="current-password"
                     />
                     <Grid container>
-                        <Checkbox value={remember}  color="primary" onClick={toggleRemember}/>
+                        <Checkbox value={remember} id={'remember'} color="primary" onClick={toggleRemember}/>
                         <p> Remember me</p>
                     </Grid>
                     <Button
