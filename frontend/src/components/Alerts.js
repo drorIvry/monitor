@@ -1,8 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import {connect} from "react-redux";
+import axios from "axios";
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Container from '@material-ui/core/Container';
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableHead from '@material-ui/core/TableHead';
@@ -11,23 +16,17 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Frame from './Frame';
 import Copyright from './Copyright';
-import history from '../history'
 import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateAlerts} from "../actions/AlertsActions";
-import {connect} from "react-redux";
-import axios from "axios";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
+
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 
-    // Remember the latest function.
     useEffect(() => {
         savedCallback.current = callback;
     }, [callback]);
 
-    // Set up the interval.
     useEffect(() => {
         function tick() {
             savedCallback.current();

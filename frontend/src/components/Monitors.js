@@ -18,7 +18,6 @@ import AddMonitor from './AddMonitor';
 import Copyright from './Copyright';
 import {toggleProgressBar, toggleSnackbar} from '../actions/FrameActions';
 import {updateMonitors} from '../actions/MonitorsActions';
-import history from "../history";
 
 const useStyles = makeStyles(theme => ({
     root: {

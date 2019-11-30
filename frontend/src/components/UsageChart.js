@@ -2,9 +2,6 @@ import React, { PureComponent } from 'react';
 import {
     PieChart, Pie, Tooltip, Cell, Legend,
 } from 'recharts';
-import {toggleProgressBar} from "../actions/FrameActions";
-import {updateDashboard} from "../actions/DashboardActions";
-import {connect} from "react-redux";
 
 function getTooltip({ active, payload, label }){
     if (active) {

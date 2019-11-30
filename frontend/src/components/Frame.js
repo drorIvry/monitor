@@ -135,7 +135,6 @@ const useStyles = makeStyles(theme => ({
 
 function Frame({alerts, darkMode, drawer, onDrawerClick, onSwitchClick, frame, toggleProgressBar, toggleSnackbar}) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
     const [cookies, setCookie, removeCookie] = useCookies(['login']);
     const dispatch = useDispatch();
 
