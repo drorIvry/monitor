@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node --experimental-modules ./dist/bin/www",
+    "start": "node --experimental-modules ./dist/bin/www.js",
     "server": "node ./dist/bin/www",
     "server:prod": "node ./dist/bin/www",
     "dev": "npm-run-all server",
