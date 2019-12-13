@@ -17,12 +17,16 @@
     "recharts": "^1.8.5",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^6.1.2"
+    "redux-promise-middleware": "^6.1.2",
+    "start": "^5.1.0",
+    "start-server-and-test": "^1.10.6"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "npx cypress run",
+    "cy:run": "npx cypress run",
+    "cy:open": "npx cypress open",
+    "test": "start-server-and-test start http-get://localhost:3000 cy:run",
     "cypress:open": "npx cypress open",
     "eject": "react-scripts eject"
   },
