@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./dist/bin/www",
+    "start": "node --experimental-modules ./dist/bin/www",
     "server": "node ./dist/bin/www",
     "server:prod": "node ./dist/bin/www",
     "dev": "npm-run-all server",
