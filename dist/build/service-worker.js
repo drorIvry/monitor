@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * Welcome to your Workbox-powered service worker!
  *
@@ -12,22 +10,30 @@
  * and re-run your build process.
  * See https://goo.gl/2aRDsh
  */
+
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
-importScripts("/precache-manifest.c6f13503cec54c95319609b1bcfafb32.js");
-self.addEventListener('message', function (event) {
+
+importScripts(
+  "/precache-manifest.c6f13503cec54c95319609b1bcfafb32.js"
+);
+
+self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
+
 workbox.core.clientsClaim();
+
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
  * requests for URLs in the manifest.
  * See https://goo.gl/S9QRab
  */
-
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
 workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/index.html"), {
-  blacklist: [/^\/_/, /\/[^\/?]+\.[^\/]+$/]
+  
+  blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
 });
