@@ -1,0 +1,345 @@
+{
+  "CPU": [
+    {
+      "total_load": 18.8,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:49.101Z"
+    },
+    {
+      "total_load": 13.4,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:50.141Z"
+    },
+    {
+      "total_load": 12.4,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:51.184Z"
+    },
+    {
+      "total_load": 13.7,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:52.229Z"
+    },
+    {
+      "total_load": 7.1,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:53.276Z"
+    },
+    {
+      "total_load": 6.8,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:54.324Z"
+    },
+    {
+      "total_load": 5.8,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:55.372Z"
+    },
+    {
+      "total_load": 4.5,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:56.408Z"
+    },
+    {
+      "total_load": 5.4,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:57.428Z"
+    },
+    {
+      "total_load": 11.9,
+      "cpu_count": 8,
+      "cores": 4,
+      "time": "2019-11-30T14:21:58.443Z"
+    }
+  ],
+  "Network": [
+    {
+      "name": "lo",
+      "address": [
+        "127.0.0.1",
+        "::1",
+        "00:00:00:00:00:00"
+      ],
+      "mask": [
+        "255.0.0.0",
+        "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+        null
+      ],
+      "broadcast": [
+        null,
+        null,
+        null
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "wlp3s0",
+      "address": [
+        "10.0.0.10",
+        "fe80::2d07:2fe4:5985:7e4e%wlp3s0",
+        "f8:34:41:84:1c:91"
+      ],
+      "mask": [
+        "255.255.255.0",
+        "ffff:ffff:ffff:ffff::",
+        null
+      ],
+      "broadcast": [
+        "10.0.0.255",
+        null,
+        "ff:ff:ff:ff:ff:ff"
+      ],
+      "ptp": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "docker0",
+      "address": [
+        "172.17.0.1",
+        "02:42:61:4c:e2:0c"
+      ],
+      "mask": [
+        "255.255.0.0",
+        null
+      ],
+      "broadcast": [
+        "172.17.255.255",
+        "ff:ff:ff:ff:ff:ff"
+      ],
+      "ptp": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "enp4s0",
+      "address": [
+        "b0:6e:bf:1b:ab:98"
+      ],
+      "mask": [
+        null
+      ],
+      "broadcast": [
+        "ff:ff:ff:ff:ff:ff"
+      ],
+      "ptp": [
+        null
+      ]
+    }
+  ],
+  "Users": [
+    {
+      "name": "dror",
+      "terminal": ":0",
+      "host": "localhost"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/0",
+      "host": "d"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/1",
+      "host": "tmux(3536).%0"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/3",
+      "host": "tmux(3536).%2"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/4",
+      "host": "tmux(3536).%3"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/5",
+      "host": "tmux(3536).%4"
+    },
+    {
+      "name": "dror",
+      "terminal": "pts/8",
+      "host": "tmux(3536).%5"
+    }
+  ],
+  "_id": "5dd831719f1397e47b93498e",
+  "AccountID": "5dd83095f273f259598fb394",
+  "MonitorID": "5dd830a1f273f259598fb395",
+  "Battery": {
+    "percent": 100,
+    "secsleft": -2,
+    "power_plugged": true
+  },
+  "Disk": {
+    "partitions": [
+      {
+        "device": "/dev/sda3",
+        "mount_point": "/",
+        "fstype": "ext4",
+        "opts": "rw,relatime,errors=remount-ro,data=ordered"
+      },
+      {
+        "device": "/dev/loop0",
+        "mount_point": "/snap/gnome-3-26-1604/90",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop16",
+        "mount_point": "/snap/gtk-common-themes/1313",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop1",
+        "mount_point": "/snap/gnome-3-26-1604/98",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop9",
+        "mount_point": "/snap/gtk-common-themes/1353",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop2",
+        "mount_point": "/snap/gnome-logs/61",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop13",
+        "mount_point": "/snap/gnome-system-monitor/100",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop5",
+        "mount_point": "/snap/gnome-calculator/406",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop7",
+        "mount_point": "/snap/gnome-characters/296",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop8",
+        "mount_point": "/snap/core18/1074",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop6",
+        "mount_point": "/snap/core/7396",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop4",
+        "mount_point": "/snap/gnome-3-28-1804/110",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop10",
+        "mount_point": "/snap/core/8039",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop11",
+        "mount_point": "/snap/gnome-characters/367",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop12",
+        "mount_point": "/snap/gnome-3-28-1804/71",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop14",
+        "mount_point": "/snap/gnome-calculator/544",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop17",
+        "mount_point": "/snap/gnome-system-monitor/111",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop15",
+        "mount_point": "/snap/core18/1265",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop18",
+        "mount_point": "/snap/gnome-logs/81",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/loop3",
+        "mount_point": "/snap/heroku/3854",
+        "fstype": "squashfs",
+        "opts": "ro,nodev,relatime"
+      },
+      {
+        "device": "/dev/sda2",
+        "mount_point": "/boot/efi",
+        "fstype": "vfat",
+        "opts": "rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=iso8859-1,shortname=mixed,errors=remount-ro"
+      }
+    ],
+    "usage": {
+      "total": 28983607296,
+      "used": 23777955840,
+      "free": 3709755392,
+      "percent": 86.5
+    }
+  },
+  "Fans": [],
+  "Memory": {
+    "total": 16775598080,
+    "available": 10472452096,
+    "percent": 37.6,
+    "used": 6039576576,
+    "free": 6806994944
+  },
+  "OS": {
+    "name": "Linux",
+    "version": "#79-Ubuntu SMP Tue Nov 12 10:36:11 UTC 2019",
+    "fullname": "Linux-4.15.0-70-generic-x86_64-with-Ubuntu-18.04-bionic",
+    "architecture": "x86_64",
+    "processor": "x86_64"
+  },
+  "Temperatures": "N/A",
+  "TimeStamp": "2019-11-30T14:21:58.438713",
+  "__v": 0
+}

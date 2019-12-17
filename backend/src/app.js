@@ -25,16 +25,16 @@ mongoose.connect('mongodb://localhost/monitor', {useNewUrlParser: true, useUnifi
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
-app.use(
-    function (req, res, next) {
-        if (req.path === '/accounts' && req.method === 'POST')
-            next();
-        else if (req.header('authorization'))
-            validateBasicAuth(cryptr, req, res, next);
-        else
-            validateAPI(req, res, next);
-    }
-);
+// app.use(
+//     function (req, res, next) {
+//         if (req.path === '/accounts' && req.method === 'POST')
+//             next();
+//         else if (req.header('authorization'))
+//             validateBasicAuth(cryptr, req, res, next);
+//         else
+//             validateAPI(req, res, next);
+//     }
+// );
 app.use(express.static(path.join(__dirname,'/build')));
 app.disable('x-powered-by');
 app.use(logger('dev'));
@@ -56,7 +56,7 @@ app.post('/accounts', (req,res,next) => {
     register(cryptr, req, res, next);
 });
 app.get('*', (req, res, next) => {
-    res.sendFile(path.join(__dirname,'..', '/build/index.html'));
+    res.sendFile(path.join(__dirname, '/build/index.html'));
 });
 
 module.exports = app;

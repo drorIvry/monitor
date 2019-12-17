@@ -35,20 +35,6 @@ router.post('/', async function (req, res, next) {
     const monitor = await Monitors.findOne({APIKey: apiKey});
 
     const data = parseData(req.body, accountID, previous, monitor);
-    const alerts = getAlerts(req.body, monitor, account._id);
-    console.log(alerts);
-    const alertRequests = alerts.map(alert => {
-            return {
-
-                insertOne: {
-                    document: alert
-                }
-
-            }
-        }
-    );
-
-    await Alerts.bulkWrite(alertRequests);
 
     await SystemState.updateOne(
         {
@@ -60,18 +46,37 @@ router.post('/', async function (req, res, next) {
         err => {
             if (err)
                 res.send(500, {err});
-            else
-                res.send({
-                    'success': true
-                });
-        })
+        });
+
+    const alerts = getAlerts(req.body, monitor, account._id);
+
+    for (const alert of alerts) {
+        await Alerts.updateOne(
+            {
+                MonitorID: alert.MonitorID,
+                PCName: alert.PCName,
+                Alert: alert.Alert,
+                AccountID: alert.AccountID,
+            },
+            {...alert},
+            {upsert: true},
+            err => {
+                if (err)
+                    res.send(500, {err});
+                else
+                    return res.send({
+                        'success': true
+                    });
+            }
+        );
+    }
 });
 
 function parseData(data, accountID, previous, monitor) {
     return {
         AccountID: mongoose.Types.ObjectId(accountID),
         MonitorID: monitor._id,
-        CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}] : [{...data.cpu, time: new Date()}],
+        CPU: previous ? [...previous.CPU, {...data.cpu, time: new Date()}].slice(-10) : [{...data.cpu, time: new Date()}],
         OS: data.os,
         Memory: data.memory,
         Disk: data.disk,

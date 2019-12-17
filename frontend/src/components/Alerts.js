@@ -1,8 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import {connect} from "react-redux";
+import axios from "axios";
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Container from '@material-ui/core/Container';
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import TableCell from '@material-ui/core/TableCell';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableHead from '@material-ui/core/TableHead';
@@ -11,28 +16,17 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Frame from './Frame';
 import Copyright from './Copyright';
-import history from '../history'
 import {toggleProgressBar, toggleSnackbar} from "../actions/FrameActions";
 import {updateAlerts} from "../actions/AlertsActions";
-import {connect} from "react-redux";
-import axios from "axios";
-import Checkbox from "@material-ui/core/Checkbox";
-import Button from "@material-ui/core/Button";
 
-// Generate Order Data
-function createData(id, date, pcName, alertDescription) {
-    return {id, alertDescription, date, pcName,};
-}
 
 function useInterval(callback, delay) {
     const savedCallback = useRef();
 
-    // Remember the latest function.
     useEffect(() => {
         savedCallback.current = callback;
     }, [callback]);
 
-    // Set up the interval.
     useEffect(() => {
         function tick() {
             savedCallback.current();
@@ -58,6 +52,9 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'flex-end',
         padding: '0 8px',
         ...theme.mixins.toolbar,
+    },
+    button: {
+        margin: theme.spacing(1),
     },
 
     appBarSpacer: theme.mixins.toolbar,
@@ -151,6 +148,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
                 setLoaded(true);
                 setDelay(10 * 1000);
             } catch (e) {
+                setDelay(10 * 1000);
                 toggleProgressBar(false);
                 toggleSnackbar(true, e.message);
             }
@@ -160,7 +158,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
     }, delay);
 
     const onDeletePressed = () => {
-        axios.post('/delete-alert', {
+        axios.post('/delete-alerts', {
                 alertIds: selected,
             },
             {
@@ -194,6 +192,7 @@ function Alerts({alerts, login, toggleProgressBar, updateAlerts, toggleSnackbar}
                                             <Checkbox
                                                 indeterminate={selected.length > 0 && selected.length < alerts.alerts.length}
                                                 checked={selected.length === alerts.alerts.length}
+                                                id={'select-all'}
                                                 onChange={handleSelectAllClick}
                                                 inputProps={{'aria-label': 'select all desserts'}}
                                             />

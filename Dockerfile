@@ -1,12 +1,18 @@
 FROM node:10
 
-WORKDIR /monitor
+WORKDIR /usr/monitor
 
-COPY backend /monitor/backend
-COPY frontend /monitor/frontend
+COPY ./backend ./backend
+COPY ./frontend ./frontend
 
-RUN npm install -f /monitor/backend/package.json
-RUN npm install -f /monitor/frontend/package.json
+RUN cd /usr/monitor/frontend && npm install
+RUN cd /usr/monitor/backend && npm install
+RUN cd /usr/monitor/frontend/ && npm run build 
+RUN cd /usr/monitor/backend/ && npm run clean && npm run build
+RUN cp -rf /usr/monitor/frontend/build /usr/monitor/backend/dist
+
+EXPOSE 3001
+CMD ["node", "/usr/monitor/backend/dist/bin/www.js"]
 
 
 

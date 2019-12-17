@@ -1,5 +1,3 @@
-import React from 'react';
-
 const initState = {
     dialogOpen: false,
     progressbarVisible: false,

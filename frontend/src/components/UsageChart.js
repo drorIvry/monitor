@@ -2,9 +2,6 @@ import React, { PureComponent } from 'react';
 import {
     PieChart, Pie, Tooltip, Cell, Legend,
 } from 'recharts';
-import {toggleProgressBar} from "../actions/FrameActions";
-import {updateDashboard} from "../actions/DashboardActions";
-import {connect} from "react-redux";
 
 function getTooltip({ active, payload, label }){
     if (active) {
@@ -28,7 +25,7 @@ export default class UsageChart extends PureComponent {
 
     render() {
         return (
-            <PieChart width={350} height={250} onMouseEnter={this.onPieEnter}>
+            <PieChart width={350} id={this.props.id} height={250} onMouseEnter={this.onPieEnter}>
                 <Pie
                     data={this.props.data}
                     cx={220}

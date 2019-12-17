@@ -54,7 +54,7 @@ function SignIn({login, onLogin}) {
 
     const toggleRemember = () => {
         setRemember(!remember);
-    }
+    };
     const onLoginPressed = () => {
         axios.get('/login', {
             withCredentials: true,
@@ -64,7 +64,7 @@ function SignIn({login, onLogin}) {
             },
         }).then((response) => {
 
-            if(remember){
+            if (remember) {
                 setCookie('login', {
                     username: data.username,
                     password: data.password,
@@ -123,7 +123,7 @@ function SignIn({login, onLogin}) {
                         autoComplete="current-password"
                     />
                     <Grid container>
-                        <Checkbox value={remember}  color="primary" onClick={toggleRemember}/>
+                        <Checkbox value={remember} id={'remember'} color="primary" onClick={toggleRemember}/>
                         <p> Remember me</p>
                     </Grid>
                     <Button
